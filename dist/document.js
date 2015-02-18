@@ -1,18 +1,47 @@
 "use strict";
 
+var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
 // TODO Document is document or shadow
 
-var Document = function () {};
+var Document = (function () {
+  function Document() {
+    _classCallCheck(this, Document);
+  }
 
-Document.prototype.add = function () {};
+  _prototypeProperties(Document, null, {
+    add: {
+      value: function add() {},
+      writable: true,
+      configurable: true
+    },
+    remove: {
+      value: function remove() {},
+      writable: true,
+      configurable: true
+    },
+    update: {
+      value: function update() {},
+      writable: true,
+      configurable: true
+    },
+    patch: {
+      value: function patch() {},
+      writable: true,
+      configurable: true
+    },
+    diff: {
+      value: function diff(shadow) {},
+      writable: true,
+      configurable: true
+    }
+  });
 
-Document.prototype.remove = function () {};
+  return Document;
+})();
 
-Document.prototype.update = function () {};
-
-Document.prototype.patch = function () {};
-
-Document.prototype.diff = function (shadow) {};
 // TODO Add to JSON to document
 // TODO Remove JSON from document
 // TODO Update all JSON
