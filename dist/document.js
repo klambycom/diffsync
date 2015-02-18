@@ -42,6 +42,7 @@ var Document = (function () {
   return Document;
 })();
 
+module.exports = Document;
 // TODO Add to JSON to document
 // TODO Remove JSON from document
 // TODO Update all JSON

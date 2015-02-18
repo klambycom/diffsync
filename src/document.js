@@ -24,3 +24,5 @@ class Document {
     // TODO Create diff between this and another document, JSON or text.
   }
 }
+
+module.exports = Document;
