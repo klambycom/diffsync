@@ -4,9 +4,7 @@ var listeners = [];
 
 module.exports = {
   emit(name, object) {
-    listeners.forEach(fn => {
-      fn(name, object);
-    });
+    listeners.forEach(fn => fn(object));
   },
 
   onPatch(fn) {

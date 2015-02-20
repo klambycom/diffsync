@@ -1,15 +1,15 @@
 var { client } = require('../index');
 
-var c = client();
+var kollab = client();
 
-c.update({
+kollab.update({
   detta: 'ar',
   bara: {
     ett: 'test'
   }
 });
 
-c.merge({ mer: 'ge' });
+kollab.merge({ mer: 'ge' });
 
 /*
 var doc = new Document({ foo: 'bar' });

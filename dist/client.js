@@ -10,10 +10,9 @@ module.exports = function () {
   console.log("DOCUMENT", doc);
   console.log("SHADOW", shadow);
 
-  websocket.onPatch(function (name, data) {
-    //doc.patch(patch);
-    //shadow.patch(patch);
-    console.log(name, data);
+  websocket.onPatch(function (patch) {
+    doc.patch(patch);
+    shadow.patch(patch);
   });
 
   var sendDiff = function () {

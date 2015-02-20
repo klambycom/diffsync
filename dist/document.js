@@ -4,7 +4,7 @@ var _prototypeProperties = function (child, staticProps, instanceProps) { if (st
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
-// TODO Document is document or shadow
+var diffpatch = require("jsondiffpatch").create();
 
 var Document = (function () {
   function Document() {
@@ -34,12 +34,16 @@ var Document = (function () {
       configurable: true
     },
     patch: {
-      value: function patch() {},
+      value: function patch(patch) {
+        diffpatch.patch(this.json, patch);
+      },
       writable: true,
       configurable: true
     },
     diff: {
-      value: function diff(shadow) {},
+      value: function diff(shadow) {
+        return diffpatch.diff(shadow.json, this.json);
+      },
       writable: true,
       configurable: true
     }
@@ -49,5 +53,3 @@ var Document = (function () {
 })();
 
 module.exports = Document;
-// TODO Needed? Probably!
-// TODO Create diff between this and another document, JSON or text.

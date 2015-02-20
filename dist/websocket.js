@@ -7,7 +7,7 @@ var listeners = [];
 module.exports = {
   emit: function emit(name, object) {
     listeners.forEach(function (fn) {
-      fn(name, object);
+      return fn(object);
     });
   },
 

@@ -1,4 +1,4 @@
-// TODO Document is document or shadow
+let diffpatch = require('jsondiffpatch').create();
 
 class Document {
   constructor(json = {}) {
@@ -15,12 +15,12 @@ class Document {
     }
   }
 
-  patch() {
-    // TODO Needed? Probably!
+  patch(patch) {
+    diffpatch.patch(this.json, patch);
   }
 
   diff(shadow) {
-    // TODO Create diff between this and another document, JSON or text.
+    return diffpatch.diff(shadow.json, this.json);
   }
 }
 
