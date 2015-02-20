@@ -4,10 +4,12 @@ var listeners = [];
 
 module.exports = {
   emit(name, object) {
-    console.log(listeners);
+    listeners.forEach(fn => {
+      fn(name, object);
+    });
   },
 
-  connect(client) {
-    listeners.push(client);
+  onPatch(fn) {
+    listeners.push(fn);
   }
 };

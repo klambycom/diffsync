@@ -6,10 +6,12 @@ var listeners = [];
 
 module.exports = {
   emit: function emit(name, object) {
-    console.log(listeners);
+    listeners.forEach(function (fn) {
+      fn(name, object);
+    });
   },
 
-  connect: function connect(client) {
-    listeners.push(client);
+  onPatch: function onPatch(fn) {
+    listeners.push(fn);
   }
 };

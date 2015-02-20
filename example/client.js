@@ -1,19 +1,27 @@
-var { Document, client, server, websocket } = require('../index');
+var { client } = require('../index');
 
-var doc = new Document({ foo: 'bar' });
-var shadow = new Document({ foo: 'bar' });
+var c = client();
 
-doc.update({
+c.update({
   detta: 'ar',
   bara: {
     ett: 'test'
   }
 });
+
+c.merge({ mer: 'ge' });
+
+/*
+var doc = new Document({ foo: 'bar' });
+var shadow = new Document({ foo: 'bar' });
+
+doc.update();
 console.log(doc);
 
-doc.merge({ mer: 'ge' });
+doc.merge();
 console.log(doc);
 
 websocket.connect('ett');
 websocket.connect('tva');
 websocket.emit();
+*/
