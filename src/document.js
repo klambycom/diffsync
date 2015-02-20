@@ -1,19 +1,18 @@
 // TODO Document is document or shadow
 
 class Document {
-  constructor() {
+  constructor(json = {}) {
+    this.json = json;
   }
 
-  add() {
-    // TODO Add to JSON to document
+  update(json = {}) {
+    this.json = json;
   }
 
-  remove() {
-    // TODO Remove JSON from document
-  }
-
-  update() {
-    // TODO Update all JSON
+  merge(json = {}) {
+    for (let attr in json) {
+      this.json[attr] = json[attr];
+    }
   }
 
   patch() {

@@ -8,22 +8,28 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 
 var Document = (function () {
   function Document() {
+    var json = arguments[0] === undefined ? {} : arguments[0];
     _classCallCheck(this, Document);
+
+    this.json = json;
   }
 
   _prototypeProperties(Document, null, {
-    add: {
-      value: function add() {},
-      writable: true,
-      configurable: true
-    },
-    remove: {
-      value: function remove() {},
-      writable: true,
-      configurable: true
-    },
     update: {
-      value: function update() {},
+      value: function update() {
+        var json = arguments[0] === undefined ? {} : arguments[0];
+        this.json = json;
+      },
+      writable: true,
+      configurable: true
+    },
+    merge: {
+      value: function merge() {
+        var json = arguments[0] === undefined ? {} : arguments[0];
+        for (var attr in json) {
+          this.json[attr] = json[attr];
+        }
+      },
       writable: true,
       configurable: true
     },
@@ -43,8 +49,5 @@ var Document = (function () {
 })();
 
 module.exports = Document;
-// TODO Add to JSON to document
-// TODO Remove JSON from document
-// TODO Update all JSON
 // TODO Needed? Probably!
 // TODO Create diff between this and another document, JSON or text.
