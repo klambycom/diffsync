@@ -30,7 +30,8 @@ gulp.task('example:copyhtml', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch(paths.js, ['6to5']);
+  gulp.watch(paths.js, ['6to5', 'example']);
+  gulp.watch(paths.example.js, ['example']);
 });
 
 gulp.task('example', ['example:browserify', 'example:copyhtml']);
