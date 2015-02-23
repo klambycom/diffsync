@@ -6,9 +6,10 @@ var paths = {
   js:       './src/**/*.js',
   dist:     './dist',
   example:  {
-    html: './example/client.html',
-    js:   './example/**/*.js',
-    dist: './dist/example'
+    html:   './example/client.html',
+    js:     './example/client.js',
+    server: './example/server.js',
+    dist:   './dist/example'
   }
 };
 
@@ -29,10 +30,16 @@ gulp.task('example:copyhtml', function () {
     .pipe(gulp.dest(paths.example.dist));
 });
 
+gulp.task('example:copyserver', function () {
+  return gulp.src(paths.example.server)
+    .pipe(gulp.dest(paths.example.dist));
+});
+
 gulp.task('watch', function () {
   gulp.watch(paths.js, ['6to5', 'example']);
   gulp.watch(paths.example.js, ['example']);
+  gulp.watch(paths.example.server, ['example:copyserver']);
 });
 
-gulp.task('example', ['example:browserify', 'example:copyhtml']);
+gulp.task('example', ['example:browserify', 'example:copyhtml', 'example:copyserver']);
 gulp.task('default', ['6to5']);
