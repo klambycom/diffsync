@@ -2,10 +2,10 @@ let app = require('http').createServer(handler);
 let io = require('socket.io')(app);
 let fs = require('fs');
 
-app.listen(80);
+app.listen(8000);
 
 function handler(req, res) {
-  fs.readFile(__dirname + 'dist/example/client.html', function (err, data) {
+  fs.readFile(__dirname + '/client.html', function (err, data) {
     if (err) {
       res.writeHead(500);
       return res.end('Error loading client.html');
