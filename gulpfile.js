@@ -32,6 +32,7 @@ gulp.task('example:copyhtml', function () {
 
 gulp.task('example:copyserver', function () {
   return gulp.src(paths.example.server)
+    .pipe(to5())
     .pipe(gulp.dest(paths.example.dist));
 });
 
