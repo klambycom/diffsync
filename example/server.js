@@ -1,6 +1,7 @@
 let app = require('http').createServer(handler);
 let io = require('socket.io')(app);
 let fs = require('fs');
+let { server } = require('../../index');
 
 app.listen(8000);
 console.log('Server started, on port 8000.');
