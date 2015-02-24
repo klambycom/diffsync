@@ -9,23 +9,11 @@
 /*! */
 
 var Document = require("./document");
-//let websocket = require('./websocket');
+var websocket = require("./websocket");
 
 module.exports = function (socket) {
   var doc = new Document();
-  var shadow = new Document();
-
-  socket.on("diff", function edits(data) {
-    doc.patch(data);
-    shadow.patch(data);
-  });
-
-  /*
-  websocket.onPatch(patch => {
-    doc.patch(patch);
-    shadow.patch(patch);
-  });
-  */
+  var edits = websocket(socket, doc);
 
   return {};
 };
