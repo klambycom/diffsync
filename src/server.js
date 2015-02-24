@@ -13,7 +13,7 @@ module.exports = function (socket) {
   let doc = new Document();
   let shadow = new Document();
 
-  socket.on('diff', function (data) {
+  socket.on('diff', function edits(data) {
     doc.patch(data);
     shadow.patch(data);
   });

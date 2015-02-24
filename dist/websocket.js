@@ -1,17 +1,33 @@
 "use strict";
 
-// TODO Remove this file?
+// TODO Remove this file? Rename? Edits?
 
-var listeners = [];
+/**
+ * # Websocket(socket, doc)
+ *
+ * **Socket.io** *socket* 
+ * **Document** *doc* 
+ */
 
-module.exports = {
-  emit: function emit(name, object) {
-    listeners.forEach(function (fn) {
-      return fn(object);
-    });
-  },
+/*! */
 
-  onPatch: function onPatch(fn) {
-    listeners.push(fn);
-  }
+var Document = require("./document");
+
+module.exports = function (socket, doc) {
+  var shadow = new Document();
+
+  return {
+
+    /**
+     * Send diff to clients/server
+     *
+     * @method sendDiff
+     */
+
+    sendDiff: function sendDiff() {
+      var diff = doc.diff(shadow);
+      shadow.patch(diff);
+      socket.emit("diff", diff);
+    }
+  };
 };

@@ -1,13 +1,31 @@
-// TODO Remove this file?
+// TODO Remove this file? Rename? Edits?
 
-var listeners = [];
+/**
+ * # Websocket(socket, doc)
+ *
+ * **Socket.io** *socket* 
+ * **Document** *doc* 
+ */
 
-module.exports = {
-  emit(name, object) {
-    listeners.forEach(fn => fn(object));
-  },
+/*! */
 
-  onPatch(fn) {
-    listeners.push(fn);
-  }
+let Document = require('./document');
+
+module.exports = function (socket, doc) {
+  let shadow = new Document();
+
+  return {
+
+    /**
+     * Send diff to clients/server
+     *
+     * @method sendDiff
+     */
+
+    sendDiff() {
+      let diff = doc.diff(shadow);
+      shadow.patch(diff);
+      socket.emit('diff', diff);
+    }
+  };
 };

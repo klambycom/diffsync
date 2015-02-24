@@ -9,33 +9,19 @@
 /*! */
 
 var Document = require("./document");
-//let websocket = require('./websocket');
+var websocket = require("./websocket");
 
 module.exports = function (socket) {
   var doc = new Document();
-  var shadow = new Document();
+  var edits = websocket(socket, doc);
 
   console.log("DOCUMENT", doc);
-  console.log("SHADOW", shadow);
+  //console.log('SHADOW', shadow);
 
-  /*
-  websocket.onPatch(patch => {
-    doc.patch(patch);
-    shadow.patch(patch);
-  });
-  */
-
-
-  socket.on("diff", function (data) {
-    console.log("diff");
-    //doc.patch(data);
+  socket.on("diff", function edits(data) {
+    doc.patch(data);
     //shadow.patch(data);
   });
-
-  var sendDiff = function () {
-    var diff = doc.diff(shadow);
-    socket.emit("diff", diff);
-  };
 
   return {
 
@@ -48,7 +34,7 @@ module.exports = function (socket) {
 
     update: function update(json) {
       doc.update(json);
-      sendDiff();
+      edits.sendDiff();
     },
 
     /**
@@ -60,7 +46,7 @@ module.exports = function (socket) {
 
     merge: function merge(json) {
       doc.merge(json);
-      sendDiff();
+      edits.sendDiff();
     }
   };
 };

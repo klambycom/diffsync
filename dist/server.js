@@ -15,7 +15,7 @@ module.exports = function (socket) {
   var doc = new Document();
   var shadow = new Document();
 
-  socket.on("diff", function (data) {
+  socket.on("diff", function edits(data) {
     doc.patch(data);
     shadow.patch(data);
   });

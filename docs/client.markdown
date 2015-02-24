@@ -6,11 +6,6 @@
 
 **Socket.io** *socket*
 
-websocket.onPatch(patch => {
-    doc.patch(patch);
-    shadow.patch(patch);
-  });
-
 ## update(json)
 
 Update the whole document
