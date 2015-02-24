@@ -18,7 +18,7 @@ TODO
 
 ##### Params:
 
-* **Socket.io** *socket* 
+* **Socket.io** *socket* Websocket using Socket.io
 
 ```javascript
 let { client } = require('diffsync');
@@ -42,9 +42,28 @@ Merge instructions
 * **Object** *json* Instructions for the document
 
 
-### server
+### server(socket)
 
-TODO
+* **Socket.io** *socket* Websocket using Socket.io
+
+```javascript
+let { server } = require('diffsync');
+let diffsync = server(socket);
+```
+
+#### on(event, listener)
+
+Listen for events
+
+##### Events:
+
+* diff
+* patch
+
+##### Events:
+
+* **String** *event*
+* **Function** *listener*
 
 
 ## License
