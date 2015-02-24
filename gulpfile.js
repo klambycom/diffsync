@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var to5 = require('gulp-6to5');
 var browserify = require('gulp-browserify');
 var markdox = require('gulp-markdox');
+var rename = require('gulp-rename');
 
 var paths = {
   js:       './src/**/*.js',
@@ -41,6 +42,7 @@ gulp.task('example:copyserver', function () {
 gulp.task('docs', function () {
   return gulp.src(paths.js)
     .pipe(markdox())
+    .pipe(rename({ extname: '.markdown' }))
     .pipe(gulp.dest(paths.docs));
 });
 
