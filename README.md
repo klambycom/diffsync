@@ -1,4 +1,4 @@
-# diffsync
+# diffsync [![Dependencies badge][david-image]][david-url] [![DevDependencies badge][david-dev-image]][david-dev-url]
 
 
 ## Installation
@@ -71,3 +71,11 @@ Listen for events
 ## License
 
 MIT
+
+
+[david-url]: https://david-dm.org/klambycom/podcat#info=dependencies&view=table
+[david-image]: https://david-dm.org/klambycom/Podcat.svg?style=flat-square
+
+[david-dev-url]: https://david-dm.org/klambycom/podcat#info=devDependencies&view=table
+[david-dev-image]: https://david-dm.org/klambycom/Podcat/dev-status.svg?style=flat-square
+
