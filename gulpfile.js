@@ -1,10 +1,12 @@
 var gulp = require('gulp');
 var to5 = require('gulp-6to5');
 var browserify = require('gulp-browserify');
+var markdox = require('gulp-markdox');
 
 var paths = {
   js:       './src/**/*.js',
   dist:     './dist',
+  docs:     './docs',
   example:  {
     html:   './example/client.html',
     js:     './example/client.js',
@@ -36,8 +38,14 @@ gulp.task('example:copyserver', function () {
     .pipe(gulp.dest(paths.example.dist));
 });
 
+gulp.task('docs', function () {
+  return gulp.src(paths.js)
+    .pipe(markdox())
+    .pipe(gulp.dest(paths.docs));
+});
+
 gulp.task('watch', function () {
-  gulp.watch(paths.js, ['6to5', 'example']);
+  gulp.watch(paths.js, ['6to5', 'example', 'docs']);
   gulp.watch(paths.example.js, ['example']);
   gulp.watch(paths.example.server, ['example:copyserver']);
 });
