@@ -1,27 +1,38 @@
 /**
- * # Client
+ * # Client(socket)
+ *
+ * **Socket.io** *socket* 
  */
 
 /*! */
 
 let Document = require('./document');
-let websocket = require('./websocket');
+//let websocket = require('./websocket');
 
-module.exports = function () {
+module.exports = function (socket) {
   let doc = new Document();
   let shadow = new Document();
 
   console.log('DOCUMENT', doc);
   console.log('SHADOW', shadow);
 
+  /*
   websocket.onPatch(patch => {
     doc.patch(patch);
     shadow.patch(patch);
   });
+  */
+
+
+  socket.on('diff', function (data) {
+    console.log('diff');
+    //doc.patch(data);
+    //shadow.patch(data);
+  });
 
   let sendDiff = function () {
     let diff = doc.diff(shadow);
-    websocket.emit('DIFF', diff);
+    socket.emit('diff', diff);
   };
 
   return {

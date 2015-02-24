@@ -1,29 +1,40 @@
 "use strict";
 
 /**
- * # Client
+ * # Client(socket)
+ *
+ * **Socket.io** *socket* 
  */
 
 /*! */
 
 var Document = require("./document");
-var websocket = require("./websocket");
+//let websocket = require('./websocket');
 
-module.exports = function () {
+module.exports = function (socket) {
   var doc = new Document();
   var shadow = new Document();
 
   console.log("DOCUMENT", doc);
   console.log("SHADOW", shadow);
 
-  websocket.onPatch(function (patch) {
+  /*
+  websocket.onPatch(patch => {
     doc.patch(patch);
     shadow.patch(patch);
+  });
+  */
+
+
+  socket.on("diff", function (data) {
+    console.log("diff");
+    //doc.patch(data);
+    //shadow.patch(data);
   });
 
   var sendDiff = function () {
     var diff = doc.diff(shadow);
-    websocket.emit("DIFF", diff);
+    socket.emit("diff", diff);
   };
 
   return {

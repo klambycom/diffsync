@@ -2,7 +2,14 @@
 
 <!-- Start src/client.js -->
 
-# Client
+# Client(socket)
+
+**Socket.io** *socket*
+
+websocket.onPatch(patch => {
+    doc.patch(patch);
+    shadow.patch(patch);
+  });
 
 ## update(json)
 

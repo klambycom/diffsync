@@ -26,7 +26,13 @@ function handler(req, res) {
 }
 
 io.sockets.on('connection', function (socket) {
-  socket.on('message', function () {});
+  server(socket);
+  /*
+  socket.on('diff', function (data) {
+    console.log(data);
+  });
+  */
+
   socket.on('disconnect', function () {});
 
   console.log('Socket.io connected.');

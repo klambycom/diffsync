@@ -14,10 +14,15 @@ TODO
 ## API
 
 
-### client
+### client(socket)
+
+##### Params:
+
+* **Socket.io** *socket* 
 
 ```javascript
 let { client } = require('diffsync');
+let diffsync = client(socket);
 ```
 
 #### update(json)

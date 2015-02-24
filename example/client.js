@@ -1,15 +1,18 @@
 var { client } = require('../index');
+let socket = require('socket.io-client')('http://localhost:8000');
 
-var kollab = client();
+socket.on('connect', function () {
+  var kollab = client(socket);
 
-kollab.update({
-  detta: 'ar',
-  bara: {
-    ett: 'test'
-  }
+  kollab.update({
+    detta: 'ar',
+    bara: {
+      ett: 'test'
+    }
+  });
+
+  kollab.merge({ mer: 'ge' });
 });
-
-kollab.merge({ mer: 'ge' });
 
 /*
 var doc = new Document({ foo: 'bar' });
