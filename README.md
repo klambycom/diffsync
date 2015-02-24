@@ -60,7 +60,7 @@ Listen for events
 * diff
 * patch
 
-##### Events:
+##### Params:
 
 * **String** *event*
 * **Function** *listener*
