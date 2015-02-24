@@ -10,10 +10,11 @@
 
 var Document = require("./document");
 var websocket = require("./websocket");
+var EventEmitter = require("events").EventEmitter;
 
 module.exports = function (socket) {
   var doc = new Document();
-  var edits = websocket(socket, doc);
+  var edits = websocket(socket, doc, new EventEmitter());
 
   console.log("DOCUMENT", doc);
   //console.log('SHADOW', shadow);

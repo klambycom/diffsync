@@ -26,14 +26,15 @@ function handler(req, res) {
 }
 
 io.sockets.on('connection', function (socket) {
-  server(socket);
-  /*
-  socket.on('diff', function (data) {
+  let diffsync = server(socket);
+
+  diffsync.on('patch', function (data) {
     console.log(data);
   });
-  */
 
-  socket.on('disconnect', function () {});
+  socket.on('disconnect', function () {
+    console.log('Client disconnected');
+  });
 
   console.log('Socket.io connected.');
 });
