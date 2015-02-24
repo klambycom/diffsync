@@ -11,5 +11,19 @@
 
 Send diff to clients/server
 
+## on(event, listener)
+
+Send diff to clients/server
+
+### Events:
+
+* diff
+* patch
+
+### Params:
+
+* **String** *event* 
+* **Function** *listener* 
+
 <!-- End src/websocket.js -->
 

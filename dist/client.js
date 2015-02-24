@@ -18,11 +18,6 @@ module.exports = function (socket) {
   console.log("DOCUMENT", doc);
   //console.log('SHADOW', shadow);
 
-  socket.on("diff", function edits(data) {
-    doc.patch(data);
-    //shadow.patch(data);
-  });
-
   return {
 
     /**
