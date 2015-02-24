@@ -44,6 +44,8 @@ Merge instructions
 
 ### server(socket)
 
+##### Params:
+
 * **Socket.io** *socket* Websocket using Socket.io
 
 ```javascript
