@@ -6,13 +6,43 @@
 
 Document and shadow.
 
-## update()
+## constructor(json)
 
-## merge()
+### Params:
 
-## patch()
+* **Object** *json* Information about and instructions for the document
 
-## diff()
+## update(json)
+
+Update the whole document
+
+### Params:
+
+* **Object** *json* Information about and instructions for the document
+
+## merge(json)
+
+Merge instructions
+
+### Params:
+
+* **Object** *json* Instructions for the document
+
+## patch(patch)
+
+### Params:
+
+* **Object** *patch* Patch from jsondiffpatch
+
+## diff(shadow)
+
+### Params:
+
+* **Document** *shadow* The shadow of this document
+
+### Return:
+
+* **Object** Diff created by jsondiffpatch
 
 <!-- End src/document.js -->
 

@@ -15,6 +15,11 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 var diffpatch = require("jsondiffpatch").create();
 
 var Document = (function () {
+  /**
+   * @method constructor
+   * @param {Object} json Information about and instructions for the document
+   */
+
   function Document() {
     var json = arguments[0] === undefined ? {} : arguments[0];
     _classCallCheck(this, Document);
@@ -26,7 +31,10 @@ var Document = (function () {
     update: {
 
       /**
+       * Update the whole document
+       *
        * @method update
+       * @param {Object} json Information about and instructions for the document
        */
 
       value: function update() {
@@ -39,7 +47,10 @@ var Document = (function () {
     merge: {
 
       /**
+       * Merge instructions
+       *
        * @method merge
+       * @param {Object} json Instructions for the document
        */
 
       value: function merge() {
@@ -55,6 +66,7 @@ var Document = (function () {
 
       /**
        * @method patch
+       * @param {Object} patch Patch from jsondiffpatch
        */
 
       value: function patch(patch) {
@@ -67,6 +79,8 @@ var Document = (function () {
 
       /**
        * @method diff
+       * @param {Document} shadow The shadow of this document
+       * @return {Object} Diff created by jsondiffpatch
        */
 
       value: function diff(shadow) {

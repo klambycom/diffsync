@@ -9,12 +9,21 @@
 let diffpatch = require('jsondiffpatch').create();
 
 class Document {
+
+  /**
+   * @method constructor
+   * @param {Object} json Information about and instructions for the document
+   */
+
   constructor(json = {}) {
     this.json = json;
   }
 
   /**
+   * Update the whole document
+   *
    * @method update
+   * @param {Object} json Information about and instructions for the document
    */
 
   update(json = {}) {
@@ -22,7 +31,10 @@ class Document {
   }
 
   /**
+   * Merge instructions
+   *
    * @method merge
+   * @param {Object} json Instructions for the document
    */
 
   merge(json = {}) {
@@ -33,6 +45,7 @@ class Document {
 
   /**
    * @method patch
+   * @param {Object} patch Patch from jsondiffpatch
    */
 
   patch(patch) {
@@ -41,6 +54,8 @@ class Document {
 
   /**
    * @method diff
+   * @param {Document} shadow The shadow of this document
+   * @return {Object} Diff created by jsondiffpatch
    */
 
   diff(shadow) {
