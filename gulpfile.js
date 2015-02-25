@@ -24,7 +24,7 @@ gulp.task('6to5', function () {
 
 gulp.task('example:browserify', function () {
   return gulp.src(paths.example.js)
-    .pipe(browserify({ transform: '6to5ify', debug: true }))
+    .pipe(browserify({ transform: ['6to5ify', 'reactify'], debug: true }))
     .pipe(gulp.dest(paths.example.dist));
 });
 
