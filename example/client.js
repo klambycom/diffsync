@@ -76,7 +76,7 @@ let Title = React.createClass({
 
 let Item = React.createClass({
   getInitialState() {
-    return { edit: false };
+    return { edit: false, opacity: '1', over: false };
   },
 
   handleClick(e) {
@@ -92,14 +92,39 @@ let Item = React.createClass({
     this.setState({ edit: false });
   },
 
+  handleDragStart(e) {
+    e.dataTransfer.effectAllowed = 'move';
+    this.setState({ opacity: '0.4' });
+  },
+
+  handleDragOver(e) {
+    if (e.preventDefault) { e.preventDefault(); }
+    e.dataTransfer.dropEffect = 'move';
+    this.props.onMoveTo(this.props.item);
+  },
+
+  handleDragEnter() {
+    this.setState({ over: true });
+  },
+
+  handleDragLeave() {
+    this.setState({ over: false });
+  },
+
+  handleDragEnd(e) {
+    this.setState({ opacity: '1', over: false });
+    this.props.onMoveFrom(this.props.item);
+  },
+
   render() {
     let item = data.data[this.props.item];
 
     let style = {
+      opacity: this.state.opacity,
       padding: '10px',
       margin: '5px auto',
       width: '200px',
-      backgroundColor: 'rgb(219, 219, 219)'
+      backgroundColor: this.state.over ? 'rgb(239, 239, 156)' : 'rgb(219, 219, 219)'
     };
 
     let linkStyle = {
@@ -120,17 +145,61 @@ let Item = React.createClass({
           );
     }
 
-    return (<div style={style}>{content}</div>);
+    return (
+        <div
+          draggable="true"
+          onDragStart={this.handleDragStart}
+          onDragOver={this.handleDragOver}
+          onDragEnter={this.handleDragEnter}
+          onDragLeave={this.handleDragLeave}
+          onDragEnd={this.handleDragEnd}
+          style={style}>
+            {content}
+        </div>
+        );
   }
 });
 
 let List = React.createClass({
+  getInitialState() {
+    return { items: [] };
+  },
+
+  componentDidMount() { this.sortItems(); },
+
+  sortItems() {
+    let items = Object
+      .keys(data.data)
+      .map(x => {
+        data.data[x].id = x;
+        return data.data[x];
+      })
+      .sort((a, b) => a.position < b.position ? -1 : 1);
+
+    this.setState({ items: items });
+  },
+
+  handleMoveTo(item) { this.moveTo = item; },
+
+  handleMoveFrom(item) {
+    let from = data.data[item];
+    let to = data.data[this.moveTo];
+
+    let tmp = from.position;
+    from.position = to.position;
+    to.position = tmp;
+
+    this.sortItems();
+  },
+
   render() {
     return (
         <div>
-          {Object.keys(data.data).map(x => <Item
-                                             key={x}
-                                             item={x} />)}
+          {this.state.items.map(x => <Item
+                                       key={x.id}
+                                       onMoveTo={this.handleMoveTo}
+                                       onMoveFrom={this.handleMoveFrom}
+                                       item={x.id} />)}
         </div>
         );
   }
