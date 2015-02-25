@@ -116,6 +116,10 @@ let Item = React.createClass({
     this.props.onMoveFrom(this.props.item);
   },
 
+  handleDrop() {
+    this.setState({ opacity: '1', over: false });
+  },
+
   render() {
     let item = data.data[this.props.item];
 
@@ -153,6 +157,7 @@ let Item = React.createClass({
           onDragEnter={this.handleDragEnter}
           onDragLeave={this.handleDragLeave}
           onDragEnd={this.handleDragEnd}
+          onDrop={this.handleDrop}
           style={style}>
             {content}
         </div>
