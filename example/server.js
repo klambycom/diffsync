@@ -9,7 +9,7 @@ console.log('Server started, on port 8000.');
 function handler(req, res) {
   console.log(new Date(), req.url);
 
-  let file = '/client.html';
+  let file = '/index.html';
   if (req.url !== '/') {
     file = req.url;
   }

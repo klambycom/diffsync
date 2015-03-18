@@ -13,10 +13,7 @@ TODO
 TODO
 
 
-## API
-
-
-### client(socket)
+## API DiffSync.client(socket)
 
 ##### Params:
 
@@ -27,7 +24,7 @@ let { client } = require('diffsync');
 let diffsync = client(socket);
 ```
 
-#### update(json)
+### update(json)
 
 Update the whole document
 
@@ -35,7 +32,7 @@ Update the whole document
 
 * **Object** *json* Information about and instructions for the document
 
-#### merge(json)
+### merge(json)
 
 Merge instructions
 
@@ -43,8 +40,22 @@ Merge instructions
 
 * **Object** *json* Instructions for the document
 
+### on(event, listener)
 
-### server(socket)
+Listen for events
+
+##### Events:
+
+* diff
+* patch
+
+##### Params:
+
+* **String** *event* 
+* **Function** *listener* 
+
+
+## API DiffSync.server(socket)
 
 ##### Params:
 
@@ -55,7 +66,7 @@ let { server } = require('diffsync');
 let diffsync = server(socket);
 ```
 
-#### on(event, listener)
+### on(event, listener)
 
 Listen for events
 

@@ -14,7 +14,8 @@ var EventEmitter = require("events").EventEmitter;
 
 module.exports = function (socket) {
   var doc = new Document();
-  var edits = websocket(socket, doc, new EventEmitter());
+  var eventemitter = new EventEmitter();
+  var edits = websocket(socket, doc, eventemitter);
 
   console.log("DOCUMENT", doc);
   //console.log('SHADOW', shadow);
@@ -43,6 +44,23 @@ module.exports = function (socket) {
     merge: function merge(json) {
       doc.merge(json);
       edits.sendDiff();
+    },
+
+    /**
+     * Listen for events
+     *
+     * ### Events:
+     *
+     * * diff
+     * * patch
+     *
+     * @method on
+     * @param {String} event
+     * @param {Function} listener
+     */
+
+    on: function on(event, listener) {
+      eventemitter.on(event, listener);
     }
   };
 };
