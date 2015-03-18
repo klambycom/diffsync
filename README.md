@@ -43,6 +43,20 @@ Merge instructions
 
 * **Object** *json* Instructions for the document
 
+#### on(event, listener)
+
+Listen for events
+
+##### Events:
+
+* diff
+* patch
+
+##### Params:
+
+* **String** *event* 
+* **Function** *listener* 
+
 
 ### server(socket)
 

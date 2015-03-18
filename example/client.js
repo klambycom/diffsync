@@ -20,7 +20,11 @@ socket.on('connect', function () {
   titleElem.innerHTML = doc.title;
   docElem.value = JSON.stringify(doc);
 
+  diffsync.on('patch', function (data) {
+    console.log('PATCH', data);
+  });
+
   sendElem.addEventListener('click', e => {
-    console.log(JSON.parse(docElem.value));
+    diffsync.update(JSON.parse(docElem.value));
   });
 });
