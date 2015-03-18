@@ -9,7 +9,7 @@ var paths = {
   dist:     './dist',
   docs:     './docs',
   example:  {
-    html:   './example/client.html',
+    html:   './example/index.html',
     js:     './example/client.js',
     server: './example/server.js',
     dist:   './dist/example'
@@ -50,6 +50,7 @@ gulp.task('watch', function () {
   gulp.watch(paths.js, ['6to5', 'example', 'docs']);
   gulp.watch(paths.example.js, ['example']);
   gulp.watch(paths.example.server, ['example:copyserver']);
+  gulp.watch(paths.example.html, ['example:copyhtml']);
 });
 
 gulp.task('example', ['example:browserify', 'example:copyhtml', 'example:copyserver']);
