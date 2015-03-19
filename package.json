@@ -20,6 +20,7 @@
     "browserify": "9.0.3",
     "gulp": "^3.8.11",
     "gulp-6to5": "^3.0.0",
+    "gulp-develop-server": "^0.4.1",
     "gulp-markdox": "^0.1.1",
     "gulp-rename": "^1.2.0"
   },
