@@ -3,6 +3,7 @@ var to5 = require('gulp-6to5');
 var browserify = require('gulp-browserify');
 var markdox = require('gulp-markdox');
 var rename = require('gulp-rename');
+var server = require('gulp-develop-server');
 
 var paths = {
   js:       './src/**/*.js',
@@ -46,11 +47,16 @@ gulp.task('docs', function () {
     .pipe(gulp.dest(paths.docs));
 });
 
+gulp.task('server:start', ['example:copyserver'], function () {
+  server.listen({ path: paths.example.server });
+});
+
 gulp.task('watch', function () {
   gulp.watch(paths.js, ['6to5', 'example', 'docs']);
   gulp.watch(paths.example.js, ['example']);
-  gulp.watch(paths.example.server, ['example:copyserver']);
+  //gulp.watch(paths.example.server, ['example:copyserver']);
   gulp.watch(paths.example.html, ['example:copyhtml']);
+  gulp.watch(paths.example.server, server.restart);
 });
 
 gulp.task('example', ['example:browserify', 'example:copyhtml', 'example:copyserver']);
