@@ -48,10 +48,10 @@ gulp.task('docs', function () {
 });
 
 gulp.task('server:start', ['example:copyserver'], function () {
-  server.listen({ path: paths.example.server });
+  server.listen({ path: './dist/example/server.js' });
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', ['server:start'], function () {
   gulp.watch(paths.js, ['6to5', 'example', 'docs']);
   gulp.watch(paths.example.js, ['example']);
   //gulp.watch(paths.example.server, ['example:copyserver']);
