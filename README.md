@@ -2,7 +2,7 @@
 
 
 Diffsync is a implementation of [Differential Synchronization][fraser] in
-Javascript, used in my thesis.
+Javascript.
 
 
 ##### Dictionary
