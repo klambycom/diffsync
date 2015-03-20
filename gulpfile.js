@@ -4,11 +4,13 @@ var browserify = require('gulp-browserify');
 var markdox = require('gulp-markdox');
 var rename = require('gulp-rename');
 var server = require('gulp-develop-server');
+var jasmine = require('gulp-jasmine');
 
 var paths = {
   js:       './src/**/*.js',
   dist:     './dist',
   docs:     './docs',
+  tests:    './test/**/*_test.js',
   example:  {
     html:   './example/index.html',
     js:     './example/client.js',
@@ -49,6 +51,11 @@ gulp.task('docs', function () {
 
 gulp.task('server:start', ['example:copyserver'], function () {
   server.listen({ path: './dist/example/server.js' });
+});
+
+gulp.task('test', function () {
+  return gulp.src(paths.tests)
+    .pipe(jasmine());
 });
 
 gulp.task('watch', ['server:start'], function () {
