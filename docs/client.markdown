@@ -4,7 +4,10 @@
 
 # Client(socket)
 
-**Socket.io** *socket*
+### Params:
+
+**Socket.io** *socket* 
+**Document** *doc* Optional param for creating the document
 
 ## update(json)
 

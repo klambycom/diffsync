@@ -4,7 +4,10 @@
 
 # Server(socket)
 
-**Socket.io** *socket*
+### Params:
+
+**Socket.io** *socket* 
+**Document** *doc* Optional param for creating the document
 
 ## on(event, listener)
 

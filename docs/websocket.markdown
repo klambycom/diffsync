@@ -4,8 +4,11 @@
 
 # Websocket(socket, doc)
 
+### Params:
+
 **Socket.io** *socket* 
-**Document** *doc*
+**Document** *doc* 
+**EventEmitter** *eventemitter* Optional
 
 ## sendDiff()
 

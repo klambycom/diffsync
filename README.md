@@ -18,6 +18,7 @@ TODO
 ##### Params:
 
 * **Socket.io** *socket* Websocket using Socket.io
+* **Document** *doc* Optional param for creating the document
 
 ```javascript
 let { client } = require('diffsync');
@@ -60,6 +61,7 @@ Listen for events
 ##### Params:
 
 * **Socket.io** *socket* Websocket using Socket.io
+* **Document** *doc* Optional param for creating the document
 
 ```javascript
 let { server } = require('diffsync');

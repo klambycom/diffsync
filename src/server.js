@@ -1,7 +1,10 @@
 /**
  * # Server(socket)
  *
+ * ### Params:
+ *
  * **Socket.io** *socket* 
+ * **Document** *doc* Optional param for creating the document
  */
 
 /*! */
@@ -9,8 +12,7 @@
 let Document = require('./document');
 let websocket = require('./websocket');
 
-module.exports = function (socket) {
-  let doc = new Document();
+module.exports = function (socket, doc = new Document) {
   let edits = websocket(socket, doc);
 
   return {

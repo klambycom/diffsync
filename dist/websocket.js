@@ -5,8 +5,11 @@
 /**
  * # Websocket(socket, doc)
  *
+ * ### Params:
+ *
  * **Socket.io** *socket* 
  * **Document** *doc* 
+ * **EventEmitter** *eventemitter* Optional
  */
 
 /*! */
