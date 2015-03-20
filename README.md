@@ -17,7 +17,8 @@ Javascript.
 
 #### När en användaren gör en ändring i sitt dokument:
 
-1. En diff är skapad mellan klientens text och klientens shadow.
+1. En diff är skapad, med hjälp av [jsondiffpatch][jsondiffpatch], mellan
+   klientens text och klientens shadow.
 2. Från diffen skapas en lista med ändringar som har gjorts på klientens text.
 3. Ändringarna kopieras till klientens shadow.
 4. (a) En patch skapas från diffen, och skickas till servern. (b) Om diffen inte
@@ -28,6 +29,7 @@ Javascript.
 
 [//]: # (References)
 [fraser]: https://neil.fraser.name/writing/sync/ "Differential Synchronization"
+[jsondiffpatch]: https://github.com/benjamine/jsondiffpatch "Diff & patch for JavaScript objects"
 [image]: diffsync.png
 
 
