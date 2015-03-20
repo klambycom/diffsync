@@ -7,22 +7,22 @@ Javascript.
 
 ##### Dictionary
 
-* Document is the JSON descripting the document (audio, video, etc.).
-* Shadow is a copy of the document, updated from patches. Document is the
+* *Document* is the JSON descripting the document (audio, video, etc.).
+* *Shadow* is a copy of the document, updated from patches. Document is the
   working file.
-* Edits? I don't know, yet.
+* *Edits*? I don't know, yet.
 
 
 #### När en användaren gör en ändring i sitt dokument:
 
-![Differential Synchronization][image]
+![Differential Synchronization](diffsync.png)
 
 1. En diff är skapad, med hjälp av [jsondiffpatch][jsondiffpatch], mellan
    klientens text och klientens shadow.
 2. Från diffen skapas en lista med ändringar som har gjorts på klientens text.
 3. Ändringarna kopieras till klientens shadow.
-4. (a) En patch skapas från diffen, och skickas till servern. (b) Om diffen inte
-   innehåller några ändringar skickas inget till servern.
+4. *(a)* En patch skapas från diffen, och skickas till servern. Med [Socket.io][socket].<br>
+   *(b)* Om diffen inte innehåller några ändringar skickas inget till servern.
 5. På servern patchas serverns text och serverns shadow som tillhör användaren.
 6. Nu upprepas processen i andra riktningen för varje klient.
 
@@ -30,7 +30,7 @@ Javascript.
 [//]: # (References)
 [fraser]: https://neil.fraser.name/writing/sync/ "Differential Synchronization"
 [jsondiffpatch]: https://github.com/benjamine/jsondiffpatch "Diff & patch for JavaScript objects"
-[image]: diffsync.png
+[socket]: http://socket.io/ "Websocket"
 
 
 ## Installation
