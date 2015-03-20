@@ -5,7 +5,7 @@ Diffsync is a implementation of [Differential Synchronization][fraser] in
 Javascript, used in my thesis.
 
 
-#### Dictionary
+##### Dictionary
 
 * Document is the JSON descripting the document (audio, video, etc.).
 * Shadow is a copy of the document, updated from patches. Document is the
@@ -13,7 +13,7 @@ Javascript, used in my thesis.
 * Edits? I don't know, yet.
 
 
-### När en användaren gör en ändring i sitt dokument:
+#### När en användaren gör en ändring i sitt dokument:
 
 1. En diff är skapad mellan klientens text och klientens shadow.
 2. Från diffen skapas en lista med ändringar som har gjorts på klientens text.
