@@ -12,6 +12,8 @@ Javascript, used in my thesis.
   working file.
 * Edits? I don't know, yet.
 
+![Differential Synchronization][image]
+
 
 #### När en användaren gör en ändring i sitt dokument:
 
@@ -26,6 +28,7 @@ Javascript, used in my thesis.
 
 [//]: # (References)
 [fraser]: https://neil.fraser.name/writing/sync/ "Differential Synchronization"
+[image]: diffsync.png
 
 
 ## Installation
