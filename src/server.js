@@ -8,12 +8,10 @@
 
 let Document = require('./document');
 let websocket = require('./websocket');
-let EventEmitter = require('events').EventEmitter;
 
 module.exports = function (socket) {
   let doc = new Document();
-  let eventemitter = new EventEmitter();
-  let edits = websocket(socket, doc, eventemitter);
+  let edits = websocket(socket, doc);
 
   return {
     /**
@@ -29,8 +27,6 @@ module.exports = function (socket) {
      * @param {Function} listener
      */
 
-    on(event, listener) {
-      eventemitter.on(event, listener);
-    }
+    on: edits.eventemitter.on
   };
 };

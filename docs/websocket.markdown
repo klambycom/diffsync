@@ -11,5 +11,14 @@
 
 Send diff to clients/server
 
+## eventemitter
+
+EventEmitter
+
+### Events:
+
+* diff
+* patch
+
 <!-- End src/websocket.js -->
 

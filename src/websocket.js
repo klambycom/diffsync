@@ -10,8 +10,9 @@
 /*! */
 
 let Document = require('./document');
+let EventEmitter = require('events').EventEmitter;
 
-module.exports = function (socket, doc, eventemitter) {
+module.exports = function (socket, doc, eventemitter = new EventEmitter) {
   let shadow = new Document();
 
   // Create patch from received diff
@@ -34,6 +35,21 @@ module.exports = function (socket, doc, eventemitter) {
       shadow.patch(diff);
       socket.emit('diff', diff);
       eventemitter.emit('diff', diff);
-    }
+    },
+
+    /**
+     * ## eventemitter
+     *
+     * EventEmitter
+     *
+     * ### Events:
+     *
+     * * diff
+     * * patch
+     *
+     * @type EventEmitter
+     */
+
+    eventemitter
   };
 };
