@@ -12,10 +12,10 @@ Javascript.
   working file.
 * Edits? I don't know, yet.
 
-![Differential Synchronization][image]
-
 
 #### När en användaren gör en ändring i sitt dokument:
+
+![Differential Synchronization][image]
 
 1. En diff är skapad, med hjälp av [jsondiffpatch][jsondiffpatch], mellan
    klientens text och klientens shadow.
