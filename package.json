@@ -11,7 +11,11 @@
     "url": "https://github.com/klambycom/diffsync"
   },
   "keywords": [
-    "TODO"
+    "differential synchronization",
+    "client",
+    "server",
+    "collaborative",
+    "json"
   ],
   "author": "Christian Nilsson <christian@klamby.com> (http://klamby.com/)",
   "license": "MIT",
