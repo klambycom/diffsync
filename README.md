@@ -1,7 +1,12 @@
 # diffsync [![Dependencies badge][david-image]][david-url] [![DevDependencies badge][david-dev-image]][david-dev-url]
 
-TODO
 
+diffsync is a implementation of [Differential Synchronization][fraser] in
+Javascript, used in my thesis.
+
+
+[//]: # (References)
+[fraser]: https://neil.fraser.name/writing/sync/ "Differential Synchronization"
 
 ## Installation
 
