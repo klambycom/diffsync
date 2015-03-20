@@ -21,7 +21,7 @@ Javascript.
    klientens text och klientens shadow.
 2. Från diffen skapas en lista med ändringar som har gjorts på klientens text.
 3. Ändringarna kopieras till klientens shadow.
-4. *(a)* En patch skapas från diffen, och skickas till servern. Med [Socket.io][socket].
+4. *(a)* En patch skapas från diffen, och skickas till servern. Med [Socket.io][socket].<br>
    *(b)* Om diffen inte innehåller några ändringar skickas inget till servern.
 5. På servern patchas serverns text och serverns shadow som tillhör användaren.
 6. Nu upprepas processen i andra riktningen för varje klient.
