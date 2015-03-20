@@ -2,7 +2,7 @@
 
 <!-- Start src/client.js -->
 
-# Client(socket)
+# Client(socket, doc)
 
 ### Params:
 

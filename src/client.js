@@ -1,5 +1,5 @@
 /**
- * # Client(socket)
+ * # Client(socket, doc)
  *
  * ### Params:
  *

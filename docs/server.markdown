@@ -2,7 +2,7 @@
 
 <!-- Start src/server.js -->
 
-# Server(socket)
+# Server(socket, doc)
 
 ### Params:
 

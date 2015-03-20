@@ -43,7 +43,7 @@ TODO
 TODO
 
 
-## API DiffSync.client(socket)
+## API DiffSync.client(socket, doc)
 
 ##### Params:
 
@@ -86,7 +86,7 @@ Listen for events
 * **Function** *listener* 
 
 
-## API DiffSync.server(socket)
+## API DiffSync.server(socket, doc)
 
 ##### Params:
 

@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * # Server(socket)
+ * # Server(socket, doc)
  *
  * ### Params:
  *
