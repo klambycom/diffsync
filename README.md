@@ -12,10 +12,10 @@ Javascript, used in my thesis.
   working file.
 * Edits? I don't know, yet.
 
-![Differential Synchronization][image]
-
 
 #### När en användaren gör en ändring i sitt dokument:
+
+![Differential Synchronization][image]
 
 1. En diff är skapad mellan klientens text och klientens shadow.
 2. Från diffen skapas en lista med ändringar som har gjorts på klientens text.
