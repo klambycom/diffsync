@@ -1,7 +1,13 @@
 var client = require('../dist/client.js');
 
-describe('A suite', function () {
-  it('contains spec with an expectation', function () {
-    expect(true).toBe(true);
+describe('Client', function () {
+  var sut;
+
+  beforeEach(function () {
+    sut = client({ on: function () {} });
+  });
+
+  it('should have a function called update', function () {
+    expect(sut.update).toBeDefined();
   });
 });
