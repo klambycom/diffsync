@@ -15,9 +15,6 @@ let websocket = require('./websocket');
 module.exports = function (socket, doc = new Document) {
   let edits = websocket(socket, doc);
 
-  console.log('DOCUMENT', doc);
-  //console.log('SHADOW', shadow);
-
   return {
 
     /**

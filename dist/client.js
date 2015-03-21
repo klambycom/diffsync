@@ -18,9 +18,6 @@ module.exports = function (socket) {
   var doc = arguments[1] === undefined ? new Document() : arguments[1];
   var edits = websocket(socket, doc);
 
-  console.log("DOCUMENT", doc);
-  //console.log('SHADOW', shadow);
-
   return {
 
     /**
