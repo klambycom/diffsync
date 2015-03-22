@@ -4,15 +4,15 @@
  * ### Params:
  *
  * **Socket.io** *socket* 
- * **Document** *doc* Optional param for creating the document
+ * **JSONDocument** *doc* Optional param for creating the document
  */
 
 /*! */
 
-let Document = require('./document');
+let JSONDocument = require('./document');
 let websocket = require('./websocket');
 
-module.exports = function (socket, doc = new Document) {
+module.exports = function (socket, doc = new JSONDocument) {
   let edits = websocket(socket, doc);
 
   return {

@@ -5,7 +5,7 @@ var _prototypeProperties = function (child, staticProps, instanceProps) { if (st
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
 /**
- * # Document
+ * # JSONDocument
  *
  * Document and shadow.
  */
@@ -14,20 +14,20 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 
 var diffpatch = require("jsondiffpatch").create();
 
-var Document = (function () {
+var JSONDocument = (function () {
   /**
    * @method constructor
    * @param {Object} json Information about and instructions for the document
    */
 
-  function Document() {
+  function JSONDocument() {
     var json = arguments[0] === undefined ? {} : arguments[0];
-    _classCallCheck(this, Document);
+    _classCallCheck(this, JSONDocument);
 
     this.json = json;
   }
 
-  _prototypeProperties(Document, null, {
+  _prototypeProperties(JSONDocument, null, {
     update: {
 
       /**
@@ -79,7 +79,7 @@ var Document = (function () {
 
       /**
        * @method diff
-       * @param {Document} shadow The shadow of this document
+       * @param {JSONDocument} shadow The shadow of this document
        * @return {Object} Diff created by jsondiffpatch
        */
 
@@ -91,7 +91,7 @@ var Document = (function () {
     }
   });
 
-  return Document;
+  return JSONDocument;
 })();
 
-module.exports = Document;
+module.exports = JSONDocument;

@@ -2,7 +2,7 @@
 
 <!-- Start src/document.js -->
 
-# Document
+# JSONDocument
 
 Document and shadow.
 
@@ -38,7 +38,7 @@ Merge instructions
 
 ### Params:
 
-* **Document** *shadow* The shadow of this document
+* **JSONDocument** *shadow* The shadow of this document
 
 ### Return:
 

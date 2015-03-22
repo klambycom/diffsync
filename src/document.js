@@ -1,5 +1,5 @@
 /**
- * # Document
+ * # JSONDocument
  *
  * Document and shadow.
  */
@@ -8,7 +8,7 @@
 
 let diffpatch = require('jsondiffpatch').create();
 
-class Document {
+class JSONDocument {
 
   /**
    * @method constructor
@@ -54,7 +54,7 @@ class Document {
 
   /**
    * @method diff
-   * @param {Document} shadow The shadow of this document
+   * @param {JSONDocument} shadow The shadow of this document
    * @return {Object} Diff created by jsondiffpatch
    */
 
@@ -63,4 +63,4 @@ class Document {
   }
 }
 
-module.exports = Document;
+module.exports = JSONDocument;
