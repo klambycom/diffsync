@@ -6,17 +6,17 @@
  * ### Params:
  *
  * **Socket.io** *socket* 
- * **Document** *doc* 
+ * **JSONDocument** *doc* 
  * **EventEmitter** *eventemitter* Optional
  */
 
 /*! */
 
-let Document = require('./document');
+let JSONDocument = require('./document');
 let EventEmitter = require('events').EventEmitter;
 
 module.exports = function (socket, doc, eventemitter = new EventEmitter) {
-  let shadow = new Document();
+  let shadow = new  JSONDocument();
 
   // Create patch from received diff
   socket.on('diff', function edits(data) {

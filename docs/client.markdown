@@ -7,7 +7,7 @@
 ### Params:
 
 **Socket.io** *socket* 
-**Document** *doc* Optional param for creating the document
+**JSONDocument** *doc* Optional param for creating the document
 
 ## update(json)
 

@@ -1,5 +1,5 @@
 /**
- * # Document
+ * # JSONDocument
  *
  * Document and shadow.
  */
@@ -8,7 +8,7 @@
 
 let diffpatch = require('jsondiffpatch').create();
 
-class Document {
+class JSONDocument {
 
   /**
    * @method constructor
@@ -38,8 +38,11 @@ class Document {
    */
 
   merge(json = {}) {
+    // TODO Test if i can use of instead of in (and hasOwnProperty)
     for (let attr in json) {
-      this.json[attr] = json[attr];
+      if (json.hasOwnProperty(attr)) {
+        this.json[attr] = json[attr];
+      }
     }
   }
 
@@ -54,7 +57,7 @@ class Document {
 
   /**
    * @method diff
-   * @param {Document} shadow The shadow of this document
+   * @param {JSONDocument} shadow The shadow of this document
    * @return {Object} Diff created by jsondiffpatch
    */
 
@@ -63,4 +66,4 @@ class Document {
   }
 }
 
-module.exports = Document;
+module.exports = JSONDocument;

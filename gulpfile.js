@@ -4,11 +4,14 @@ var browserify = require('gulp-browserify');
 var markdox = require('gulp-markdox');
 var rename = require('gulp-rename');
 var server = require('gulp-develop-server');
+var jasmine = require('gulp-jasmine');
+var jshint = require('gulp-jshint');
 
 var paths = {
   js:       './src/**/*.js',
   dist:     './dist',
   docs:     './docs',
+  tests:    './test/**/*_test.js',
   example:  {
     html:   './example/index.html',
     js:     './example/client.js',
@@ -51,6 +54,18 @@ gulp.task('server:start', ['example:copyserver'], function () {
   server.listen({ path: './dist/example/server.js' });
 });
 
+gulp.task('jasmine', function () {
+  return gulp.src(paths.tests)
+    .pipe(jasmine());
+});
+
+gulp.task('lint', function () {
+  return gulp.src(paths.js)
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(jshint.reporter('fail'));
+});
+
 gulp.task('watch', ['server:start'], function () {
   gulp.watch(paths.js, ['6to5', 'example', 'docs']);
   gulp.watch(paths.example.js, ['example']);
@@ -60,4 +75,5 @@ gulp.task('watch', ['server:start'], function () {
 });
 
 gulp.task('example', ['example:browserify', 'example:copyhtml', 'example:copyserver']);
+gulp.task('test', ['lint', 'jasmine']);
 gulp.task('default', ['6to5']);

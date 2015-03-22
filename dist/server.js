@@ -6,16 +6,16 @@
  * ### Params:
  *
  * **Socket.io** *socket* 
- * **Document** *doc* Optional param for creating the document
+ * **JSONDocument** *doc* Optional param for creating the document
  */
 
 /*! */
 
-var Document = require("./document");
+var JSONDocument = require("./document");
 var websocket = require("./websocket");
 
 module.exports = function (socket) {
-  var doc = arguments[1] === undefined ? new Document() : arguments[1];
+  var doc = arguments[1] === undefined ? new JSONDocument() : arguments[1];
   var edits = websocket(socket, doc);
 
   return {

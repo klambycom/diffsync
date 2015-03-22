@@ -7,7 +7,7 @@
 ### Params:
 
 **Socket.io** *socket* 
-**Document** *doc* 
+**JSONDocument** *doc* 
 **EventEmitter** *eventemitter* Optional
 
 ## sendDiff()
