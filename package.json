@@ -24,6 +24,7 @@
     "browserify": "9.0.3",
     "gulp": "^3.8.11",
     "gulp-6to5": "^3.0.0",
+    "gulp-browserify": "^0.5.1",
     "gulp-develop-server": "^0.4.1",
     "gulp-jasmine": "^2.0.0",
     "gulp-jshint": "^1.9.4",
