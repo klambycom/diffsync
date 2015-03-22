@@ -38,8 +38,11 @@ class JSONDocument {
    */
 
   merge(json = {}) {
+    // TODO Test if i can use of instead of in (and hasOwnProperty)
     for (let attr in json) {
-      this.json[attr] = json[attr];
+      if (json.hasOwnProperty(attr)) {
+        this.json[attr] = json[attr];
+      }
     }
   }
 

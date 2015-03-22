@@ -55,8 +55,11 @@ var JSONDocument = (function () {
 
       value: function merge() {
         var json = arguments[0] === undefined ? {} : arguments[0];
+        // TODO Test if i can use of instead of in (and hasOwnProperty)
         for (var attr in json) {
-          this.json[attr] = json[attr];
+          if (json.hasOwnProperty(attr)) {
+            this.json[attr] = json[attr];
+          }
         }
       },
       writable: true,
