@@ -54,7 +54,7 @@ gulp.task('server:start', ['example:copyserver'], function () {
   server.listen({ path: './dist/example/server.js' });
 });
 
-gulp.task('test', function () {
+gulp.task('jasmine', function () {
   return gulp.src(paths.tests)
     .pipe(jasmine());
 });
@@ -75,4 +75,5 @@ gulp.task('watch', ['server:start'], function () {
 });
 
 gulp.task('example', ['example:browserify', 'example:copyhtml', 'example:copyserver']);
+gulp.task('test', ['lint', 'jasmine']);
 gulp.task('default', ['6to5']);
