@@ -59,11 +59,20 @@ gulp.task('jasmine', function () {
     .pipe(jasmine());
 });
 
+gulp.task('test:watch', function () {
+  gulp.watch([paths.js, paths.tests], ['jasmine']);
+});
+
 gulp.task('lint', function () {
   return gulp.src(paths.js)
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(jshint.reporter('fail'));
+});
+
+gulp.task('setup:hooks', function () {
+  return gulp.src('./pre-push')
+    .pipe(gulp.dest('./.git/hooks/'));
 });
 
 gulp.task('watch', ['server:start'], function () {
