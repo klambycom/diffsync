@@ -74,6 +74,11 @@ gulp.task('watch', ['server:start'], function () {
   gulp.watch(paths.example.server, server.restart);
 });
 
+gulp.task('setup:hooks', function () {
+  return gulp.src('./pre-push')
+    .pipe(gulp.dest('./.git/hooks/'));
+});
+
 gulp.task('example', ['example:browserify', 'example:copyhtml', 'example:copyserver']);
 gulp.task('test', ['lint', 'jasmine']);
 gulp.task('default', ['6to5']);
