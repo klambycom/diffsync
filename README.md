@@ -1,4 +1,4 @@
-# diffsync [![Dependencies badge][david-image]][david-url] [![DevDependencies badge][david-dev-image]][david-dev-url]
+# diffsync [![Dependencies badge][david-image]][david-url] [![DevDependencies badge][david-dev-image]][david-dev-url] [![Travis CI][travis-image]][travis-url]
 
 
 Diffsync is a implementation of [Differential Synchronization][fraser] in
@@ -123,3 +123,6 @@ MIT
 
 [david-dev-url]: https://david-dm.org/klambycom/diffsync#info=devDependencies&view=table
 [david-dev-image]: https://david-dm.org/klambycom/diffsync/dev-status.svg?style=flat-square
+
+[travis-url]: https://travis-ci.org/klambycom/diffsync
+[travis-image]: https://img.shields.io/klambycom/diffsync.svg?style=flat-square
