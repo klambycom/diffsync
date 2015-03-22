@@ -125,4 +125,4 @@ MIT
 [david-dev-image]: https://david-dm.org/klambycom/diffsync/dev-status.svg?style=flat-square
 
 [travis-url]: https://travis-ci.org/klambycom/diffsync
-[travis-image]: https://img.shields.io/klambycom/diffsync.svg?style=flat-square
+[travis-image]: https://api.travis-ci.org/klambycom/diffsync.svg?style=flat-square
