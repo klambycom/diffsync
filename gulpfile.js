@@ -5,6 +5,7 @@ var markdox = require('gulp-markdox');
 var rename = require('gulp-rename');
 var server = require('gulp-develop-server');
 var jasmine = require('gulp-jasmine');
+var jshint = require('gulp-jshint');
 
 var paths = {
   js:       './src/**/*.js',
@@ -56,6 +57,13 @@ gulp.task('server:start', ['example:copyserver'], function () {
 gulp.task('test', function () {
   return gulp.src(paths.tests)
     .pipe(jasmine());
+});
+
+gulp.task('lint', function () {
+  return gulp.src(paths.js)
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(jshint.reporter('fail'));
 });
 
 gulp.task('watch', ['server:start'], function () {
