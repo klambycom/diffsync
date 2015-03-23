@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var to5 = require('gulp-6to5');
+var babel = require('gulp-babel');
 var browserify = require('gulp-browserify');
 var markdox = require('gulp-markdox');
 var rename = require('gulp-rename');
@@ -20,9 +20,9 @@ var paths = {
   }
 };
 
-gulp.task('6to5', function () {
+gulp.task('babel', function () {
   return gulp.src(paths.js)
-    .pipe(to5())
+    .pipe(babel())
     .pipe(gulp.dest(paths.dist));
 });
 
@@ -39,7 +39,7 @@ gulp.task('example:copyhtml', function () {
 
 gulp.task('example:copyserver', function () {
   return gulp.src(paths.example.server)
-    .pipe(to5())
+    .pipe(babel())
     .pipe(gulp.dest(paths.example.dist));
 });
 
@@ -76,7 +76,7 @@ gulp.task('setup:hooks', function () {
 });
 
 gulp.task('watch', ['server:start'], function () {
-  gulp.watch(paths.js, ['6to5', 'example', 'docs']);
+  gulp.watch(paths.js, ['babel', 'example', 'docs']);
   gulp.watch(paths.example.js, ['example']);
   //gulp.watch(paths.example.server, ['example:copyserver']);
   gulp.watch(paths.example.html, ['example:copyhtml']);
@@ -85,4 +85,4 @@ gulp.task('watch', ['server:start'], function () {
 
 gulp.task('example', ['example:browserify', 'example:copyhtml', 'example:copyserver']);
 gulp.task('test', ['lint', 'jasmine']);
-gulp.task('default', ['6to5']);
+gulp.task('default', ['babel']);
