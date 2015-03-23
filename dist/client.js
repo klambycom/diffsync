@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * # Client(socket, doc)
  *
@@ -11,11 +9,14 @@
 
 /*! */
 
+"use strict";
+
 var JSONDocument = require("./document");
 var websocket = require("./websocket");
 
 module.exports = function (socket) {
   var doc = arguments[1] === undefined ? new JSONDocument() : arguments[1];
+
   var edits = websocket(socket, doc);
 
   return {

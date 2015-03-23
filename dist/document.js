@@ -1,6 +1,6 @@
 "use strict";
 
-var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
@@ -15,6 +15,7 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 var diffpatch = require("jsondiffpatch").create();
 
 var JSONDocument = (function () {
+
   /**
    * @method constructor
    * @param {Object} json Information about and instructions for the document
@@ -22,12 +23,13 @@ var JSONDocument = (function () {
 
   function JSONDocument() {
     var json = arguments[0] === undefined ? {} : arguments[0];
+
     _classCallCheck(this, JSONDocument);
 
     this.json = json;
   }
 
-  _prototypeProperties(JSONDocument, null, {
+  _createClass(JSONDocument, {
     update: {
 
       /**
@@ -39,10 +41,9 @@ var JSONDocument = (function () {
 
       value: function update() {
         var json = arguments[0] === undefined ? {} : arguments[0];
+
         this.json = json;
-      },
-      writable: true,
-      configurable: true
+      }
     },
     merge: {
 
@@ -55,15 +56,14 @@ var JSONDocument = (function () {
 
       value: function merge() {
         var json = arguments[0] === undefined ? {} : arguments[0];
+
         // TODO Test if i can use of instead of in (and hasOwnProperty)
         for (var attr in json) {
           if (json.hasOwnProperty(attr)) {
             this.json[attr] = json[attr];
           }
         }
-      },
-      writable: true,
-      configurable: true
+      }
     },
     patch: {
 
@@ -72,11 +72,19 @@ var JSONDocument = (function () {
        * @param {Object} patch Patch from jsondiffpatch
        */
 
-      value: function patch(patch) {
+      value: (function (_patch) {
+        var _patchWrapper = function patch(_x) {
+          return _patch.apply(this, arguments);
+        };
+
+        _patchWrapper.toString = function () {
+          return _patch.toString();
+        };
+
+        return _patchWrapper;
+      })(function (patch) {
         diffpatch.patch(this.json, patch);
-      },
-      writable: true,
-      configurable: true
+      })
     },
     diff: {
 
@@ -88,9 +96,7 @@ var JSONDocument = (function () {
 
       value: function diff(shadow) {
         return diffpatch.diff(shadow.json, this.json);
-      },
-      writable: true,
-      configurable: true
+      }
     }
   });
 
