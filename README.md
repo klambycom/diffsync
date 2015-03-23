@@ -113,6 +113,29 @@ Listen for events
 * **Function** *listener*
 
 
+## Custom Storage API
+
+```javascript
+let myCustomStorageDriver = {
+  _initStorage(options) {
+  },
+  get(callback) {
+  },
+  set(json, patch, callback) {
+  }
+};
+
+diffsync.server(socket, myCustomStorageDriver, new JSONDocument);
+```
+
+### Using Redis for storage
+
+```javascript
+let redisStorage = diffsync.redisStorage(redis);
+diffsync.server(socket, redisStorage, new JSONDocument);
+```
+
+
 ## License
 
 MIT
