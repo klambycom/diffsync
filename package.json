@@ -20,7 +20,7 @@
   "author": "Christian Nilsson <christian@klamby.com> (http://klamby.com/)",
   "license": "MIT",
   "devDependencies": {
-    "6to5ify": "^4.1.1",
+    "babelify": "^5.0.4",
     "browserify": "9.0.3",
     "gulp": "^3.8.11",
     "gulp-babel": "^4.0.0",

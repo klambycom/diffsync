@@ -28,7 +28,7 @@ gulp.task('babel', function () {
 
 gulp.task('example:browserify', function () {
   return gulp.src(paths.example.js)
-    .pipe(browserify({ transform: ['6to5ify'], debug: true }))
+    .pipe(browserify({ transform: ['babelify'], debug: true }))
     .pipe(gulp.dest(paths.example.dist));
 });
 
