@@ -16,11 +16,12 @@ module.exports = {
 
   redis: function redis() {
     return {
-      _initStorage: function _initStorage(options) {},
+      _initStorage: function _initStorage() {},
 
       get: function get() {},
 
-      set: function set(data, patch) {}
+      set: function set() {}
     };
   }
 };
+/*options*/ /*data, patch*/

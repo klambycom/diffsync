@@ -14,13 +14,13 @@ module.exports = {
 
   redis() {
     return {
-      _initStorage(options) {
+      _initStorage(/*options*/) {
       },
 
       get() {
       },
 
-      set(data, patch) {
+      set(/*data, patch*/) {
       }
     };
   }
