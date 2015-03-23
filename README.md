@@ -117,11 +117,38 @@ Listen for events
 
 ```javascript
 let myCustomStorageDriver = {
+
+  /**
+   * Initialize the storage driver
+   *
+   * @method _initStorage
+   * @param {Object} options
+   * @returns Promise
+   */
+
   _initStorage(options) {
   },
-  get(callback) {
+
+  /**
+   * Get document
+   *
+   * @method get
+   * @returns Promise
+   */
+
+  get() {
   },
-  set(json, patch, callback) {
+
+  /**
+   * Set document
+   *
+   * @method set
+   * @param {Object} data
+   * @param {Object} patch
+   * @returns Promise
+   */
+
+  set(data, patch) {
   }
 };
 
@@ -131,7 +158,7 @@ diffsync.server(socket, myCustomStorageDriver, new JSONDocument);
 ### Using Redis for storage
 
 ```javascript
-let redisStorage = diffsync.redisStorage(redis);
+let redisStorage = diffsync.redisDefaultStorage(redis);
 diffsync.server(socket, redisStorage, new JSONDocument);
 ```
 
