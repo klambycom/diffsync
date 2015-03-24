@@ -165,7 +165,9 @@ diffsync.server(socket, redisStorage, new JSONDocument);
 
 ## License
 
-MIT
+Copyright (c) 2015 Christian Nilsson
+
+Licensed under the MIT license.
 
 
 [david-url]: https://david-dm.org/klambycom/diffsync#info=dependencies&view=table
