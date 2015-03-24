@@ -4,6 +4,8 @@
 
 /*! */
 
+let Promise = require('promise');
+
 module.exports = {
 
   /**
@@ -15,12 +17,33 @@ module.exports = {
   redis() {
     return {
       _initStorage(/*options*/) {
+        return new Promise((resolve, reject) => {
+          if (false) {
+            reject({});
+          } else {
+            resolve({});
+          }
+        });
       },
 
       get() {
+        return new Promise((resolve, reject) => {
+          if (false) {
+            reject({});
+          } else {
+            resolve({});
+          }
+        });
       },
 
       set(/*data, patch*/) {
+        return new Promise((resolve, reject) => {
+          if (false) {
+            reject({});
+          } else {
+            resolve({});
+          }
+        });
       }
     };
   }

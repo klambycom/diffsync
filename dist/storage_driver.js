@@ -6,6 +6,8 @@
 
 "use strict";
 
+var Promise = require("promise");
+
 module.exports = {
 
   /**
@@ -16,11 +18,35 @@ module.exports = {
 
   redis: function redis() {
     return {
-      _initStorage: function _initStorage() {},
+      _initStorage: function _initStorage() {
+        return new Promise(function (resolve, reject) {
+          if (false) {
+            reject({});
+          } else {
+            resolve({});
+          }
+        });
+      },
 
-      get: function get() {},
+      get: function get() {
+        return new Promise(function (resolve, reject) {
+          if (false) {
+            reject({});
+          } else {
+            resolve({});
+          }
+        });
+      },
 
-      set: function set() {}
+      set: function set() {
+        return new Promise(function (resolve, reject) {
+          if (false) {
+            reject({});
+          } else {
+            resolve({});
+          }
+        });
+      }
     };
   }
 };
