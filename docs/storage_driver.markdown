@@ -4,6 +4,8 @@
 
 # StorageDriver
 
+global -Promise
+
 ## redis()
 
 Initialize a storage driver for Redis

@@ -4,6 +4,7 @@
 
 /*! */
 
+/* global -Promise */
 let Promise = require('promise');
 
 module.exports = {
