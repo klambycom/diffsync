@@ -48,12 +48,15 @@ module.exports = function (socket, doc = new JSONDocument) {
      *
      * * diff
      * * patch
+     * * update
      *
      * @method on
      * @param {String} event
      * @param {Function} listener
      */
 
-    on: edits.eventemitter.on
+    on(e, listener) {
+      edits.eventemitter.on(e, listener);
+    }
   };
 };

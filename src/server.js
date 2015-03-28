@@ -4,7 +4,7 @@
  * ### Params:
  *
  * **Socket.io** *socket* 
- * **Redis client** *redis* Optional
+ * **Redis client** *client* Optional
  * **JSONDocument** *doc* Optional param for creating the document
  */
 
@@ -15,9 +15,14 @@ let websocket = require('./websocket');
 let StorageDriver = require('./storage_driver.js');
 let redis = require('redis');
 
-module.exports = function (socket, redis = redis.createClient(), doc = new JSONDocument) {
+module.exports = function (socket, client = redis.createClient(), doc = new JSONDocument) {
   let edits = websocket(socket, doc);
-  let storage = new StorageDriver('hash_code', redis);
+  let storage = new StorageDriver('hash1', client);
+
+  console.log(socket.id);
+  storage
+    .getJSON()
+    .then((data, error) => socket.emit('init_document', data));
 
   return {
     /**

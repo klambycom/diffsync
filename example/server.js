@@ -51,7 +51,6 @@ client2.hkeys('hash key', (err, replies) => {
 });
 */
 
-/*
 let app = require('http').createServer(handler);
 let io = require('socket.io')(app);
 let fs = require('fs');
@@ -92,4 +91,3 @@ io.sockets.on('connection', function (socket) {
 
   console.log('Socket.io connected.');
 });
-*/

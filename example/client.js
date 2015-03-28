@@ -24,6 +24,11 @@ socket.on('connect', function () {
     console.log('PATCH', data);
   });
 
+  diffsync.on('update', function (data) {
+    console.log('UPDATE', data);
+    docElem.value = JSON.stringify(data);
+  });
+
   sendElem.addEventListener('click', e => {
     diffsync.update(JSON.parse(docElem.value));
   });

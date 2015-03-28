@@ -25,6 +25,14 @@ module.exports = function (socket, doc, eventemitter = new EventEmitter) {
     eventemitter.emit('patch', data);
   });
 
+
+  // Update document when initial document is received
+  socket.on('init_document', data => {
+    doc.update(data);
+    shadow.update(data);
+    eventemitter.emit('update', data);
+  });
+
   return {
 
     /**
@@ -49,6 +57,7 @@ module.exports = function (socket, doc, eventemitter = new EventEmitter) {
      *
      * * diff
      * * patch
+     * * update
      *
      * @type EventEmitter
      */
