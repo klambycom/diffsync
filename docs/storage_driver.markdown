@@ -4,16 +4,12 @@
 
 # StorageDriver
 
-global -Promise
-
-## create(hash_code, client)
-
-Initialize a storage driver for Redis
-
 ### Params:
 
 * **String** *hash_code* 
 * **Redisclient** *client* 
+
+global -Promise
 
 ## getName()
 

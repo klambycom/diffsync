@@ -14,7 +14,7 @@
 
 var JSONDocument = require("./document");
 var websocket = require("./websocket");
-var storage = require("./storage_driver.js");
+var storageDriver = require("./storage_driver.js");
 var redis = require("redis");
 
 module.exports = function (socket) {
@@ -22,11 +22,9 @@ module.exports = function (socket) {
   var doc = arguments[2] === undefined ? new JSONDocument() : arguments[2];
 
   var edits = websocket(socket, doc);
+  var storage = storageDriver("hash1", client);
 
   //console.log(socket.id);
-
-  // Init storage
-  storage.create("hash1", client);
 
   // Send document to client, when client connects
   storage.getJSON().then(function (data, error) {

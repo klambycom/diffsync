@@ -1,7 +1,7 @@
 var storageDriver = require('../dist/storage_driver.js');
 
 describe('StorageDriver', function () {
-  var redis;
+  var sut, redis;
 
   beforeEach(function () {
     redis = {
@@ -13,81 +13,77 @@ describe('StorageDriver', function () {
     spyOn(redis, 'hgetall');
     spyOn(redis, 'hset');
 
-    storageDriver.create('hash1', redis);
-  });
-
-  it('should have create function', function () {
-    expect(storageDriver.create).toBeDefined();
+    sut = storageDriver('hash1', redis);
   });
 
   it('should have disconnect function', function () {
-    expect(storageDriver.disconnect).toBeDefined();
+    expect(sut.disconnect).toBeDefined();
   });
 
   describe('Get name', function () {
     it('should have getName function', function () {
-      expect(storageDriver.getName).toBeDefined();
+      expect(sut.getName).toBeDefined();
     });
 
     it('should use redis hget', function () {
-      storageDriver.getName();
+      sut.getName();
       expect(redis.hget).toHaveBeenCalled();
     });
 
     it('should return Promise when "getName" is called', function () {
-      expect(storageDriver.getName().constructor.name).toEqual('Promise');
+      expect(sut.getName().constructor.name).toEqual('Promise');
     });
   });
 
   describe('Set name', function () {
     it('should have setName function', function () {
-      expect(storageDriver.setName).toBeDefined();
+      expect(sut.setName).toBeDefined();
     });
 
     it('should use redis hset', function () {
-      storageDriver.setName('test');
+      sut.setName('test');
       expect(redis.hset).toHaveBeenCalled();
     });
   });
 
   describe('Get data', function () {
     it('should have getData function', function () {
-      expect(storageDriver.getData).toBeDefined();
+      expect(sut.getData).toBeDefined();
     });
 
     it('should use redis hget', function () {
-      storageDriver.getData();
+      sut.getData();
       expect(redis.hget).toHaveBeenCalled();
     });
 
     it('should return Promise when "getData" is called', function () {
-      expect(storageDriver.getData().constructor.name).toEqual('Promise');
+      expect(sut.getData().constructor.name).toEqual('Promise');
     });
   });
 
   describe('Set data', function () {
     it('should have setData function', function () {
-      expect(storageDriver.setData).toBeDefined();
+      expect(sut.setData).toBeDefined();
     });
 
     it('should use redis hset', function () {
-      storageDriver.setData({ ett: 'test' });
+      sut.setData({ ett: 'test' });
       expect(redis.hset).toHaveBeenCalled();
     });
   });
 
   describe('Get JSON', function () {
     it('should have getJSON function', function () {
-      expect(storageDriver.getJSON).toBeDefined();
+      expect(sut.getJSON).toBeDefined();
     });
 
     it('should use redis hget', function () {
-      storageDriver.getJSON();
+      sut.getJSON();
       expect(redis.hgetall).toHaveBeenCalled();
     });
 
     it('should return Promise when "getJSON" is called', function () {
-      expect(storageDriver.getJSON().constructor.name).toEqual('Promise');
+      expect(sut.getJSON().constructor.name).toEqual('Promise');
     });
   });
 });
