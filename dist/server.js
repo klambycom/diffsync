@@ -27,7 +27,7 @@ module.exports = function (socket) {
   //console.log(socket.id);
 
   // Send document to client, when client connects
-  storage.getJSON().then(function (data, error) {
+  storage.getJSON().then(function (data /*, error*/) {
     return socket.emit("init_document", data);
   });
 

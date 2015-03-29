@@ -24,7 +24,7 @@ module.exports = function (socket, client = redis.createClient(), doc = new JSON
   // Send document to client, when client connects
   storage
     .getJSON()
-    .then((data, error) => socket.emit('init_document', data));
+    .then((data/*, error*/) => socket.emit('init_document', data));
 
   return {
     /**
