@@ -101,6 +101,7 @@ var StorageDriver = (function () {
 
       value: function getJSON() {
         return this._create_promise(function (data) {
+          // TODO check if null
           data.data = JSON.parse(data.data);
           return data;
         });

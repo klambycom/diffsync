@@ -19,7 +19,9 @@ module.exports = function (socket, client = redis.createClient(), doc = new JSON
   let edits = websocket(socket, doc);
   let storage = new StorageDriver('hash1', client);
 
-  console.log(socket.id);
+  //console.log(socket.id);
+
+  // Send document to client, when client connects
   storage
     .getJSON()
     .then((data, error) => socket.emit('init_document', data));

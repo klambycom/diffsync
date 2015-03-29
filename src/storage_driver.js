@@ -76,6 +76,7 @@ class StorageDriver {
 
   getJSON() {
     return this._create_promise(data => {
+      // TODO check if null
       data.data = JSON.parse(data.data);
       return data;
     });

@@ -24,7 +24,9 @@ module.exports = function (socket) {
   var edits = websocket(socket, doc);
   var storage = new StorageDriver("hash1", client);
 
-  console.log(socket.id);
+  //console.log(socket.id);
+
+  // Send document to client, when client connects
   storage.getJSON().then(function (data, error) {
     return socket.emit("init_document", data);
   });
