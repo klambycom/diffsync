@@ -12,14 +12,16 @@
 
 let JSONDocument = require('./document');
 let websocket = require('./websocket');
-let StorageDriver = require('./storage_driver.js');
+let storage = require('./storage_driver.js');
 let redis = require('redis');
 
 module.exports = function (socket, client = redis.createClient(), doc = new JSONDocument) {
   let edits = websocket(socket, doc);
-  let storage = new StorageDriver('hash1', client);
 
   //console.log(socket.id);
+
+  // Init storage
+  storage.create('hash1', client);
 
   // Send document to client, when client connects
   storage

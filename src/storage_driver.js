@@ -10,29 +10,36 @@ let redis = require('redis');
 
 class StorageDriver {
 
+}
+
+let _hash_code;
+let _client;
+
+let _create_promise = (callback, key = '') => {
+  return new Promise((resolve, reject) => {
+    let redisCallback = (err, data) => {
+      if (err !== null) { reject(err); }
+      else { resolve(callback(data)); }
+    };
+    if (key === '') { _client.hgetall(_hash_code, redisCallback); }
+    else { _client.hget(_hash_code, key, redisCallback); }
+  });
+};
+
+module.exports = {
+
   /**
    * Initialize a storage driver for Redis
    *
-   * @method constructor
+   * @method create
    * @param {String} hash_code
    * @param {Redis client} client
    */
 
-  constructor(hash_code, client = redis.createClient()) {
-    this.hash_code = hash_code;
-    this.client = client;
-  }
-
-  /**
-   * Change name
-   *
-   * @method setName
-   * @param {String} name
-   */
-
-  setName(name) {
-    this.client.hset(this.hash_code, 'name', name);
-  }
+  create(hash_code, client = redis.createClient()) {
+    _hash_code = hash_code;
+    _client = client;
+  },
 
   /**
    * Get name
@@ -42,19 +49,20 @@ class StorageDriver {
    */
 
   getName() {
-    return this._create_promise(data => data, 'name');
-  }
+    return _create_promise(data => data, 'name');
+  },
 
   /**
-   * Change data
+   * Change name
    *
-   * @method setData
-   * @param {JSON} json
+   * @method setName
+   * @param {String} name
    */
 
-  setData(json) {
-    this.client.hset(this.hash_code, 'data', JSON.stringify(json));
-  }
+  setName(name) {
+    _client.hset(_hash_code, 'name', name);
+  },
+
 
   /**
    * Get data
@@ -64,8 +72,19 @@ class StorageDriver {
    */
 
   getData() {
-    return this._create_promise(data => JSON.parse(data), 'data');
-  }
+    return _create_promise(data => JSON.parse(data), 'data');
+  },
+
+  /**
+   * Change data
+   *
+   * @method setData
+   * @param {JSON} json
+   */
+
+  setData(json) {
+    _client.hset(_hash_code, 'data', JSON.stringify(json));
+  },
 
   /**
    * Get JSON
@@ -75,12 +94,12 @@ class StorageDriver {
    */
 
   getJSON() {
-    return this._create_promise(data => {
+    return _create_promise(data => {
       // TODO check if null
       data.data = JSON.parse(data.data);
       return data;
     });
-  }
+  },
 
   /**
    * Disconnects from redis
@@ -89,19 +108,6 @@ class StorageDriver {
    */
 
   disconnect() {
-    this.client.quit();
+    _client.quit();
   }
-
-  _create_promise(callback, key = '') {
-    return new Promise((resolve, reject) => {
-      let redisCallback = (err, data) => {
-        if (err !== null) { reject(err); }
-        else { resolve(callback(data)); }
-      };
-      if (key === '') { this.client.hgetall(this.hash_code, redisCallback); }
-      else { this.client.hget(this.hash_code, key, redisCallback); }
-    });
-  }
-}
-
-module.exports = StorageDriver;
+};

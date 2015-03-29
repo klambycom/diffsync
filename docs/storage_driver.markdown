@@ -6,7 +6,7 @@
 
 global -Promise
 
-## constructor(hash_code, client)
+## create(hash_code, client)
 
 Initialize a storage driver for Redis
 
@@ -14,14 +14,6 @@ Initialize a storage driver for Redis
 
 * **String** *hash_code* 
 * **Redisclient** *client* 
-
-## setName(name)
-
-Change name
-
-### Params:
-
-* **String** *name* 
 
 ## getName()
 
@@ -31,13 +23,13 @@ Get name
 
 * **h** name
 
-## setData(json)
+## setName(name)
 
-Change data
+Change name
 
 ### Params:
 
-* **JSON** *json* 
+* **String** *name* 
 
 ## getData()
 
@@ -46,6 +38,14 @@ Get data
 ### Return:
 
 * **h** JSON
+
+## setData(json)
+
+Change data
+
+### Params:
+
+* **JSON** *json* 
 
 ## getJSON()
 
