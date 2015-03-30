@@ -52,12 +52,15 @@ module.exports = function (socket) {
      *
      * * diff
      * * patch
+     * * update
      *
      * @method on
      * @param {String} event
      * @param {Function} listener
      */
 
-    on: edits.eventemitter.on
+    on: function on(e, listener) {
+      edits.eventemitter.on(e, listener);
+    }
   };
 };

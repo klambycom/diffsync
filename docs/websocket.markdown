@@ -22,6 +22,7 @@ EventEmitter
 
 * diff
 * patch
+* update
 
 <!-- End src/websocket.js -->
 

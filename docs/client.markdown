@@ -33,6 +33,7 @@ Listen for events
 
 * diff
 * patch
+* update
 
 ### Params:
 
