@@ -4,6 +4,16 @@
 Diffsync is a implementation of [Differential Synchronization][fraser] in
 Javascript.
 
+N. Fraser skriver att...
+
+DS skickar inte hela dokumentet, utan bara diffar och utnyttjar bandbredden
+effektivt. DS är feltolerant vilket gör att dokumenten kan mergas trots enstaka
+fel.
+
+Ett designmål med DS var att skapa en minimalistisk algoritm som inte påverkar
+applikationens utforming för mycket. DS är därför också lämplig att använda
+i befintliga applikationer.
+
 
 ##### Dictionary
 
