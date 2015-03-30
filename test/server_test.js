@@ -4,7 +4,7 @@ describe('Server', function () {
   var sut;
 
   beforeEach(function () {
-    sut = server({ on: function () {} });
+    sut = server({ on: function () {} }, {});
   });
 
   it('should have a function called "on"', function () {
