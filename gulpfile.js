@@ -8,15 +8,15 @@ var jasmine = require('gulp-jasmine');
 var jshint = require('gulp-jshint');
 
 var paths = {
-  js:       './src/**/*.js',
-  dist:     './dist',
-  docs:     './docs',
-  tests:    './test/**/*_test.js',
+  js:       'src/**/*.js',
+  dist:     'dist',
+  docs:     'docs',
+  tests:    'test/**/*_test.js',
   example:  {
-    html:   './example/index.html',
-    js:     './example/client.js',
-    server: './example/server.js',
-    dist:   './dist/example'
+    html:   'example/index.html',
+    js:     'example/client.js',
+    server: 'example/server.js',
+    dist:   'dist/example'
   }
 };
 
@@ -51,7 +51,7 @@ gulp.task('docs', function () {
 });
 
 gulp.task('server:start', ['example:copyserver'], function () {
-  server.listen({ path: './dist/example/server.js' });
+  server.listen({ path: 'dist/example/server.js' });
 });
 
 gulp.task('jasmine', function () {
@@ -71,8 +71,8 @@ gulp.task('lint', function () {
 });
 
 gulp.task('setup:hooks', function () {
-  return gulp.src('./pre-push')
-    .pipe(gulp.dest('./.git/hooks/'));
+  return gulp.src('pre-push')
+    .pipe(gulp.dest('.git/hooks/'));
 });
 
 gulp.task('watch', ['server:start'], function () {

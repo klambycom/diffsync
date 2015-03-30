@@ -6,22 +6,15 @@ socket.on('connect', function () {
   let docElem = document.querySelector('#app .document');
   let sendElem = document.querySelector('#app .send');
 
-  let doc = {
-    title: 'The title',
-    data: {
-      type: 'file',
-      changes: [
-      ]
-    }
-  };
-
-  diffsync.update(doc);
-
-  titleElem.innerHTML = doc.title;
-  docElem.value = JSON.stringify(doc);
-
-  diffsync.on('patch', function (data) {
+  diffsync.on('patch', data => {
     console.log('PATCH', data);
+  });
+
+  diffsync.on('update', data => {
+    console.log('UPDATE', data);
+
+    titleElem.innerHTML = data.name;
+    docElem.value = JSON.stringify(data);
   });
 
   sendElem.addEventListener('click', e => {

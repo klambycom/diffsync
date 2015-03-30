@@ -123,9 +123,61 @@ Listen for events
 * **Function** *listener*
 
 
+## Custom Storage API
+
+```javascript
+let myCustomStorageDriver = {
+
+  /**
+   * Initialize the storage driver
+   *
+   * @method _initStorage
+   * @param {Object} options
+   * @returns Promise
+   */
+
+  _initStorage(options) {
+  },
+
+  /**
+   * Get document
+   *
+   * @method get
+   * @returns Promise
+   */
+
+  get() {
+  },
+
+  /**
+   * Set document
+   *
+   * @method set
+   * @param {Object} data
+   * @param {Object} patch
+   * @returns Promise
+   */
+
+  set(data, patch) {
+  }
+};
+
+diffsync.server(socket, myCustomStorageDriver, new JSONDocument);
+```
+
+### Using Redis for storage
+
+```javascript
+let redisStorage = diffsync.redisDefaultStorage(redis);
+diffsync.server(socket, redisStorage, new JSONDocument);
+```
+
+
 ## License
 
-MIT
+Copyright (c) 2015 Christian Nilsson
+
+Licensed under the MIT license.
 
 
 [david-url]: https://david-dm.org/klambycom/diffsync#info=dependencies&view=table

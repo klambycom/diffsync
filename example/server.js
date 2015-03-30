@@ -1,3 +1,26 @@
+//let StorageDriver = require('../storage_driver.js');
+//
+//let storage = new StorageDriver('hash1');
+///*
+//storage.setName('fil1');
+//storage.setData({
+//  'ett': 1,
+//  'tva': 'two',
+//  'tre': [1, 1, 1]
+//});
+//*/
+//storage
+//  .getName()
+//  .then(value => console.log(value), reason => console.log(reason));
+//
+//storage
+//  .getData()
+//  .then(value => console.log(value), reason => console.log(reason));
+//
+//storage
+//  .getJSON()
+//  .then(value => console.log(value), reason => console.log(reason));
+
 let app = require('http').createServer(handler);
 let io = require('socket.io')(app);
 let fs = require('fs');
@@ -28,11 +51,10 @@ function handler(req, res) {
 io.sockets.on('connection', function (socket) {
   let diffsync = server(socket);
 
-  diffsync.on('patch', function (data) {
-    console.log(data);
-  });
+  diffsync.on('patch', data => console.log('PATCH', data));
+  diffsync.on('diff',  data => console.log('DIFF',  data));
 
-  socket.on('disconnect', function () {
+  socket.on('disconnect', () => {
     console.log('Client disconnected');
   });
 

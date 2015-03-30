@@ -7,7 +7,10 @@
 ### Params:
 
 **Socket.io** *socket* 
+**Redis client** *client* Optional
 **JSONDocument** *doc* Optional param for creating the document
+
+, error
 
 ## on(event, listener)
 
