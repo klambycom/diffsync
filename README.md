@@ -50,7 +50,44 @@ TODO
 
 ## Usage
 
-TODO
+Diffsync needs both a server and a client. Both the server and the client need
+socket.io to work. See [example/](https://github.com/klambycom/diffsync/tree/master/example).
+
+#### Server
+
+```javascript
+let io = require('socket.io')(server);
+
+io.on('connection', function (socket) {
+  let diffsync = server('room_1', socket);
+
+  diffsync.on('patch', data => console.log('PATCH', data));
+  diffsync.on('diff',  data => console.log('DIFF',  data));
+});
+```
+
+#### Client
+
+```javascript
+let socket = require('socket.io-client')('http://localhost:8000');
+
+socket.on('connect', function () {
+  let titleElem = document.querySelector('#app h1');
+  let docElem = document.querySelector('#app .document');
+  let sendElem = document.querySelector('#app .send');
+
+  let diffsync = require('diffsync').client(socket);
+
+  diffsync.on('update', data => {
+    titleElem.innerHTML = data.name;
+    docElem.value = JSON.stringify(data, null, 2);
+  });
+
+  sendElem.addEventListener('click', e => {
+    diffsync.update(JSON.parse(docElem.value));
+  });
+});
+```
 
 
 ## API DiffSync.client(socket, doc)
