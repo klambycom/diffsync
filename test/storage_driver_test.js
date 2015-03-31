@@ -5,8 +5,8 @@ describe('StorageDriver', function () {
 
   beforeEach(function () {
     redis = {
-      hget: function (hash, key, callback) { console.log('hget'); callback(null, {}); },
-      hgetall: function (hash, callback) { console.log('hgetall'); callback(null, {}); },
+      hget: function (hash, key, callback) { callback(null, {}); },
+      hgetall: function (hash, callback) { callback(null, {}); },
       hset: function (hash, key, value) {}
     };
     spyOn(redis, 'hget');

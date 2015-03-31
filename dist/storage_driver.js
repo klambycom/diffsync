@@ -94,7 +94,12 @@ module.exports = function storageDriver(hash_code) {
 
     getJSON: function getJSON() {
       return create_promise(function (data) {
-        // TODO check if null
+        // Return empty document if nothing in db
+        if (typeof data === "undefined" || data === null) {
+          return { name: "", data: {} };
+        }
+
+        // Else return the document
         data.data = JSON.parse(data.data);
         return data;
       });
