@@ -92,9 +92,12 @@ Algoritmen har arbetat på som vanligt fram till och med steg 3.
    servern, som vanligt.
 2. Ett tillfälligt dokument skapas från JSON från servern (föregående steg).
 3. Dokumentet låses.
-4. En diff mellan klientens dokument och det tillfälliga dokumentet skapas.
-5. Client document och client shadow patchas.
-6. Dokumentet låses upp.
+4. En diff mellan klientens shadow och det tillfälliga dokumentet skapas.
+5. Ska servern eller klienten ha företräde?
+6. Client document och client shadow patchas.
+7. Dokumentet låses upp.
+8. Diff mellan Client document och client shadow skapas.
+9. Den vanliga algoritmen fortsätter.
 
 
 [//]: # (References)
