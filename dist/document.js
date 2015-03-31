@@ -68,6 +68,8 @@ var JSONDocument = (function () {
     patch: {
 
       /**
+       * Patch the document using jsondiffpatch
+       *
        * @method patch
        * @param {Object} patch Patch from jsondiffpatch
        */
@@ -83,12 +85,16 @@ var JSONDocument = (function () {
 
         return _patchWrapper;
       })(function (patch) {
-        diffpatch.patch(this.json, patch);
+        if (typeof patch !== "undefined" && patch !== null) {
+          diffpatch.patch(this.json, patch);
+        }
       })
     },
     diff: {
 
       /**
+       * Create a diff using jsondiffpatch
+       *
        * @method diff
        * @param {JSONDocument} shadow The shadow of this document
        * @return {Object} Diff created by jsondiffpatch

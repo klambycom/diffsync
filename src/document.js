@@ -47,15 +47,21 @@ class JSONDocument {
   }
 
   /**
+   * Patch the document using jsondiffpatch
+   *
    * @method patch
    * @param {Object} patch Patch from jsondiffpatch
    */
 
   patch(patch) {
-    diffpatch.patch(this.json, patch);
+    if (typeof patch !== 'undefined' && patch !== null) {
+      diffpatch.patch(this.json, patch);
+    }
   }
 
   /**
+   * Create a diff using jsondiffpatch
+   *
    * @method diff
    * @param {JSONDocument} shadow The shadow of this document
    * @return {Object} Diff created by jsondiffpatch

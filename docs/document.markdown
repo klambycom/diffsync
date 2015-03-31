@@ -30,11 +30,15 @@ Merge instructions
 
 ## patch(patch)
 
+Patch the document using jsondiffpatch
+
 ### Params:
 
 * **Object** *patch* Patch from jsondiffpatch
 
 ## diff(shadow)
+
+Create a diff using jsondiffpatch
 
 ### Params:
 

@@ -48,6 +48,16 @@ describe('JSONDocument', function () {
       sut.patch({ test: ['pass', 0, 0] });
       expect(sut.json).toEqual({ type: 'audio', name: 'testfile' });
     });
+
+    it('should not update the JSON if patch is undefined', function () {
+      sut.patch(undefined);
+      expect(sut.json).toEqual({ test: 'pass', type: 'audio', name: 'testfile' });
+    });
+
+    it('should not update the JSON if patch is null', function () {
+      sut.patch(null);
+      expect(sut.json).toEqual({ test: 'pass', type: 'audio', name: 'testfile' });
+    });
   });
 
   describe('diff', function () {
