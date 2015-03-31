@@ -17,7 +17,7 @@ var websocket = require("./websocket");
 var storageDriver = require("./storage_driver.js");
 var redis = require("redis");
 
-module.exports = function (socket) {
+module.exports = function server(socket) {
   var client = arguments[1] === undefined ? redis.createClient() : arguments[1];
   var doc = arguments[2] === undefined ? new JSONDocument() : arguments[2];
 

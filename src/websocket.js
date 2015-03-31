@@ -15,7 +15,7 @@
 let JSONDocument = require('./document');
 let EventEmitter = require('events').EventEmitter;
 
-module.exports = function (socket, doc, eventemitter = new EventEmitter) {
+module.exports = function edits(socket, doc, eventemitter = new EventEmitter) {
   let shadow = new  JSONDocument();
 
   // Create patch from received diff

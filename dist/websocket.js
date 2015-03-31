@@ -17,7 +17,7 @@
 var JSONDocument = require("./document");
 var EventEmitter = require("events").EventEmitter;
 
-module.exports = function (socket, doc) {
+module.exports = function edits(socket, doc) {
   var eventemitter = arguments[2] === undefined ? new EventEmitter() : arguments[2];
 
   var shadow = new JSONDocument();

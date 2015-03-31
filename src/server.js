@@ -15,7 +15,7 @@ let websocket = require('./websocket');
 let storageDriver = require('./storage_driver.js');
 let redis = require('redis');
 
-module.exports = function (socket, client = redis.createClient(), doc = new JSONDocument) {
+module.exports = function server(socket, client = redis.createClient(), doc = new JSONDocument) {
   let edits = websocket(socket, doc);
   let storage = storageDriver('hash1', client);
 
