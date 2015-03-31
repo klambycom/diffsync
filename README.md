@@ -105,11 +105,13 @@ Listen for events
 * **Function** *listener* 
 
 
-## API DiffSync.server(socket, doc)
+## API DiffSync.server(room, socket, client, doc)
 
 ##### Params:
 
+* **String** *room*
 * **Socket.io** *socket* Websocket using Socket.io
+* **Redis client** *client* Optional
 * **Document** *doc* Optional param for creating the document
 
 ```javascript

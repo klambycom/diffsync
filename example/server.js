@@ -48,8 +48,8 @@ function handler(req, res) {
   });
 }
 
-io.sockets.on('connection', function (socket) {
-  let diffsync = server(socket);
+io.on('connection', function (socket) {
+  let diffsync = server('hash1', socket);
 
   diffsync.on('patch', data => console.log('PATCH', data));
   diffsync.on('diff',  data => console.log('DIFF',  data));

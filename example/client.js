@@ -1,10 +1,11 @@
 let socket = require('socket.io-client')('http://localhost:8000');
 
 socket.on('connect', function () {
-  let diffsync = require('../index').client(socket);
   let titleElem = document.querySelector('#app h1');
   let docElem = document.querySelector('#app .document');
   let sendElem = document.querySelector('#app .send');
+
+  let diffsync = require('../index').client(socket);
 
   diffsync.on('patch', data => {
     console.log('PATCH', data);

@@ -4,7 +4,12 @@ describe('Server', function () {
   var sut;
 
   beforeEach(function () {
-    sut = server({ on: function () {} }, {});
+    var socket = {
+      on: function () {},
+      join: function () {}
+    };
+
+    sut = server('room1', socket, {});
   });
 
   it('should have a function called "on"', function () {

@@ -1,8 +1,9 @@
 /**
- * # Server(socket, doc)
+ * # Server(room, socket, client, doc)
  *
  * ### Params:
  *
+ * **String** *room*
  * **Socket.io** *socket* 
  * **Redis client** *client* Optional
  * **JSONDocument** *doc* Optional param for creating the document
@@ -15,11 +16,12 @@ let websocket = require('./websocket');
 let storageDriver = require('./storage_driver.js');
 let redis = require('redis');
 
-module.exports = function server(socket, client = redis.createClient(), doc = new JSONDocument) {
+module.exports = function server(room, socket, client = redis.createClient(), doc = new JSONDocument) {
   let edits = websocket(socket, doc);
-  let storage = storageDriver('hash1', client);
+  let storage = storageDriver(room, client);
 
-  //console.log(socket.id);
+  // Join specified room
+  socket.join(room);
 
   // Send document to client, when client connects
   storage
