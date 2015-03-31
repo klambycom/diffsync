@@ -13,8 +13,16 @@ socket.on('connect', function () {
   diffsync.on('update', data => {
     console.log('UPDATE', data);
 
+    // Add linebreaks to JSON
+    let json = JSON
+      .stringify(data)
+      .replace(/:/g, ' : ')
+      .replace(/{/g, '{\n')
+      .replace(/}/g, '}\n')
+      .replace(/,/g, ',\n');
+
     titleElem.innerHTML = data.name;
-    docElem.value = JSON.stringify(data);
+    docElem.value = json;
   });
 
   sendElem.addEventListener('click', e => {
