@@ -58,12 +58,43 @@ av fördelarna med algoritmen.
 
 ##### Offline
 
+För att alternativ ett ska fungera måste servern spara alla diffar, medans
+alternativ två måste låsa dokumentet för att inga ändringar ska kunna göras
+innan dokumentet har hunnit ikapp servern. Om alternativ ett är väldig snabb
+behövs kanske inte dokumentet låsas. Alternativ tre är antagligen det vinnande
+alternativet just nu, jag kan inte se några problem med den. Dokumentet måste
+fortfarande låsas, precis som med alternativ 2, men förhoppningsvis bara ett
+par millisekunder. Och servern måste inte spara alla diffar.
+
+###### Alt. 1
+
 1. När en klient ansluter efter att ha varit offline, får den dokumentet från
    servern, som vanligt.
 2. Klienten skickar tidpunkt till server för att få diffar från efter den
    tiden.
 3. Dokumentet patchas om det går.
 4. Den vanliga algoritmen börjar igen.
+
+###### Alt. 2
+
+1. När en klient ansluter efter att ha varit offline, får den dokumentet från
+   servern, som vanligt.
+2. Användarens dokument låses tillfälligt.
+3. Klienten skickar diffen till servern.
+4. Dokumenten patchas med de diffar där dokumentet fortfarande är samma.
+5. Dokumentet skickas på nytt till klienten som uppdaterar dokumenten.
+
+###### Alt. 3
+
+Algoritmen har arbetat på som vanligt fram till och med steg 3.
+
+1. När en klient ansluter efter att ha varit offline, får den dokumentet från
+   servern, som vanligt.
+2. Ett tillfälligt dokument skapas från JSON från servern (föregående steg).
+3. Dokumentet låses.
+4. En diff mellan klientens dokument och det tillfälliga dokumentet skapas.
+5. Client document och client shadow patchas.
+6. Dokumentet låses upp.
 
 
 [//]: # (References)
