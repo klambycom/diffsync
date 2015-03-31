@@ -22,7 +22,7 @@ module.exports = function clients(socket, doc = new JSONDocument) {
      *
      * @method update
      * @param {Object} json Information about and instructions for the document
-     * @returns false if the document is not changed and diff is not sent
+     * @returns {Boolean} false if the document is not changed and diff is not sent
      */
 
     update(json) {
@@ -35,7 +35,7 @@ module.exports = function clients(socket, doc = new JSONDocument) {
      *
      * @method merge
      * @param {Object} json Instructions for the document
-     * @returns false if the document is not changed and diff is not sent
+     * @returns {Boolean} false if the document is not changed and diff is not sent
      */
 
     merge(json) {

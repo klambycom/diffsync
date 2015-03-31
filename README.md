@@ -73,6 +73,10 @@ Update the whole document
 
 * **Object** *json* Information about and instructions for the document
 
+##### Return:
+
+* **Boolean** false if the document is not changed and diff is not sent
+
 ### merge(json)
 
 Merge instructions
@@ -80,6 +84,10 @@ Merge instructions
 ##### Params:
 
 * **Object** *json* Instructions for the document
+
+##### Return:
+
+* **Boolean** false if the document is not changed and diff is not sent
 
 ### on(event, listener)
 
@@ -89,6 +97,7 @@ Listen for events
 
 * diff
 * patch
+* update
 
 ##### Params:
 

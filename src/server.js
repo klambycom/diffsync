@@ -27,6 +27,7 @@ module.exports = function server(socket, client = redis.createClient(), doc = ne
     .then((data/*, error*/) => socket.emit('init_document', data));
 
   return {
+
     /**
      * Listen for events
      *

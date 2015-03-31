@@ -19,7 +19,7 @@ Update the whole document
 
 ### Return:
 
-* **als** if the document is not changed and diff is not sent
+* **Boolean** false if the document is not changed and diff is not sent
 
 ## merge(json)
 
@@ -31,7 +31,7 @@ Merge instructions
 
 ### Return:
 
-* **als** if the document is not changed and diff is not sent
+* **Boolean** false if the document is not changed and diff is not sent
 
 ## on(event, listener)
 
