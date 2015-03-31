@@ -22,11 +22,12 @@ module.exports = function (socket, doc = new JSONDocument) {
      *
      * @method update
      * @param {Object} json Information about and instructions for the document
+     * @returns false if the document is not changed and diff is not sent
      */
 
     update(json) {
       doc.update(json);
-      edits.sendDiff();
+      return edits.sendDiff();
     },
 
     /**
@@ -34,11 +35,12 @@ module.exports = function (socket, doc = new JSONDocument) {
      *
      * @method merge
      * @param {Object} json Instructions for the document
+     * @returns false if the document is not changed and diff is not sent
      */
 
     merge(json) {
       doc.merge(json);
-      edits.sendDiff();
+      return edits.sendDiff();
     },
 
     /**

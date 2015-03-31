@@ -39,13 +39,21 @@ module.exports = function (socket, doc, eventemitter = new EventEmitter) {
      * Send diff to clients/server
      *
      * @method sendDiff
+     * @returns false if there is no diff, else true
      */
 
     sendDiff() {
       let diff = doc.diff(shadow);
-      shadow.patch(diff);
-      socket.emit('diff', diff);
-      eventemitter.emit('diff', diff);
+
+      if (typeof diff !== 'undefined') {
+        shadow.patch(diff);
+        socket.emit('diff', diff);
+        eventemitter.emit('diff', diff);
+
+        return true;
+      }
+
+      return false;
     },
 
     /**

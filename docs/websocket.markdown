@@ -14,6 +14,10 @@
 
 Send diff to clients/server
 
+### Return:
+
+* **als** if there is no diff, else true
+
 ## eventemitter
 
 EventEmitter
