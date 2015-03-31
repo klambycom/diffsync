@@ -41,6 +41,9 @@ av fördelarna med algoritmen.
 
 ![Differential Synchronization](diffsync.png)
 
+
+##### Online
+
 1. En diff är skapad, med hjälp av [jsondiffpatch][jsondiffpatch], mellan
    klientens text och klientens shadow.
 2. Från diffen skapas en lista med ändringar som har gjorts på klientens text.
@@ -49,6 +52,18 @@ av fördelarna med algoritmen.
    *(b)* Om diffen inte innehåller några ändringar skickas inget till servern.
 5. På servern patchas serverns text och serverns shadow som tillhör användaren.
 6. Nu upprepas processen i andra riktningen för varje klient.
+7. Diffar och patchar skapas så länge dokumenten och deras shadow inte är
+   identiska.
+
+
+##### Offline
+
+1. När en klient ansluter efter att ha varit offline, får den dokumentet från
+   servern, som vanligt.
+2. Klienten skickar tidpunkt till server för att få diffar från efter den
+   tiden.
+3. Dokumentet patchas om det går.
+4. Den vanliga algoritmen börjar igen.
 
 
 [//]: # (References)

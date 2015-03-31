@@ -3,6 +3,9 @@
 /**
  * # Websocket(socket, doc)
  *
+ * This function is called edits (TODO) because takes the diffs and create
+ * "edits" to send to the server.
+ *
  * ### Params:
  *
  * **Socket.io** *socket* 
