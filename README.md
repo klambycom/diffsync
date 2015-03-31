@@ -14,6 +14,20 @@ Ett designmål med DS var att skapa en minimalistisk algoritm som inte påverkar
 applikationens utforming för mycket. DS är därför också lämplig att använda
 i befintliga applikationer.
 
+DS används av texteditorna Eclipse, Bespin och Gedit, som alla använder eller
+är kompatibla med MobWrite !!Läs om MobWrite !!. Där används algoritmen för att
+göra det möjligt för flera användare att jobba på samma textfil i olika editorer.
+Men N. Fraser skriver att algoritmen ska fungerar med allt innehåll som det går
+att skapa en diff på.
+
+En oväntad användning för DS som N. Fraser fann var för onlineapplikationer som
+vill erbjuda autosave-funktionalitet. Då kollaborerar bara användaren med sig
+själv, men eventuellt från olika datorer.
+
+Anledningen till att jag skapar diffsync i javascript är att jag kan dela
+väldigt mycket kod mellan klient och server, det skriver även N. Fraser är en
+av fördelarna med algoritmen.
+
 
 ##### Dictionary
 
