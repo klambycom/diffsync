@@ -48,5 +48,13 @@ Create a diff using jsondiffpatch
 
 * **Object** Diff created by jsondiffpatch
 
+## json()
+
+Get JSON
+
+### Return:
+
+* **JSON** the document as JSON
+
 <!-- End src/document.js -->
 

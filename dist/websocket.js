@@ -25,6 +25,23 @@ module.exports = function edits(socket, doc) {
 
   var shadow = new JSONDocument();
 
+  var sendDiff = function sendDiff() {
+    var diff = doc.diff(shadow);
+
+    // Step 7, continue to send diff as long as the documents is not identical
+    if (typeof diff !== "undefined") {
+      // Step 2, changes are copied to the shadow
+      shadow.patch(diff);
+
+      // Step 3a, changes are sent to server
+      socket.emit("DIFF", diff);
+      return true;
+    }
+
+    // Step 3b, nothing is sent to the server
+    return false;
+  };
+
   // Create patch from received diff
   socket.on("DIFF", function edits(data) {
     // Step 4, a patch is created from the changes
@@ -35,14 +52,17 @@ module.exports = function edits(socket, doc) {
     // Save doc to db if on server
     shadow.patch(data); // Shadow should be the same as on client before edits
 
-    //eventemitter.emit('patch', data); // Needed?
+    eventemitter.emit("update", doc.json());
+
+    // Step 6, send new diff to all connected clients
+    sendDiff();
   });
 
   // Update document when initial document is received
   socket.on("init_document", function (data) {
     doc.update(data);
     shadow.update(data);
-    eventemitter.emit("update", data);
+    eventemitter.emit("update", doc.json());
   });
 
   return {
@@ -54,23 +74,7 @@ module.exports = function edits(socket, doc) {
      * @returns false if there is no diff, else true
      */
 
-    sendDiff: function sendDiff() {
-      var diff = doc.diff(shadow);
-
-      if (typeof diff !== "undefined") {
-        // Step 2, changes are copied to the shadow
-        shadow.patch(diff);
-
-        // Step 3a, changes are sent to server
-        socket.emit("DIFF", diff);
-        return true;
-
-        //eventemitter.emit('diff', diff); // TODO Needed?
-      }
-
-      // Step 3b, nothing is sent to the server
-      return false;
-    },
+    sendDiff: sendDiff,
 
     /**
      * ## eventemitter

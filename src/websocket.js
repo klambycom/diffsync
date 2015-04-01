@@ -32,8 +32,6 @@ module.exports = function edits(socket, doc, eventemitter = new EventEmitter) {
       // Step 3a, changes are sent to server
       socket.emit('DIFF', diff);
       return true;
-
-      //eventemitter.emit('diff', diff); // TODO Needed?
     }
 
     // Step 3b, nothing is sent to the server
@@ -50,7 +48,7 @@ module.exports = function edits(socket, doc, eventemitter = new EventEmitter) {
     // Save doc to db if on server
     shadow.patch(data); // Shadow should be the same as on client before edits
 
-    //eventemitter.emit('patch', data); // Needed? Update?
+    eventemitter.emit('update', doc.json());
 
     // Step 6, send new diff to all connected clients
     sendDiff();
@@ -61,7 +59,7 @@ module.exports = function edits(socket, doc, eventemitter = new EventEmitter) {
   socket.on('init_document', data => {
     doc.update(data);
     shadow.update(data);
-    eventemitter.emit('update', data);
+    eventemitter.emit('update', doc.json());
   });
 
   return {

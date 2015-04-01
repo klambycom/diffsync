@@ -103,6 +103,19 @@ var JSONDocument = (function () {
       value: function diff(shadow) {
         return diffpatch.diff(shadow.json, this.json);
       }
+    },
+    json: {
+
+      /**
+       * Get JSON
+       *
+       * @method json
+       * @return {JSON} the document as JSON
+       */
+
+      value: function json() {
+        return JSON.parse(JSON.stringify(this.json));
+      }
     }
   });
 

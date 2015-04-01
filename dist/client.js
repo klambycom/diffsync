@@ -53,8 +53,6 @@ module.exports = function clients(socket) {
      *
      * ### Events:
      *
-     * * diff
-     * * patch
      * * update
      *
      * @method on

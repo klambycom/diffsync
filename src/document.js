@@ -70,6 +70,17 @@ class JSONDocument {
   diff(shadow) {
     return diffpatch.diff(shadow.json, this.json);
   }
+
+  /**
+   * Get JSON
+   *
+   * @method json
+   * @return {JSON} the document as JSON
+   */
+
+  json() {
+    return JSON.parse(JSON.stringify(this.json));
+  }
 }
 
 module.exports = JSONDocument;

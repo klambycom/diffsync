@@ -49,8 +49,6 @@ module.exports = function clients(socket, doc = new JSONDocument) {
      *
      * ### Events:
      *
-     * * diff
-     * * patch
      * * update
      *
      * @method on
