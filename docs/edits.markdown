@@ -29,8 +29,6 @@ EventEmitter
 
 ### Events:
 
-* diff
-* patch
 * update
 
 <!-- End src/edits.js -->

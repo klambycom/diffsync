@@ -44,11 +44,13 @@ module.exports = function edits(socket, doc, storage) {
     return false;
   };
 
-  // TODO Handle error!
-  var patchAndSave = function patchAndSave(data, error) {
-    doc.patch(data); // Get document from Redis, to always have the latest
-    shadow.patch(data); // Shadow should be the same as on client before edits
-    storage.setFromDocument(doc); // Save doc to db
+  var patch = function patch(data) {
+    doc.patch(data);
+    shadow.patch(data);
+    eventemitter.emit("update", doc.json());
+
+    // Step 6, send new diff to all connected clients
+    sendDiff();
   };
 
   // Create patch from received diff
@@ -58,16 +60,16 @@ module.exports = function edits(socket, doc, storage) {
 
     // Step 5, both the doc and shadow is patched
     if (typeof storage === "undefined") {
-      doc.patch(data);
-      shadow.patch(data);
+      patch(data);
     } else {
-      storage.getJSON().then(patchAndSave);
+      // TODO Handle error!
+      storage.getJSON().then(function (json, error) {
+        doc.update(json);
+        patch(data);
+        // Save
+        storage.setFromDocument(doc);
+      });
     }
-
-    eventemitter.emit("update", doc.json());
-
-    // Step 6, send new diff to all connected clients
-    sendDiff();
   });
 
   // Update document when initial document is received
@@ -95,8 +97,6 @@ module.exports = function edits(socket, doc, storage) {
      *
      * ### Events:
      *
-     * * diff
-     * * patch
      * * update
      *
      * @type EventEmitter
