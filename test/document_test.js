@@ -1,19 +1,19 @@
-var JSONDocument = require('../dist/document.js');
+var Doc = require('../dist/document.js');
 
-describe('JSONDocument', function () {
+describe('Document', function () {
   var sut;
 
   beforeEach(function () {
-    sut = new JSONDocument({ test: 'pass', type: 'audio', name: 'testfile' });
+    sut = new Doc({ test: 'pass', type: 'audio', name: 'testfile' });
   });
 
   it('should take JSON as param to the constructor', function () {
-    expect(sut.json).toEqual({ test: 'pass', type: 'audio', name: 'testfile' });
+    expect(sut.json_data).toEqual({ test: 'pass', type: 'audio', name: 'testfile' });
   });
 
   it('should default to empty object', function () {
-    sut = new JSONDocument();
-    expect(sut.json).toEqual({});
+    sut = new Doc();
+    expect(sut.json_data).toEqual({});
   });
 
   describe('update', function () {
@@ -24,7 +24,7 @@ describe('JSONDocument', function () {
     it('should update the JSON', function () {
       var json = { test: 'pass', type: 'audio', name: 'file1' };
       sut.update(json);
-      expect(sut.json).toEqual(json);
+      expect(sut.json_data).toEqual(json);
     });
   });
 
@@ -35,7 +35,8 @@ describe('JSONDocument', function () {
 
     it('should partial update the JSON', function () {
       sut.merge({ type: 'image' });
-      expect(sut.json).toEqual({ test: 'pass', type: 'image', name: 'testfile' });
+      expect(sut.json_data)
+        .toEqual({ test: 'pass', type: 'image', name: 'testfile' });
     });
   });
 
@@ -46,17 +47,19 @@ describe('JSONDocument', function () {
 
     it('should update the JSON', function () {
       sut.patch({ test: ['pass', 0, 0] });
-      expect(sut.json).toEqual({ type: 'audio', name: 'testfile' });
+      expect(sut.json_data).toEqual({ type: 'audio', name: 'testfile' });
     });
 
     it('should not update the JSON if patch is undefined', function () {
       sut.patch(undefined);
-      expect(sut.json).toEqual({ test: 'pass', type: 'audio', name: 'testfile' });
+      expect(sut.json_data)
+        .toEqual({ test: 'pass', type: 'audio', name: 'testfile' });
     });
 
     it('should not update the JSON if patch is null', function () {
       sut.patch(null);
-      expect(sut.json).toEqual({ test: 'pass', type: 'audio', name: 'testfile' });
+      expect(sut.json_data)
+        .toEqual({ test: 'pass', type: 'audio', name: 'testfile' });
     });
   });
 
@@ -66,8 +69,18 @@ describe('JSONDocument', function () {
     });
 
     it('should return a diff between this document and shadow', function () {
-      var shadow = new JSONDocument({ test: 'pass', type: 'image', name: 'testfile' });
+      var shadow = new Doc({ test: 'pass', type: 'image', name: 'testfile' });
       expect(sut.diff(shadow)).toEqual({ type: ['image', 'audio'] });
+    });
+  });
+
+  describe('json', function () {
+    it('should have a json method', function () {
+      expect(sut.json).toBeDefined();
+    });
+
+    it('should return the json', function () {
+      expect(sut.json()).toEqual({ test: 'pass', type: 'audio', name: 'testfile' });
     });
   });
 });

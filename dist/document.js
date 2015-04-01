@@ -26,7 +26,7 @@ var JSONDocument = (function () {
 
     _classCallCheck(this, JSONDocument);
 
-    this.json = json;
+    this.json_data = json;
   }
 
   _createClass(JSONDocument, {
@@ -42,7 +42,7 @@ var JSONDocument = (function () {
       value: function update() {
         var json = arguments[0] === undefined ? {} : arguments[0];
 
-        this.json = json;
+        this.json_data = json;
       }
     },
     merge: {
@@ -60,7 +60,7 @@ var JSONDocument = (function () {
         // TODO Test if i can use of instead of in (and hasOwnProperty)
         for (var attr in json) {
           if (json.hasOwnProperty(attr)) {
-            this.json[attr] = json[attr];
+            this.json_data[attr] = json[attr];
           }
         }
       }
@@ -86,7 +86,7 @@ var JSONDocument = (function () {
         return _patchWrapper;
       })(function (patch) {
         if (typeof patch !== "undefined" && patch !== null) {
-          diffpatch.patch(this.json, patch);
+          diffpatch.patch(this.json_data, patch);
         }
       })
     },
@@ -101,7 +101,7 @@ var JSONDocument = (function () {
        */
 
       value: function diff(shadow) {
-        return diffpatch.diff(shadow.json, this.json);
+        return diffpatch.diff(shadow.json_data, this.json_data);
       }
     },
     json: {
@@ -114,7 +114,7 @@ var JSONDocument = (function () {
        */
 
       value: function json() {
-        return JSON.parse(JSON.stringify(this.json));
+        return JSON.parse(JSON.stringify(this.json_data));
       }
     }
   });

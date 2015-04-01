@@ -16,7 +16,7 @@ class JSONDocument {
    */
 
   constructor(json = {}) {
-    this.json = json;
+    this.json_data = json;
   }
 
   /**
@@ -27,7 +27,7 @@ class JSONDocument {
    */
 
   update(json = {}) {
-    this.json = json;
+    this.json_data = json;
   }
 
   /**
@@ -41,7 +41,7 @@ class JSONDocument {
     // TODO Test if i can use of instead of in (and hasOwnProperty)
     for (let attr in json) {
       if (json.hasOwnProperty(attr)) {
-        this.json[attr] = json[attr];
+        this.json_data[attr] = json[attr];
       }
     }
   }
@@ -55,7 +55,7 @@ class JSONDocument {
 
   patch(patch) {
     if (typeof patch !== 'undefined' && patch !== null) {
-      diffpatch.patch(this.json, patch);
+      diffpatch.patch(this.json_data, patch);
     }
   }
 
@@ -68,7 +68,7 @@ class JSONDocument {
    */
 
   diff(shadow) {
-    return diffpatch.diff(shadow.json, this.json);
+    return diffpatch.diff(shadow.json_data, this.json_data);
   }
 
   /**
@@ -79,7 +79,7 @@ class JSONDocument {
    */
 
   json() {
-    return JSON.parse(JSON.stringify(this.json));
+    return JSON.parse(JSON.stringify(this.json_data));
   }
 }
 

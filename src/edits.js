@@ -66,7 +66,6 @@ module.exports = function edits(socket, doc, storage, eventemitter = new EventEm
     sendDiff();
   });
 
-
   // Update document when initial document is received
   socket.on('init_document', data => {
     doc.update(data);
