@@ -44,7 +44,7 @@ module.exports = function edits(socket, doc, storage) {
     return false;
   };
 
-  var patch = function patch(data) {
+  var patchDocs = function patchDocs(data) {
     doc.patch(data);
     shadow.patch(data);
     eventemitter.emit("update", doc.json());
@@ -60,12 +60,12 @@ module.exports = function edits(socket, doc, storage) {
 
     // Step 5, both the doc and shadow is patched
     if (typeof storage === "undefined") {
-      patch(data);
+      patchDocs(patch);
     } else {
       // TODO Handle error!
-      storage.getJSON().then(function (json, error) {
+      storage.getJSON().then(function (json /*, error*/) {
         doc.update(json);
-        patch(data);
+        patchDocs(patch);
         // Save
         storage.setFromDocument(doc);
       });

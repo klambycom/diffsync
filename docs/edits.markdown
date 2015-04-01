@@ -15,6 +15,8 @@ and client, so maybe it's not the best name.
 **StorageDriver** *storage* 
 **EventEmitter** *eventemitter* Optional
 
+, error
+
 ## sendDiff()
 
 Send diff to clients/server
