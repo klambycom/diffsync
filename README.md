@@ -22,7 +22,9 @@ att skapa en diff på.
 
 En oväntad användning för DS som N. Fraser fann var för onlineapplikationer som
 vill erbjuda autosave-funktionalitet. Då kollaborerar bara användaren med sig
-själv, men eventuellt från olika datorer.
+själv, men eventuellt från olika datorer. Och då finns också samma problem, att
+dokumenten måste syncroniseras igen, för att en dators kanske gamla dokument
+ska bli samma version som finns på servern.
 
 Anledningen till att jag skapar diffsync i javascript är att jag kan dela
 väldigt mycket kod mellan klient och server, det skriver även N. Fraser är en
@@ -46,10 +48,10 @@ av fördelarna med algoritmen.
 
 1. En diff är skapad, med hjälp av [jsondiffpatch][jsondiffpatch], mellan
    klientens text och klientens shadow.
-2. Från diffen skapas en lista med ändringar som har gjorts på klientens text.
-3. Ändringarna kopieras till klientens shadow.
-4. *(a)* En patch skapas från diffen, och skickas till servern. Med [Socket.io][socket].<br>
+2. Ändringarna kopieras till klientens shadow.
+3. *(a)* En patch skapas från diffen, och skickas till servern. Med [Socket.io][socket].<br>
    *(b)* Om diffen inte innehåller några ändringar skickas inget till servern.
+4. Från diffen skapas en lista med ändringar som har gjorts på klientens text.
 5. På servern patchas serverns text och serverns shadow som tillhör användaren.
 6. Nu upprepas processen i andra riktningen för varje klient.
 7. Diffar och patchar skapas så länge dokumenten och deras shadow inte är
@@ -86,7 +88,7 @@ par millisekunder. Och servern måste inte spara alla diffar.
 
 ###### Alt. 3
 
-Algoritmen har arbetat på som vanligt fram till och med steg 3.
+Algoritmen har arbetat på som vanligt fram till och med steg 2.
 
 1. När en klient ansluter efter att ha varit offline, får den dokumentet från
    servern, som vanligt.
