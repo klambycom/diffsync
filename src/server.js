@@ -17,8 +17,8 @@ let storageDriver = require('./storage_driver.js');
 let redis = require('redis');
 
 module.exports = function server(room, socket, client = redis.createClient(), doc = new JSONDocument) {
-  let edits = websocket(socket, doc);
   let storage = storageDriver(room, client);
+  let edits = websocket(socket, doc, storage);
 
   // Join specified room
   socket.join(room);

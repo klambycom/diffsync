@@ -7,10 +7,6 @@ socket.on('connect', function () {
 
   let diffsync = require('../index').client(socket);
 
-  diffsync.on('patch', data => {
-    console.log('PATCH', data);
-  });
-
   diffsync.on('update', data => {
     console.log('UPDATE', data);
 

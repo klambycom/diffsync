@@ -4,12 +4,14 @@
  * # edits(socket, doc)
  *
  * This function is called edits because takes the diffs and create
- * "edits" to send to the server.
+ * "edits" to send to the server. But this is all code shared by both server
+ * and client, so maybe it's not the best name.
  *
  * ### Params:
  *
  * **Socket.io** *socket* 
  * **JSONDocument** *doc* 
+ * **StorageDriver** *storage* 
  * **EventEmitter** *eventemitter* Optional
  */
 
@@ -20,8 +22,8 @@
 var JSONDocument = require("./document");
 var EventEmitter = require("events").EventEmitter;
 
-module.exports = function edits(socket, doc) {
-  var eventemitter = arguments[2] === undefined ? new EventEmitter() : arguments[2];
+module.exports = function edits(socket, doc, storage) {
+  var eventemitter = arguments[3] === undefined ? new EventEmitter() : arguments[3];
 
   var shadow = new JSONDocument();
 
@@ -42,15 +44,25 @@ module.exports = function edits(socket, doc) {
     return false;
   };
 
+  // TODO Handle error!
+  var patchAndSave = function patchAndSave(data, error) {
+    doc.patch(data); // Get document from Redis, to always have the latest
+    // Save doc to db if on server
+    shadow.patch(data); // Shadow should be the same as on client before edits
+  };
+
   // Create patch from received diff
   socket.on("DIFF", function edits(data) {
     // Step 4, a patch is created from the changes
     var patch = data;
 
     // Step 5, both the doc and shadow is patched
-    doc.patch(data); // Get document from Redis, to always have the latest
-    // Save doc to db if on server
-    shadow.patch(data); // Shadow should be the same as on client before edits
+    if (typeof storage === "undefined") {
+      doc.patch(data);
+      shadow.patch(data);
+    } else {
+      storage.getJSON().then(patchAndSave);
+    }
 
     eventemitter.emit("update", doc.json());
 

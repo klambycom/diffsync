@@ -51,8 +51,7 @@ function handler(req, res) {
 io.on('connection', function (socket) {
   let diffsync = server('hash1', socket);
 
-  diffsync.on('patch', data => console.log('PATCH', data));
-  diffsync.on('diff',  data => console.log('DIFF',  data));
+  diffsync.on('update', data => console.log('UPDATE', data));
 
   socket.on('disconnect', () => {
     console.log('Client disconnected');

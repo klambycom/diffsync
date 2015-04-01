@@ -22,8 +22,8 @@ module.exports = function server(room, socket) {
   var client = arguments[2] === undefined ? redis.createClient() : arguments[2];
   var doc = arguments[3] === undefined ? new JSONDocument() : arguments[3];
 
-  var edits = websocket(socket, doc);
   var storage = storageDriver(room, client);
+  var edits = websocket(socket, doc, storage);
 
   // Join specified room
   socket.join(room);

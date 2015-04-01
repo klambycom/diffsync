@@ -17,7 +17,7 @@ var websocket = require("./edits");
 module.exports = function clients(socket) {
   var doc = arguments[1] === undefined ? new JSONDocument() : arguments[1];
 
-  var edits = websocket(socket, doc);
+  var edits = websocket(socket, doc, undefined);
 
   return {
 

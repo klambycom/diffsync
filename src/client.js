@@ -13,7 +13,7 @@ let JSONDocument = require('./document');
 let websocket = require('./edits');
 
 module.exports = function clients(socket, doc = new JSONDocument) {
-  let edits = websocket(socket, doc);
+  let edits = websocket(socket, doc, undefined);
 
   return {
 
