@@ -35,8 +35,7 @@ module.exports = function server(room, socket, client = redis.createClient(), do
      *
      * ### Events:
      *
-     * * diff
-     * * patch
+     * * update
      *
      * @method on
      * @param {String} event

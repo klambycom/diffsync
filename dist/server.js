@@ -40,8 +40,7 @@ module.exports = function server(room, socket) {
      *
      * ### Events:
      *
-     * * diff
-     * * patch
+     * * update
      *
      * @method on
      * @param {String} event

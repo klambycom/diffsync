@@ -198,8 +198,6 @@ Listen for events
 
 ##### Events:
 
-* diff
-* patch
 * update
 
 ##### Params:
@@ -228,8 +226,7 @@ Listen for events
 
 ##### Events:
 
-* diff
-* patch
+* update
 
 ##### Params:
 
