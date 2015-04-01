@@ -43,6 +43,15 @@ Change data
 
 * **JSON** *json* 
 
+## setFromDocument(doc)
+
+Set data from a document, getJSON() must be called first, because of
+tests. I don't have time to do it better right now. Sorry.
+
+### Params:
+
+* **Document** *doc* 
+
 ## getJSON()
 
 Get JSON

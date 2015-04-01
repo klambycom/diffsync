@@ -109,6 +109,19 @@ var JSONDocument = (function () {
       /**
        * Get JSON
        *
+       * #### Example output:
+       *
+       * ```javascript
+       * {
+       *   'name': 'fil1',
+       *   'data': {
+       *     'ett': 1,
+       *     'tva': 'two',
+       *     'tre': [1, 1, 1]
+       *   }
+       * }
+       * ```
+       *
        * @method json
        * @return {JSON} the document as JSON
        */

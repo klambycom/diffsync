@@ -52,6 +52,19 @@ Create a diff using jsondiffpatch
 
 Get JSON
 
+#### Example output:
+
+```javascript
+{
+  'name': 'fil1',
+  'data': {
+    'ett': 1,
+    'tva': 'two',
+    'tre': [1, 1, 1]
+  }
+}
+```
+
 ### Return:
 
 * **JSON** the document as JSON

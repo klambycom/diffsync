@@ -1,4 +1,5 @@
 var storageDriver = require('../dist/storage_driver.js');
+var Doc = require('../dist/document.js');
 
 describe('StorageDriver', function () {
   var sut, redis;
@@ -84,6 +85,38 @@ describe('StorageDriver', function () {
 
     it('should return Promise when "getJSON" is called', function () {
       expect(sut.getJSON().constructor.name).toEqual('Promise');
+    });
+  });
+
+  describe('Set data from document', function () {
+    beforeEach(function () {
+      sut.json_data = { name: 'Filname', data: {} };
+      spyOn(sut, 'setName');
+      spyOn(sut, 'setData');
+    });
+
+    it('should have function "setFromDocument"', function () {
+      expect(sut.setFromDocument).toBeDefined();
+    });
+
+    it('should save name', function () {
+      sut.setFromDocument(new Doc({ name: 'Fil1', data: {} }));
+      expect(sut.setName).toHaveBeenCalledWith('Fil1');
+    });
+
+    it('should only save name if name is changed', function () {
+      sut.setFromDocument(new Doc({ name: 'Filname', data: {} }));
+      expect(sut.setName).not.toHaveBeenCalled();
+    });
+
+    it('should save data', function () {
+      sut.setFromDocument(new Doc({ name: 'Fil1', data: { ett: 1 } }));
+      expect(sut.setData).toHaveBeenCalledWith({ ett: 1 });
+    });
+
+    it('should only save data if data is not empty', function () {
+      sut.setFromDocument(new Doc({ name: 'Fil1', data: {} }));
+      expect(sut.setData).not.toHaveBeenCalled();
     });
   });
 });

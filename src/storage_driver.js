@@ -70,6 +70,26 @@ module.exports = function storageDriver(hash_code, client = redis.createClient()
     },
 
     /**
+     * Set data from a document, getJSON() must be called first, because of
+     * tests. I don't have time to do it better right now. Sorry.
+     *
+     * @method setFromDocument
+     * @param {Document} doc
+     */
+
+    setFromDocument(doc) {
+      let json = doc.json();
+
+      if (json.name !== this.json_data.name) {
+        this.setName(json.name);
+      }
+
+      if (Object.keys(json.data).length > 0) {
+        this.setData(json.data);
+      }
+    },
+
+    /**
      * Get JSON
      *
      * @method getJSON
@@ -85,6 +105,7 @@ module.exports = function storageDriver(hash_code, client = redis.createClient()
 
         // Else return the document
         data.data = JSON.parse(data.data);
+        this.json_data = data;
         return data;
       });
     },
