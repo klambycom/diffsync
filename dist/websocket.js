@@ -26,10 +26,16 @@ module.exports = function edits(socket, doc) {
   var shadow = new JSONDocument();
 
   // Create patch from received diff
-  socket.on("diff", function edits(data) {
-    doc.patch(data);
-    shadow.patch(data);
-    eventemitter.emit("patch", data);
+  socket.on("DIFF", function edits(data) {
+    // Step 4, a patch is created from the changes
+    var patch = data;
+
+    // Step 5, both the doc and shadow is patched
+    doc.patch(data); // Get document from Redis, to always have the latest
+    // Save doc to db if on server
+    shadow.patch(data); // Shadow should be the same as on client before edits
+
+    //eventemitter.emit('patch', data); // Needed?
   });
 
   // Update document when initial document is received
@@ -52,13 +58,17 @@ module.exports = function edits(socket, doc) {
       var diff = doc.diff(shadow);
 
       if (typeof diff !== "undefined") {
+        // Step 2, changes are copied to the shadow
         shadow.patch(diff);
-        socket.emit("diff", diff);
-        eventemitter.emit("diff", diff);
 
+        // Step 3a, changes are sent to server
+        socket.emit("DIFF", diff);
         return true;
+
+        //eventemitter.emit('diff', diff); // TODO Needed?
       }
 
+      // Step 3b, nothing is sent to the server
       return false;
     },
 

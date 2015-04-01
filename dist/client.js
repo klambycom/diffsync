@@ -29,6 +29,7 @@ module.exports = function clients(socket) {
      * @returns {Boolean} false if the document is not changed and diff is not sent
      */
 
+    // Step 1, diff is created
     update: function update(json) {
       doc.update(json);
       return edits.sendDiff();

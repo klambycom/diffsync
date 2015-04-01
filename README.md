@@ -51,7 +51,8 @@ av fördelarna med algoritmen.
 2. Ändringarna kopieras till klientens shadow.
 3. *(a)* En patch skapas från diffen, och skickas till servern. Med [Socket.io][socket].<br>
    *(b)* Om diffen inte innehåller några ändringar skickas inget till servern.
-4. Från diffen skapas en lista med ändringar som har gjorts på klientens text.
+4. Från diffen skapas en lista med ändringar (patch) som har gjorts på klientens
+   text.
 5. På servern patchas serverns text och serverns shadow som tillhör användaren.
 6. Nu upprepas processen i andra riktningen för varje klient.
 7. Diffar och patchar skapas så länge dokumenten och deras shadow inte är
