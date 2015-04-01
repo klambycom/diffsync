@@ -43,8 +43,8 @@ module.exports = function edits(socket, doc, storage, eventemitter = new EventEm
   // TODO Handle error!
   let patchAndSave = function patchAndSave(data, error) {
     doc.patch(data); // Get document from Redis, to always have the latest
-    // Save doc to db if on server
     shadow.patch(data); // Shadow should be the same as on client before edits
+    storage.setFromDocument(doc); // Save doc to db
   };
 
   // Create patch from received diff
