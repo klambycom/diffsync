@@ -48,12 +48,7 @@ describe('Edits', function () {
 
     it('should send diff using socket', function () {
       sut.sendDiff();
-      expect(socket.emit).toHaveBeenCalledWith('diff', diff);
-    });
-
-    it('should send diff using eventemitter', function () {
-      sut.sendDiff();
-      expect(eventemitter.emit).toHaveBeenCalledWith('diff', diff);
+      expect(socket.emit).toHaveBeenCalledWith('DIFF', diff);
     });
   });
 });
