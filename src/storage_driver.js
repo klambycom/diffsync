@@ -59,45 +59,45 @@ module.exports = function storageDriver(hash_code, client = redis.createClient()
         return create_promise(data => JSON.parse(data), 'data');
       },
 
-        /**
-         * Change data
-         *
-         * @method setData
-         * @param {JSON} json
-         */
+      /**
+       * Change data
+       *
+       * @method setData
+       * @param {JSON} json
+       */
 
-        setData(json) {
-          client.hset(hash_code, 'data', JSON.stringify(json));
-        },
+      setData(json) {
+        client.hset(hash_code, 'data', JSON.stringify(json));
+      },
 
-        /**
-         * Get JSON
-         *
-         * @method getJSON
-         * @returns all data as JSON
-         */
+      /**
+       * Get JSON
+       *
+       * @method getJSON
+       * @returns all data as JSON
+       */
 
-        getJSON() {
-          return create_promise(data => {
-            // Return empty document if nothing in db
-            if (typeof data === 'undefined' || data === null) {
-              return { name: '', data: {} };
-            }
-
-            // Else return the document
-            data.data = JSON.parse(data.data);
-            return data;
-          });
-        },
-
-          /**
-           * Disconnects from redis
-           *
-           * @method disconnect
-           */
-
-          disconnect() {
-            client.quit();
+      getJSON() {
+        return create_promise(data => {
+          // Return empty document if nothing in db
+          if (typeof data === 'undefined' || data === null) {
+            return { name: '', data: {} };
           }
+
+          // Else return the document
+          data.data = JSON.parse(data.data);
+          return data;
+        });
+      },
+
+      /**
+       * Disconnects from redis
+       *
+       * @method disconnect
+       */
+
+      disconnect() {
+        client.quit();
+      }
   };
 };
