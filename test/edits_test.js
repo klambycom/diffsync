@@ -1,8 +1,8 @@
-var websocket = require('../dist/websocket.js');
+var edits = require('../dist/edits.js');
 
-describe('websocket', function () {
+describe('Edits', function () {
   it('should have eventemitter object', function () {
-    var sut = websocket({ on: function () {} });
+    var sut = edits({ on: function () {} });
     expect(sut.eventemitter).toBeDefined();
   });
 
@@ -32,7 +32,7 @@ describe('websocket', function () {
       spyOn(eventemitter, 'on');
       spyOn(eventemitter, 'emit');
 
-      sut = websocket(socket, doc, eventemitter);
+      sut = edits(socket, doc, eventemitter);
     });
 
     it('should have sendDiff method', function () {

@@ -1,9 +1,9 @@
 // TODO Remove this file? Rename? Edits?
 
 /**
- * # Websocket(socket, doc)
+ * # edits(socket, doc)
  *
- * This function is called edits (TODO) because takes the diffs and create
+ * This function is called edits because takes the diffs and create
  * "edits" to send to the server.
  *
  * ### Params:

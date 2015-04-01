@@ -12,7 +12,7 @@
 "use strict";
 
 var JSONDocument = require("./document");
-var websocket = require("./websocket");
+var websocket = require("./edits");
 
 module.exports = function clients(socket) {
   var doc = arguments[1] === undefined ? new JSONDocument() : arguments[1];

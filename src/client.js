@@ -10,7 +10,7 @@
 /*! */
 
 let JSONDocument = require('./document');
-let websocket = require('./websocket');
+let websocket = require('./edits');
 
 module.exports = function clients(socket, doc = new JSONDocument) {
   let edits = websocket(socket, doc);

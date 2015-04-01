@@ -12,7 +12,7 @@
 /*! */
 
 let JSONDocument = require('./document');
-let websocket = require('./websocket');
+let websocket = require('./edits');
 let storageDriver = require('./storage_driver.js');
 let redis = require('redis');
 

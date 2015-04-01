@@ -14,7 +14,7 @@
 "use strict";
 
 var JSONDocument = require("./document");
-var websocket = require("./websocket");
+var websocket = require("./edits");
 var storageDriver = require("./storage_driver.js");
 var redis = require("redis");
 
