@@ -32,7 +32,8 @@ describe('Edits', function () {
       spyOn(eventemitter, 'on');
       spyOn(eventemitter, 'emit');
 
-      sut = edits(socket, doc, eventemitter);
+      var shadow = { patch: function () {} };
+      sut = edits(socket, doc, shadow, eventemitter);
     });
 
     it('should have sendDiff method', function () {

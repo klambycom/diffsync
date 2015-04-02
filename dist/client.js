@@ -13,11 +13,21 @@
 
 var JSONDocument = require("./document");
 var websocket = require("./edits");
+var EventEmitter = require("events").EventEmitter;
 
 module.exports = function clients(socket) {
   var doc = arguments[1] === undefined ? new JSONDocument() : arguments[1];
 
-  var edits = websocket(socket, doc, undefined);
+  var shadow = new JSONDocument();
+  var eventemitter = new EventEmitter();
+  var edits = websocket(socket, doc, shadow, undefined, eventemitter);
+
+  // Update document when initial document is received
+  socket.on("init_document", function (data) {
+    doc.update(data);
+    shadow.update(data);
+    eventemitter.emit("update", doc.json());
+  });
 
   return {
 
@@ -31,6 +41,7 @@ module.exports = function clients(socket) {
 
     // Step 1, diff is created
     update: function update(json) {
+      console.log("Step 1, Create diff");
       doc.update(json);
       return edits.sendDiff();
     },

@@ -12,10 +12,9 @@ and client, so maybe it's not the best name.
 
 **Socket.io** *socket* 
 **JSONDocument** *doc* 
+**JSONDocument** *shadow* 
 **StorageDriver** *storage* 
 **EventEmitter** *eventemitter* Optional
-
-, error
 
 ## sendDiff()
 

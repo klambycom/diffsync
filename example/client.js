@@ -16,11 +16,6 @@ socket.on('connect', function () {
 
   sendElem.addEventListener('click', e => {
     let result = diffsync.update(JSON.parse(docElem.value));
-
-    if (result) {
-      console.log('Diff sent');
-    } else {
-      console.log('Diff NOT sent');
-    }
+    if (!result) { console.log('Diff NOT sent'); }
   });
 });

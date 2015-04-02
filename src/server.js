@@ -18,7 +18,9 @@ let redis = require('redis');
 
 module.exports = function server(room, socket, client = redis.createClient(), doc = new JSONDocument) {
   let storage = storageDriver(room, client);
-  let edits = websocket(socket, doc, storage);
+  let shadow = new  JSONDocument();
+  let edits = websocket(socket, doc, shadow, storage);
+
 
   // Join specified room
   socket.join(room);
@@ -26,7 +28,11 @@ module.exports = function server(room, socket, client = redis.createClient(), do
   // Send document to client, when client connects
   storage
     .getJSON()
-    .then((data/*, error*/) => socket.emit('init_document', data));
+    .then((data/*, error*/) => {
+      socket.emit('init_document', data);
+      doc.update(data);
+      shadow.update(data);
+    });
 
   return {
 

@@ -23,14 +23,17 @@ module.exports = function server(room, socket) {
   var doc = arguments[3] === undefined ? new JSONDocument() : arguments[3];
 
   var storage = storageDriver(room, client);
-  var edits = websocket(socket, doc, storage);
+  var shadow = new JSONDocument();
+  var edits = websocket(socket, doc, shadow, storage);
 
   // Join specified room
   socket.join(room);
 
   // Send document to client, when client connects
   storage.getJSON().then(function (data /*, error*/) {
-    return socket.emit("init_document", data);
+    socket.emit("init_document", data);
+    doc.update(data);
+    shadow.update(data);
   });
 
   return {
