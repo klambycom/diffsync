@@ -238,7 +238,7 @@ Listen for events
 
 Copyright (c) 2015 Christian Nilsson
 
-Licensed under the MIT license.
+Licensed under the [MIT license](https://github.com/klambycom/diffsync/blob/master/LICENSE).
 
 
 [david-url]: https://david-dm.org/klambycom/diffsync#info=dependencies&view=table
