@@ -18,7 +18,6 @@
 
 /*! */
 
-let JSONDocument = require('./document');
 let EventEmitter = require('events').EventEmitter;
 
 module.exports = function edits(socket, doc, shadow, storage, eventemitter = new EventEmitter) {
