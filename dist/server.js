@@ -26,6 +26,11 @@ module.exports = function server(room, socket) {
   var shadow = new JSONDocument();
   var edits = websocket(socket, doc, shadow, storage);
 
+  // Disconnect from redis when user disconnects
+  socket.on("disconnect", function () {
+    return storage.disconnect();
+  });
+
   // Join specified room
   socket.join(room);
 

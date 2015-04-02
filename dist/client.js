@@ -41,7 +41,6 @@ module.exports = function clients(socket) {
 
     // Step 1, diff is created
     update: function update(json) {
-      console.log("Step 1, Create diff");
       doc.update(json);
       return edits.sendDiff();
     },
