@@ -3,9 +3,9 @@ var babel = require('gulp-babel');
 var browserify = require('gulp-browserify');
 var markdox = require('gulp-markdox');
 var rename = require('gulp-rename');
-var server = require('gulp-develop-server');
 var jasmine = require('gulp-jasmine');
 var jshint = require('gulp-jshint');
+var nodemon = require('gulp-nodemon');
 
 var paths = {
   js:       'src/**/*.js',
@@ -51,7 +51,16 @@ gulp.task('docs', function () {
 });
 
 gulp.task('server:start', ['example:copyserver'], function () {
-  server.listen({ path: 'dist/example/server.js' });
+  nodemon({
+    script: 'dist/example/server.js',
+    watch: [
+      'dist/document.js',
+      'dist/edits.js',
+      'dist/server.js',
+      'dist/storage_driver.js'
+    ],
+    env: { 'NODE_ENV': 'development' }
+  });
 });
 
 gulp.task('jasmine', function () {
@@ -75,12 +84,11 @@ gulp.task('setup:hooks', function () {
     .pipe(gulp.dest('.git/hooks/'));
 });
 
-gulp.task('watch', ['server:start'], function () {
+gulp.task('watch', function () {
   gulp.watch(paths.js, ['babel', 'example', 'docs']);
   gulp.watch(paths.example.js, ['example']);
-  //gulp.watch(paths.example.server, ['example:copyserver']);
+  gulp.watch(paths.example.server, ['example:copyserver']);
   gulp.watch(paths.example.html, ['example:copyhtml']);
-  gulp.watch(paths.example.server, server.restart);
 });
 
 gulp.task('example', ['example:browserify', 'example:copyhtml', 'example:copyserver']);
