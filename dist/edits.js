@@ -20,7 +20,6 @@
 
 "use strict";
 
-var JSONDocument = require("./document");
 var EventEmitter = require("events").EventEmitter;
 
 module.exports = function edits(socket, doc, shadow, storage) {
