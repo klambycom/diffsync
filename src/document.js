@@ -32,6 +32,12 @@ class JSONDocument {
     this.json_data = cloneObject(json);
   }
 
+  /**
+   * Check if the document is empty
+   *
+   * @method isEmpty
+   * @return {Boolean} true if empty
+   */
   isEmpty() {
     return Object.keys(this.json_data).length === 0;
   }

@@ -9,11 +9,11 @@
 
 /*! */
 
-"use strict";
+'use strict';
 
-var JSONDocument = require("./document");
-var websocket = require("./edits");
-var EventEmitter = require("events").EventEmitter;
+var JSONDocument = require('./document');
+var websocket = require('./edits');
+var EventEmitter = require('events').EventEmitter;
 
 module.exports = function clients(socket) {
   var doc = arguments[1] === undefined ? new JSONDocument() : arguments[1];
@@ -23,10 +23,26 @@ module.exports = function clients(socket) {
   var edits = websocket(socket, doc, shadow, undefined, eventemitter);
 
   // Update document when initial document is received
-  socket.on("init_document", function (data) {
-    doc.update(data);
-    shadow.update(data);
-    eventemitter.emit("update", doc.json());
+  var counter = 0; // Ugly hack! Counter is needed because fired two times when
+  // client reconnects. I don't know if it's because this is
+  // inside socket.on('connect'). isEmpty() returns false
+  // first than true. This will work for now.
+  socket.on('init_document', function (data) {
+    // Fresh client
+    if (doc.isEmpty()) {
+      doc.update(data);
+      shadow.update(data);
+
+      eventemitter.emit('update', doc.json());
+    }
+    // Client have been offline
+    else if (counter > 0) {
+      var tmp = new JSONDocument(data);
+
+      eventemitter.emit('update', doc.json());
+    }
+
+    counter++;
   });
 
   return {

@@ -19,10 +19,26 @@ module.exports = function clients(socket, doc = new JSONDocument) {
   let edits = websocket(socket, doc, shadow, undefined, eventemitter);
 
   // Update document when initial document is received
+  let counter = 0; // Ugly hack! Counter is needed because fired two times when
+                   // client reconnects. I don't know if it's because this is
+                   // inside socket.on('connect'). isEmpty() returns false
+                   // first than true. This will work for now.
   socket.on('init_document', data => {
-    doc.update(data);
-    shadow.update(data);
-    eventemitter.emit('update', doc.json());
+    // Fresh client
+    if (doc.isEmpty()) {
+      doc.update(data);
+      shadow.update(data);
+
+      eventemitter.emit('update', doc.json());
+    }
+    // Client have been offline
+    else if (counter > 0) {
+      let tmp = new JSONDocument(data);
+
+      eventemitter.emit('update', doc.json());
+    }
+
+    counter++;
   });
 
   return {

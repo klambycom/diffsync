@@ -8,26 +8,26 @@
 /*! */
 
 /* global -Promise */
-"use strict";
+'use strict';
 
-var Promise = require("promise");
-var redis = require("redis");
+var Promise = require('promise');
+var redis = require('redis');
 
 module.exports = function storageDriver(hash_code) {
   var client = arguments[1] === undefined ? redis.createClient() : arguments[1];
 
-  var create_promise = function (callback) {
-    var key = arguments[1] === undefined ? "" : arguments[1];
+  var create_promise = function create_promise(callback) {
+    var key = arguments[1] === undefined ? '' : arguments[1];
 
     return new Promise(function (resolve, reject) {
-      var redisCallback = function (err, data) {
+      var redisCallback = function redisCallback(err, data) {
         if (err !== null) {
           reject(err);
         } else {
           resolve(callback(data));
         }
       };
-      if (key === "") {
+      if (key === '') {
         client.hgetall(hash_code, redisCallback);
       } else {
         client.hget(hash_code, key, redisCallback);
@@ -47,7 +47,7 @@ module.exports = function storageDriver(hash_code) {
     getName: function getName() {
       return create_promise(function (data) {
         return data;
-      }, "name");
+      }, 'name');
     },
 
     /**
@@ -58,7 +58,7 @@ module.exports = function storageDriver(hash_code) {
      */
 
     setName: function setName(name) {
-      client.hset(hash_code, "name", name);
+      client.hset(hash_code, 'name', name);
     },
 
     /**
@@ -71,7 +71,7 @@ module.exports = function storageDriver(hash_code) {
     getData: function getData() {
       return create_promise(function (data) {
         return JSON.parse(data);
-      }, "data");
+      }, 'data');
     },
 
     /**
@@ -82,7 +82,7 @@ module.exports = function storageDriver(hash_code) {
      */
 
     setData: function setData(json) {
-      client.hset(hash_code, "data", JSON.stringify(json));
+      client.hset(hash_code, 'data', JSON.stringify(json));
     },
 
     /**
@@ -117,8 +117,8 @@ module.exports = function storageDriver(hash_code) {
 
       return create_promise(function (data) {
         // Return empty document if nothing in db
-        if (typeof data === "undefined" || data === null) {
-          return { name: "", data: {} };
+        if (typeof data === 'undefined' || data === null) {
+          return { name: '', data: {} };
         }
 
         // Else return the document
@@ -129,7 +129,7 @@ module.exports = function storageDriver(hash_code) {
     },
 
     publishDiff: function publishDiff() {
-      client.publish(hash_code, "diff");
+      client.publish(hash_code, 'diff');
     },
 
     /**

@@ -18,9 +18,9 @@
 
 /*! */
 
-"use strict";
+'use strict';
 
-var EventEmitter = require("events").EventEmitter;
+var EventEmitter = require('events').EventEmitter;
 
 module.exports = function edits(socket, doc, shadow, storage) {
   var eventemitter = arguments[4] === undefined ? new EventEmitter() : arguments[4];
@@ -29,12 +29,12 @@ module.exports = function edits(socket, doc, shadow, storage) {
     var diff = doc.diff(shadow);
 
     // Step 7, continue to send diff as long as the documents is not identical
-    if (typeof diff !== "undefined") {
+    if (typeof diff !== 'undefined') {
       // Step 2, changes are copied to the shadow
       shadow.patch(diff);
 
       // Step 3a, changes are sent to server
-      socket.emit("DIFF", diff);
+      socket.emit('DIFF', diff);
       return true;
     }
 
@@ -45,19 +45,19 @@ module.exports = function edits(socket, doc, shadow, storage) {
   var patchDocs = function patchDocs(data) {
     doc.patch(data);
     shadow.patch(data);
-    eventemitter.emit("update", doc.json());
+    eventemitter.emit('update', doc.json());
 
     // Step 6, send new diff to all connected clients
     sendDiff();
   };
 
   // Create patch from received diff
-  socket.on("DIFF", function edits(data) {
+  socket.on('DIFF', function edits(data) {
     // Step 4, a patch is created from the changes
     var patch = data;
 
     // Step 5, both the doc and shadow is patched
-    if (typeof storage === "undefined") {
+    if (typeof storage === 'undefined') {
       patchDocs(patch);
     } else {
       // TODO Handle error!
