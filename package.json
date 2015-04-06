@@ -20,10 +20,10 @@
   "author": "Christian Nilsson <christian@klamby.com> (http://klamby.com/)",
   "license": "MIT",
   "devDependencies": {
-    "babelify": "^5.0.4",
-    "browserify": "9.0.3",
+    "babelify": "6.0.1",
+    "browserify": "9.0.7",
     "gulp": "^3.8.11",
-    "gulp-babel": "^4.0.0",
+    "gulp-babel": "5.0.0",
     "gulp-browserify": "^0.5.1",
     "gulp-jasmine": "^2.0.0",
     "gulp-jshint": "^1.9.4",
@@ -33,7 +33,7 @@
     "jshint-stylish": "^1.0.1"
   },
   "dependencies": {
-    "hiredis": "^0.2.0",
+    "hiredis": "0.3.0",
     "jsondiffpatch": "^0.1.27",
     "promise": "^6.1.0",
     "redis": "^0.12.1",
