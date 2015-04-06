@@ -8,6 +8,8 @@
 
 let diffpatch = require('jsondiffpatch').create();
 
+let cloneObject = json => JSON.parse(JSON.stringify(json));
+
 class JSONDocument {
 
   /**
@@ -16,7 +18,7 @@ class JSONDocument {
    */
 
   constructor(json = {}) {
-    this.json_data = json;
+    this.json_data = cloneObject(json);
   }
 
   /**
@@ -27,7 +29,7 @@ class JSONDocument {
    */
 
   update(json = {}) {
-    this.json_data = json;
+    this.json_data = cloneObject(json);
   }
 
   /**
@@ -92,7 +94,7 @@ class JSONDocument {
    */
 
   json() {
-    return JSON.parse(JSON.stringify(this.json_data));
+    return cloneObject(this.json_data);
   }
 }
 

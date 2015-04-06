@@ -16,6 +16,13 @@ describe('Document', function () {
     expect(sut.json_data).toEqual({});
   });
 
+  it('should copy the object', function () {
+    var json = { test: 'pass' };
+    sut = new Doc(json);
+    json.test = 'fail';
+    expect(sut.json_data).toEqual({ test: 'pass' });
+  });
+
   describe('update', function () {
     it('should have a update method', function () {
       expect(sut.update).toBeDefined();
@@ -25,6 +32,13 @@ describe('Document', function () {
       var json = { test: 'pass', type: 'audio', name: 'file1' };
       sut.update(json);
       expect(sut.json_data).toEqual(json);
+    });
+
+    it('should copy the object', function () {
+      var json = { test: 'pass' };
+      sut.update(json);
+      json.test = 'fail';
+      expect(sut.json_data).toEqual({ test: 'pass' });
     });
   });
 
@@ -81,6 +95,13 @@ describe('Document', function () {
 
     it('should return the json', function () {
       expect(sut.json()).toEqual({ test: 'pass', type: 'audio', name: 'testfile' });
+    });
+
+    it('should copy the object', function () {
+      sut = new Doc({ test: 'pass' });
+      var json = sut.json();
+      json.test = 'fail';
+      expect(sut.json_data).toEqual({ test: 'pass' });
     });
   });
 });

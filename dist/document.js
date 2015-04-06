@@ -14,6 +14,10 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 
 var diffpatch = require("jsondiffpatch").create();
 
+var cloneObject = function (json) {
+  return JSON.parse(JSON.stringify(json));
+};
+
 var JSONDocument = (function () {
 
   /**
@@ -26,7 +30,7 @@ var JSONDocument = (function () {
 
     _classCallCheck(this, JSONDocument);
 
-    this.json_data = json;
+    this.json_data = cloneObject(json);
   }
 
   _createClass(JSONDocument, {
@@ -42,7 +46,7 @@ var JSONDocument = (function () {
       value: function update() {
         var json = arguments[0] === undefined ? {} : arguments[0];
 
-        this.json_data = json;
+        this.json_data = cloneObject(json);
       }
     },
     merge: {
@@ -127,7 +131,7 @@ var JSONDocument = (function () {
        */
 
       value: function json() {
-        return JSON.parse(JSON.stringify(this.json_data));
+        return cloneObject(this.json_data);
       }
     }
   });
