@@ -33,7 +33,7 @@
     "jshint-stylish": "^1.0.1"
   },
   "dependencies": {
-    "hiredis": "^0.2.0",
+    "hiredis": "0.3.0",
     "jsondiffpatch": "^0.1.27",
     "promise": "^6.1.0",
     "redis": "^0.12.1",
