@@ -104,4 +104,19 @@ describe('Document', function () {
       expect(sut.json_data).toEqual({ test: 'pass' });
     });
   });
+
+  describe('isEmpty', function () {
+    it('should be defined', function () {
+      expect(sut.isEmpty).toBeDefined();
+    });
+
+    it('should return true if document contains json', function () {
+      expect(sut.isEmpty()).toBe(false);
+    });
+
+    it('should return false if json is empty', function () {
+      sut = new Doc();
+      expect(sut.isEmpty()).toBe(true);
+    });
+  });
 });

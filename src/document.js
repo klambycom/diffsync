@@ -32,6 +32,10 @@ class JSONDocument {
     this.json_data = cloneObject(json);
   }
 
+  isEmpty() {
+    return Object.keys(this.json_data).length === 0;
+  }
+
   /**
    * Merge instructions
    *

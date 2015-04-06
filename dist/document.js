@@ -49,6 +49,11 @@ var JSONDocument = (function () {
         this.json_data = cloneObject(json);
       }
     },
+    isEmpty: {
+      value: function isEmpty() {
+        return Object.keys(this.json_data).length === 0;
+      }
+    },
     merge: {
 
       /**
