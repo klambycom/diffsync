@@ -128,6 +128,10 @@ module.exports = function storageDriver(hash_code) {
       });
     },
 
+    publishDiff: function publishDiff() {
+      client.publish(hash_code, "diff");
+    },
+
     /**
      * Disconnects from redis
      *

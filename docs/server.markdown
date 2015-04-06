@@ -13,6 +13,8 @@
 
 , error
 
+channel, message
+
 ## on(event, listener)
 
 Listen for events

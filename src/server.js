@@ -21,9 +21,6 @@ module.exports = function server(room, socket, client = redis.createClient(), do
   let shadow = new  JSONDocument();
   let edits = websocket(socket, doc, shadow, storage);
 
-  // Disconnect from redis when user disconnects
-  socket.on('disconnect', () => storage.disconnect());
-
   // Join specified room
   socket.join(room);
 
@@ -35,6 +32,27 @@ module.exports = function server(room, socket, client = redis.createClient(), do
       doc.update(data);
       shadow.update(data);
     });
+
+  // Listen for changes on other clients
+  let redisListener = redis.createClient();
+  redisListener.on('message', (/*channel, message*/) => {
+    // TODO Handle error!
+    storage.getJSON().then((json, error) => {
+      if (error) {
+        console.log(error);
+      } else {
+        doc.update(json);
+        edits.sendDiff();
+      }
+    });
+  });
+  redisListener.subscribe(room);
+
+  // Disconnect from redis when user disconnects
+  socket.on('disconnect', () => {
+    redisListener.end();
+    storage.disconnect();
+  });
 
   return {
 

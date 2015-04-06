@@ -110,6 +110,10 @@ module.exports = function storageDriver(hash_code, client = redis.createClient()
       });
     },
 
+    publishDiff() {
+      client.publish(hash_code, 'diff');
+    },
+
     /**
      * Disconnects from redis
      *

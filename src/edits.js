@@ -65,6 +65,8 @@ module.exports = function edits(socket, doc, shadow, storage, eventemitter = new
           patchDocs(patch);
           // Save
           storage.setFromDocument(doc);
+          // Send event to redis
+          storage.publishDiff();
         }
       });
     }
