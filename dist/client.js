@@ -116,6 +116,7 @@ module.exports = function clients(socket) {
      */
 
     offline: function offline() {
+      socket.removeAllListeners('DIFF');
       online = false;
     },
 
@@ -134,6 +135,7 @@ module.exports = function clients(socket) {
 
       return online;
     })(function () {
+      edits = websocket(socket, doc, shadow, undefined, eventemitter);
       socket.emit('reconnect_for_testing', 'online');
       online = true;
     })

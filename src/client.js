@@ -112,6 +112,7 @@ module.exports = function clients(socket, doc = new JSONDocument) {
      */
 
     offline() {
+      socket.removeAllListeners('DIFF');
       online = false;
     },
 
@@ -120,6 +121,7 @@ module.exports = function clients(socket, doc = new JSONDocument) {
      */
 
     online() {
+      edits = websocket(socket, doc, shadow, undefined, eventemitter);
       socket.emit('reconnect_for_testing', 'online');
       online = true;
     }
