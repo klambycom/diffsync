@@ -49,7 +49,7 @@ module.exports = function clients(socket, doc = new JSONDocument) {
       eventemitter.emit('update', doc.json());
     }
 
-    counter++;
+    counter += 1;
   });
 
   let online = true;

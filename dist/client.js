@@ -53,7 +53,7 @@ module.exports = function clients(socket) {
       eventemitter.emit('update', doc.json());
     }
 
-    counter++;
+    counter += 1;
   });
 
   var online = true;
