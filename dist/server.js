@@ -36,6 +36,16 @@ module.exports = function server(room, socket) {
     shadow.update(data);
   });
 
+  // ONLY FOR TESTING
+  socket.on('reconnect_for_testing', function () {
+    console.log('RECONNECT');
+    storage.getJSON().then(function (data /*, error*/) {
+      socket.emit('init_document', data);
+      doc.update(data);
+      shadow.update(data);
+    });
+  });
+
   // Listen for changes on other clients
   var redisListener = redis.createClient();
   redisListener.on('message', function () {

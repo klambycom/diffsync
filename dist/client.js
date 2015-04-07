@@ -37,6 +37,7 @@ module.exports = function clients(socket) {
     }
     // Offline 1, Client have been offline
     else if (counter > 0) {
+      console.log('Reconnect'); // TODO Remove!
       // Offline 2, Create a temp document from json from server
       var tmp = new JSONDocument(data);
       // Offline 4, create diff between tmp and shadow
@@ -55,6 +56,8 @@ module.exports = function clients(socket) {
     counter++;
   });
 
+  var online = true;
+
   return {
 
     /**
@@ -68,7 +71,11 @@ module.exports = function clients(socket) {
     // Step 1, diff is created
     update: function update(json) {
       doc.update(json);
-      return edits.sendDiff();
+
+      if (online) {
+        return edits.sendDiff();
+      }
+      return true;
     },
 
     /**
@@ -81,7 +88,11 @@ module.exports = function clients(socket) {
 
     merge: function merge(json) {
       doc.merge(json);
-      return edits.sendDiff();
+
+      if (online) {
+        return edits.sendDiff();
+      }
+      return true;
     },
 
     /**
@@ -98,6 +109,33 @@ module.exports = function clients(socket) {
 
     on: function on(e, listener) {
       edits.eventemitter.on(e, listener);
-    }
+    },
+
+    /*
+     * Only for testing
+     */
+
+    offline: function offline() {
+      online = false;
+    },
+
+    /*
+     * Only for testing
+     */
+
+    online: (function (_online) {
+      function online() {
+        return _online.apply(this, arguments);
+      }
+
+      online.toString = function () {
+        return _online.toString();
+      };
+
+      return online;
+    })(function () {
+      socket.emit('reconnect_for_testing', 'online');
+      online = true;
+    })
   };
 };
