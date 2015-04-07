@@ -19,11 +19,40 @@ module.exports = function clients(socket, doc = new JSONDocument) {
   let edits = websocket(socket, doc, shadow, undefined, eventemitter);
 
   // Update document when initial document is received
+  let counter = 0; // Ugly hack! Counter is needed because fired two times when
+                   // client reconnects. I don't know if it's because this is
+                   // inside socket.on('connect'). isEmpty() returns false
+                   // first than true. This will work for now.
   socket.on('init_document', data => {
-    doc.update(data);
-    shadow.update(data);
-    eventemitter.emit('update', doc.json());
+    // Fresh client
+    if (doc.isEmpty()) {
+      doc.update(data);
+      shadow.update(data);
+
+      eventemitter.emit('update', doc.json());
+    }
+    // Offline 1, Client have been offline
+    else if (counter > 0) {
+      console.log('Reconnect'); // TODO Remove!
+      // Offline 2, Create a temp document from json from server
+      let tmp = new JSONDocument(data);
+      // Offline 4, create diff between tmp and shadow
+      let diff = tmp.diff(shadow);
+      // Offline 6, patch document and shadow
+      if (typeof diff !== 'undefined') {
+        doc.patch(diff);
+        shadow.patch(diff);
+      }
+      // Offline 8, send diff between document and shadow to server
+      edits.sendDiff();
+
+      eventemitter.emit('update', doc.json());
+    }
+
+    counter += 1;
   });
+
+  let online = true;
 
   return {
 
@@ -38,7 +67,11 @@ module.exports = function clients(socket, doc = new JSONDocument) {
     // Step 1, diff is created
     update(json) {
       doc.update(json);
-      return edits.sendDiff();
+
+      if (online) {
+        return edits.sendDiff();
+      }
+      return true;
     },
 
     /**
@@ -51,7 +84,11 @@ module.exports = function clients(socket, doc = new JSONDocument) {
 
     merge(json) {
       doc.merge(json);
-      return edits.sendDiff();
+
+      if (online) {
+        return edits.sendDiff();
+      }
+      return true;
     },
 
     /**
@@ -68,6 +105,25 @@ module.exports = function clients(socket, doc = new JSONDocument) {
 
     on(e, listener) {
       edits.eventemitter.on(e, listener);
+    },
+
+    /*
+     * Only for testing
+     */
+
+    offline() {
+      socket.removeAllListeners('DIFF');
+      online = false;
+    },
+
+    /*
+     * Only for testing
+     */
+
+    online() {
+      edits = websocket(socket, doc, shadow, undefined, eventemitter);
+      socket.emit('reconnect_for_testing', 'online');
+      online = true;
     }
   };
 };

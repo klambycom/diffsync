@@ -20,6 +20,14 @@ Update the whole document
 
 * **Object** *json* Information about and instructions for the document
 
+## isEmpty()
+
+Check if the document is empty
+
+### Return:
+
+* **Boolean** true if empty
+
 ## merge(json)
 
 Merge instructions

@@ -33,6 +33,18 @@ module.exports = function server(room, socket, client = redis.createClient(), do
       shadow.update(data);
     });
 
+  // ONLY FOR TESTING
+  socket.on('reconnect_for_testing', () => {
+    console.log('RECONNECT');
+    storage
+      .getJSON()
+      .then((data/*, error*/) => {
+        socket.emit('init_document', data);
+        doc.update(data);
+        shadow.update(data);
+      });
+  });
+
   // Listen for changes on other clients
   let redisListener = redis.createClient();
   redisListener.on('message', (/*channel, message*/) => {

@@ -11,12 +11,12 @@
 
 /*! */
 
-"use strict";
+'use strict';
 
-var JSONDocument = require("./document");
-var websocket = require("./edits");
-var storageDriver = require("./storage_driver.js");
-var redis = require("redis");
+var JSONDocument = require('./document');
+var websocket = require('./edits');
+var storageDriver = require('./storage_driver.js');
+var redis = require('redis');
 
 module.exports = function server(room, socket) {
   var client = arguments[2] === undefined ? redis.createClient() : arguments[2];
@@ -31,14 +31,24 @@ module.exports = function server(room, socket) {
 
   // Send document to client, when client connects
   storage.getJSON().then(function (data /*, error*/) {
-    socket.emit("init_document", data);
+    socket.emit('init_document', data);
     doc.update(data);
     shadow.update(data);
   });
 
+  // ONLY FOR TESTING
+  socket.on('reconnect_for_testing', function () {
+    console.log('RECONNECT');
+    storage.getJSON().then(function (data /*, error*/) {
+      socket.emit('init_document', data);
+      doc.update(data);
+      shadow.update(data);
+    });
+  });
+
   // Listen for changes on other clients
   var redisListener = redis.createClient();
-  redisListener.on("message", function () {
+  redisListener.on('message', function () {
     // TODO Handle error!
     storage.getJSON().then(function (json, error) {
       if (error) {
@@ -52,7 +62,7 @@ module.exports = function server(room, socket) {
   redisListener.subscribe(room);
 
   // Disconnect from redis when user disconnects
-  socket.on("disconnect", function () {
+  socket.on('disconnect', function () {
     redisListener.end();
     storage.disconnect();
   });
