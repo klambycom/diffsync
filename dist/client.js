@@ -35,9 +35,19 @@ module.exports = function clients(socket) {
 
       eventemitter.emit('update', doc.json());
     }
-    // Client have been offline
+    // Offline 1, Client have been offline
     else if (counter > 0) {
+      // Offline 2, Create a temp document from json from server
       var tmp = new JSONDocument(data);
+      // Offline 4, create diff between tmp and shadow
+      var diff = tmp.diff(shadow);
+      // Offline 6, patch document and shadow
+      if (typeof diff !== 'undefined') {
+        doc.patch(diff);
+        shadow.patch(diff);
+      }
+      // Offline 8, send diff between document and shadow to server
+      edits.sendDiff();
 
       eventemitter.emit('update', doc.json());
     }
