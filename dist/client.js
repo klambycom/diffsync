@@ -40,17 +40,12 @@ module.exports = function clients(socket) {
       console.log('Reconnect'); // TODO Remove!
       // Offline 2, Create a temp document from json from server
       var tmp = new JSONDocument(data);
-      // Offline 4, create diff between tmp and shadow
+      // Offline 3-4, create diff between tmp and shadow
       var diff = tmp.diff(shadow);
-      // Offline 6, patch document and shadow
-      if (typeof diff !== 'undefined') {
-        doc.patch(diff);
-        shadow.patch(diff);
-      }
-      // Offline 8, send diff between document and shadow to server
-      edits.sendDiff();
-
-      eventemitter.emit('update', doc.json());
+      console.log('offline diff', diff);
+      // Offline 5, patch document and shadow
+      // Offline 6, send diff between document and shadow to server
+      edits.patch(diff);
     }
 
     counter += 1;

@@ -1,3 +1,51 @@
+/*
+let diffpatch = require('jsondiffpatch').create();
+
+let file1 = {
+  'name': 'audiofile1',
+  'data': {
+    'f1': {
+      'type': 'file',
+      'file': '/alien_phaser.wav',
+      'start': 0,
+      'end': 1.399
+    },
+    'f2': {
+      'type': 'file',
+      'file': '/car.wav',
+      'start': 1.5,
+      'end': 2.7935833333
+    },
+    'f3': {
+      'type': 'file',
+      'file': '/surround.wav',
+      'start': 10,
+      'end': 25.9999,
+      'rate': 3
+    }
+  }
+};
+
+let shadow = JSON.parse(JSON.stringify(file1));
+let file2 = JSON.parse(JSON.stringify(file1));
+let file3 = JSON.parse(JSON.stringify(file1));
+
+file1.data['f1'].type = 'filen';
+file2.data['f2'].file = '/cat.mp3';
+file2.data['f3'].type = 'drums';
+
+let diff1 = diffpatch.diff(shadow, file1);
+diffpatch.patch(shadow, diff1);
+diffpatch.patch(file2, diff1);
+let diff2 = diffpatch.diff(shadow, file2);
+console.log('diff1', diff1);
+console.log('diff2', diff2);
+
+diffpatch.patch(file3, diff1);
+diffpatch.patch(file3, diff2);
+console.log(file3);
+*/
+
 let io = require('socket.io-client');
 let socket = io.connect('http://localhost:8000');
 
