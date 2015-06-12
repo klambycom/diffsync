@@ -42,10 +42,12 @@ module.exports = function edits(socket, doc, shadow, storage) {
     return false;
   };
 
-  var patchDocs = function patchDocs(data) {
-    doc.patch(data);
-    shadow.patch(data);
-    eventemitter.emit('update', doc.json());
+  var patch = function patch(data) {
+    if (typeof data !== 'undefined') {
+      doc.patch(data);
+      shadow.patch(data);
+      eventemitter.emit('update', doc.json());
+    }
 
     // Step 6, send new diff to all connected clients
     sendDiff();
@@ -54,25 +56,16 @@ module.exports = function edits(socket, doc, shadow, storage) {
   // Create patch from received diff
   socket.on('DIFF', function edits(data) {
     // Step 4, a patch is created from the changes
-    var patch = data;
-
     // Step 5, both the doc and shadow is patched
-    if (typeof storage === 'undefined') {
-      patchDocs(patch);
-    } else {
-      // TODO Handle error!
-      storage.getJSON().then(function (json, error) {
-        if (error) {
-          console.log(error);
-        } else {
-          doc.update(json);
-          patchDocs(patch);
-          // Save
-          storage.setFromDocument(doc);
-          // Send event to redis
-          storage.publishDiff();
-        }
-      });
+    console.log('before', doc.json());
+    patch(data);
+    console.log('after', doc.json());
+
+    if (typeof storage !== 'undefined') {
+      // Save
+      storage.setFromDocument(doc);
+      // Send event to redis
+      storage.publishDiff();
     }
   });
 
@@ -99,6 +92,8 @@ module.exports = function edits(socket, doc, shadow, storage) {
      * @type EventEmitter
      */
 
-    eventemitter: eventemitter
+    eventemitter: eventemitter,
+
+    patch: patch
   };
 };
