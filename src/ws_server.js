@@ -7,7 +7,7 @@ let events = new EventEmitter();
 let settings = {};
 
 settings.log = function (msg) {
-  // TODO Only log i verbose
+  // TODO Only log if verbose
   console.log(`${new Date()} ${msg}`);
 };
 
