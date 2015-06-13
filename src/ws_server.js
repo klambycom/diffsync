@@ -1,5 +1,7 @@
-let Promise = require('promise'); // TODO Needed?
+/* global -Promise */
+//let Promise = require('promise'); // TODO Needed?
 let EventEmitter = require('events').EventEmitter;
+/* global -WebSocket */
 let WebSocket = require('websocket').server;
 let http = require('http');
 
