@@ -13,7 +13,6 @@ settings.log = function (msg) {
 };
 
 let server = http.createServer(() => { /* empty */ });
-let wsServer = null;
 let connected = false;
 
 settings.clients = [];
@@ -61,8 +60,8 @@ let connect = function (port) {
     settings.log(`Server is listening on port ${port}.`);
   });
   // Create websocket server
-  wsServer = new WebSocket({ httpServer: server });
-  wsServer.on('request', _request);
+  let ws = new WebSocket({ httpServer: server });
+  ws.on('request', _request);
 };
 
 // Send message to client

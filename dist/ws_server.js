@@ -15,7 +15,6 @@ settings.log = function (msg) {
 };
 
 var server = http.createServer(function () {});
-var wsServer = null;
 var connected = false;
 
 settings.clients = [];
@@ -67,8 +66,8 @@ var connect = function connect(port) {
     settings.log('Server is listening on port ' + port + '.');
   });
   // Create websocket server
-  wsServer = new WebSocket({ httpServer: server });
-  wsServer.on('request', _request);
+  var ws = new WebSocket({ httpServer: server });
+  ws.on('request', _request);
 };
 
 // Send message to client
