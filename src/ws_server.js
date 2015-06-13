@@ -1,6 +1,9 @@
 let Promise = require('promise');
+let EventEmitter = require('events').EventEmitter;
 let WebSocket = require('websocket').server;
 let http = require('http');
+
+let events = new EventEmitter();
 
 let log = function (msg) {
   // TODO Only log i verbose
@@ -34,26 +37,29 @@ let connect = function (port) {
       if (message.type === 'utf8') {
         log(`Received Message: "${message.utf8Data}".`);
         // TODO Use on('message', ...) below!
+        events.emit('message', message.utf8Data);
       }
     });
 
     // User disconnected
     connection.on('close', closedConnection => {
       log(`Peer ${closedConnection.remoteAddress} disconnected.`);
-      clients.splice(index, 1);
-        // TODO Use on('disconnected', ...) below!
+      let user = clients.splice(index, 1);
+      // TODO Use on('disconnected', ...) below!
+      events.emit('disconnected', user);
     });
   });
 };
 
 // Send message to client
-let broadcast = function (msg) {
+let broadcast = function (msg, to = clients) {
   let json = JSON.stringify({ type: 'message', data: msg });
-  clients.forEach(x => { x.sendUTF(json); });
+  to.forEach(x => { x.sendUTF(json); });
 };
 
 // Connected/disconnected/error/message
-let on = function (type, listener) {
+let addListener = function (event, listener) {
+  events.on(event, listener);
 };
 
-module.exports = { send, receive, on };
+module.exports = { connect, broadcast, addListener };

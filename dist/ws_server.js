@@ -1,8 +1,11 @@
 'use strict';
 
 var Promise = require('promise');
+var EventEmitter = require('events').EventEmitter;
 var WebSocket = require('websocket').server;
 var http = require('http');
+
+var events = new EventEmitter();
 
 var log = function log(msg) {
   // TODO Only log i verbose
@@ -36,28 +39,34 @@ var connect = function connect(port) {
       if (message.type === 'utf8') {
         log('Received Message: "' + message.utf8Data + '".');
         // TODO Use on('message', ...) below!
+        events.emit('message', message.utf8Data);
       }
     });
 
     // User disconnected
     connection.on('close', function (closedConnection) {
       log('Peer ' + closedConnection.remoteAddress + ' disconnected.');
-      clients.splice(index, 1);
+      var user = clients.splice(index, 1);
       // TODO Use on('disconnected', ...) below!
+      events.emit('disconnected', user);
     });
   });
 };
 
 // Send message to client
 var broadcast = function broadcast(msg) {
+  var to = arguments[1] === undefined ? clients : arguments[1];
+
   var json = JSON.stringify({ type: 'message', data: msg });
-  clients.forEach(function (x) {
+  to.forEach(function (x) {
     x.sendUTF(json);
   });
 };
 
 // Connected/disconnected/error/message
-var on = function on(type, listener) {};
+var addListener = function addListener(event, listener) {
+  events.on(event, listener);
+};
 
-module.exports = { send: send, receive: receive, on: on };
+module.exports = { connect: connect, broadcast: broadcast, addListener: addListener };
 /* empty */
