@@ -1,4 +1,4 @@
-let Promise = require('promise');
+let Promise = require('promise'); // TODO Needed?
 let EventEmitter = require('events').EventEmitter;
 let WebSocket = require('websocket').server;
 let http = require('http');
@@ -6,6 +6,7 @@ let http = require('http');
 let events = new EventEmitter();
 let settings = {};
 
+// TODO Move out to somewhere else!
 settings.log = function (msg) {
   // TODO Only log if verbose
   console.log(`${new Date()} ${msg}`);
@@ -54,9 +55,11 @@ let connect = function (port) {
 };
 
 // Send message to client
-let broadcast = function (msg, to = settings.clients) {
-  let json = JSON.stringify({ type: 'message', data: msg });
-  to.forEach(x => { x.sendUTF(json); });
+let broadcast = function (fn, type = 'message') {
+  settings.clients.forEach(x => {
+    let data = fn(x);
+    if (Object.keys(data) > 0) { x.sendUTF(JSON.stringify({ type, data })); }
+  });
 };
 
 // Connected/disconnected/error/message
