@@ -18,6 +18,42 @@ let connected = false;
 
 settings.clients = [];
 
+let _connect = request => {
+  settings.log(`Connection from origin ${request.origin}.`);
+  // TOOD Check 'request.origin'
+  let connection = request.accept(null, request.origin);
+  // TODO Use on('connect', ...) below!
+  let index = settings.clients.push(connection) - 1;
+
+  settings.log('Connection accepted.');
+
+  return { connection, index };
+};
+
+let _message = message => {
+  if (message.type === 'utf8') {
+    settings.log(`Received Message: "${message.utf8Data}".`);
+    // TODO Use on('message', ...) below!
+    events.emit('message', message.utf8Data);
+  }
+};
+
+let _request = function (request) {
+  // Connect
+  let { connection, index } = _connect(request);
+
+  // User sent some message
+  connection.on('message', _message);
+
+  // User disconnected
+  connection.on('close', closedConnection => {
+    settings.log(`Peer ${closedConnection.remoteAddress} disconnected.`);
+    let user = settings.clients.splice(index, 1);
+    // TODO Use on('disconnected', ...) below!
+    events.emit('disconnected', user);
+  });
+};
+
 let connect = function (port) {
   // Start server
   server.listen(port, () => {
@@ -26,32 +62,7 @@ let connect = function (port) {
   });
   // Create websocket server
   wsServer = new WebSocket({ httpServer: server });
-  wsServer.on('request', request => {
-    settings.log(`Connection from origin ${request.origin}.`);
-    // TOOD Check 'request.origin'
-    let connection = request.accept(null, request.origin);
-    // TODO Use on('connect', ...) below!
-    let index = settings.clients.push(connection) - 1;
-
-    settings.log('Connection accepted.');
-
-    // User sent some message
-    connection.on('message', message => {
-      if (message.type === 'utf8') {
-        settings.log(`Received Message: "${message.utf8Data}".`);
-        // TODO Use on('message', ...) below!
-        events.emit('message', message.utf8Data);
-      }
-    });
-
-    // User disconnected
-    connection.on('close', closedConnection => {
-      settings.log(`Peer ${closedConnection.remoteAddress} disconnected.`);
-      let user = settings.clients.splice(index, 1);
-      // TODO Use on('disconnected', ...) below!
-      events.emit('disconnected', user);
-    });
-  });
+  wsServer.on('request', _request);
 };
 
 // Send message to client
