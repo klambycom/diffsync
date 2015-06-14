@@ -1,6 +1,4 @@
-/* global -WebSocket */
-let WebSocket = require('websocket').server;
-//let WebSocket = window.WebSocket || window.MozWebSocket || require('websocket').server;
+let WebSocket = window.WebSocket || window.MozWebSocket;
 let EventEmitter = require('events').EventEmitter;
 
 let events = new EventEmitter();
@@ -21,6 +19,7 @@ let _message = function (msg) {
 };
 
 let connect = function () {
+  // TODO Catch errors? Ex. when url is wrong.
   connection = new WebSocket(settings.url);
 
   connection.onerror = error => events.emit('error', error);
@@ -44,4 +43,4 @@ let addListener = function (event, listener) {
   events.on(event, listener);
 };
 
-module.exports = { connect, send, addListener };
+module.exports = { connect, send, addListener, settings };
