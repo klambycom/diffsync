@@ -1,3 +1,11 @@
+let client = require('../dist/ws_client.js');
+
+client.settings.url = 'ws://127.0.0.1:8888';
+client.connect();
+
+
+
+/*
 let io = require('socket.io-client');
 let socket = io.connect('http://localhost:8000');
 
@@ -45,3 +53,4 @@ socket.on('connect', function () {
     console.log('Disconnected');
   });
 });
+*/

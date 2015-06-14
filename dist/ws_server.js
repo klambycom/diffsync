@@ -20,6 +20,7 @@ var server = http.createServer(function () {});
 var connected = false;
 
 settings.clients = [];
+settings.port = 8000;
 
 var _connect = function _connect(request) {
   settings.log('Connection from origin ' + request.origin + '.');
@@ -61,7 +62,9 @@ var _request = function _request(request) {
   });
 };
 
-var connect = function connect(port) {
+var connect = function connect() {
+  var port = arguments[0] === undefined ? settings.port : arguments[0];
+
   // Start server
   server.listen(port, function () {
     connected = true;

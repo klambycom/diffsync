@@ -1,3 +1,9 @@
+let server = require('../ws_server.js');
+
+server.connect(8888);
+
+
+
 //let StorageDriver = require('../storage_driver.js');
 //
 //let storage = new StorageDriver('hash1');
@@ -21,6 +27,9 @@
 //  .getJSON()
 //  .then(value => console.log(value), reason => console.log(reason));
 
+
+
+/*
 let app = require('http').createServer(handler);
 let io = require('socket.io')(app);
 let fs = require('fs');
@@ -59,3 +68,4 @@ io.on('connection', function (socket) {
 
   console.log('Socket.io connected.');
 });
+*/
