@@ -1,3 +1,4 @@
+/* global -WebSocket */
 let WebSocket = window.WebSocket || window.MozWebSocket;
 let EventEmitter = require('events').EventEmitter;
 
@@ -12,7 +13,7 @@ let _message = function (msg) {
   try {
     let json = JSON.parse(msg.data);
     // TODO Maybe check type to deside the event
-    events.emit('message', msg);
+    events.emit('message', json);
   } catch (e) {
     console.log(`This doesn't look like a valid JSON: ${msg.data}`);
   }

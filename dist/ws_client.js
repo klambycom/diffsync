@@ -1,3 +1,4 @@
+/* global -WebSocket */
 'use strict';
 
 var WebSocket = window.WebSocket || window.MozWebSocket;
@@ -14,7 +15,7 @@ var _message = function _message(msg) {
   try {
     var json = JSON.parse(msg.data);
     // TODO Maybe check type to deside the event
-    events.emit('message', msg);
+    events.emit('message', json);
   } catch (e) {
     console.log('This doesn\'t look like a valid JSON: ' + msg.data);
   }
