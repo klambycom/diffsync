@@ -18,6 +18,7 @@ let server = http.createServer(() => { /* empty */ });
 let connected = false;
 
 settings.clients = [];
+settings.port = 8000;
 
 let _connect = request => {
   settings.log(`Connection from origin ${request.origin}.`);
@@ -55,7 +56,7 @@ let _request = function (request) {
   });
 };
 
-let connect = function (port) {
+let connect = function (port = settings.port) {
   // Start server
   server.listen(port, () => {
     connected = true;
