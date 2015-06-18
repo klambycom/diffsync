@@ -75,9 +75,14 @@ let broadcast = function (fn, type = 'message') {
   });
 };
 
+// Send message to one specific client
+let send = function (user, type, data) {
+  settings.clients[user].sendUTF(JSON.stringify({ type, data }));
+};
+
 // Connected/disconnected/error/message
 let addListener = function (event, listener) {
   events.on(event, listener);
 };
 
-module.exports = { connect, broadcast, addListener, settings };
+module.exports = { connect, broadcast, send, addListener, settings };

@@ -33,7 +33,8 @@ var connect = function connect() {
   // Connected to WebSocket-server
   connection.onopen = function () {
     connected = true;
-    // TODO Wait for init document, and send it along with the event.
+    // TODO Wait for init document, and send it along with the event. Or ready
+    // event!
     events.emit('connected', {});
   };
 };

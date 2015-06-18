@@ -87,10 +87,15 @@ var broadcast = function broadcast(fn) {
   });
 };
 
+// Send message to one specific client
+var send = function send(user, type, data) {
+  settings.clients[user].sendUTF(JSON.stringify({ type: type, data: data }));
+};
+
 // Connected/disconnected/error/message
 var addListener = function addListener(event, listener) {
   events.on(event, listener);
 };
 
-module.exports = { connect: connect, broadcast: broadcast, addListener: addListener, settings: settings };
+module.exports = { connect: connect, broadcast: broadcast, send: send, addListener: addListener, settings: settings };
 /* empty */
