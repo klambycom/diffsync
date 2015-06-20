@@ -1,5 +1,9 @@
 let server = require('../ws_server.js');
 
+server.addListener('connected', event => {
+  console.log('Server is connected', event);
+});
+
 server.connect(8888);
 
 

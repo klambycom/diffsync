@@ -61,6 +61,8 @@ let connect = function (port = settings.port) {
   server.listen(port, () => {
     connected = true;
     settings.log(`Server is listening on port ${port}.`);
+    // TODO Is this the right place?
+    events.emit('connected', {});
   });
   // Create websocket server
   let ws = new WebSocket({ httpServer: server });
