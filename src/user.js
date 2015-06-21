@@ -1,3 +1,5 @@
+let clients = [];
+
 // Add user and create doc and shadow
 let add = function (user) {};
 
@@ -5,6 +7,9 @@ let add = function (user) {};
 let remove = function (user) {};
 
 // Array containing all users
-let all = function () {};
+// TODO Create copy of clients?
+let all = function () { return clients; };
 
-module.exports = { add, remove, all };
+let forEach = clients.forEach;
+
+module.exports = { add, remove, all, forEach };

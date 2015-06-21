@@ -1,12 +1,19 @@
-// Add user and create doc and shadow
 "use strict";
 
+var clients = [];
+
+// Add user and create doc and shadow
 var add = function add(user) {};
 
 // Remove user
 var remove = function remove(user) {};
 
 // Array containing all users
-var all = function all() {};
+// TODO Create copy of clients?
+var all = function all() {
+  return clients;
+};
 
-module.exports = { add: add, remove: remove, all: all };
+var forEach = clients.forEach;
+
+module.exports = { add: add, remove: remove, all: all, forEach: forEach };
