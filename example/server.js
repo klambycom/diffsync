@@ -1,5 +1,4 @@
 let server = require('../ws_server.js');
-let users = require('../user.js');
 
 server.addListener('connected', event => {
   console.log('Server is connected', event);

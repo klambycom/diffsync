@@ -1,5 +1,3 @@
-// TODO Rename user.js to users.js!
-
 let clients = [];
 
 // Source: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
