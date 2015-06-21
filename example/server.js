@@ -1,11 +1,11 @@
 let server = require('../ws_server.js');
+let users = require('../user.js');
 
 server.addListener('connected', event => {
   console.log('Server is connected', event);
 });
 
 server.connect(8888);
-
 
 
 //let StorageDriver = require('../storage_driver.js');
