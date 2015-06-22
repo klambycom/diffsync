@@ -29,6 +29,7 @@ var create = function create(websocket) {
   var user = {
     uuid: _createUUID(),
     send: _send(websocket),
+    // TODO Update document to latest!
     shadow: new JSONDocument(),
     websocket: websocket
   };

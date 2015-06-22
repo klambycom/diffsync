@@ -20,6 +20,7 @@ let create = function (websocket) {
   let user = {
     uuid: _createUUID(),
     send: _send(websocket),
+    // TODO Update document to latest!
     shadow: new  JSONDocument(),
     websocket
   };
