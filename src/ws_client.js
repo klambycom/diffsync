@@ -12,8 +12,12 @@ settings.url = 'ws://127.0.0.1:8000';
 let _message = function (msg) {
   try {
     let json = JSON.parse(msg.data);
-    // TODO Maybe check type to deside the event
-    events.emit('message', json);
+
+    if (json.type === 'init_document') {
+      events.emit('ready', json);
+    } else {
+      events.emit('message', json);
+    }
   } catch (e) {
     console.log(`This doesn't look like a valid JSON: ${msg.data}`);
   }
