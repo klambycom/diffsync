@@ -1,18 +1,13 @@
 let server = require('../ws_server.js');
 
 server.addListener('connected', event => {
-  console.log('Server is connected', event);
+  // Server is connected
 });
 
 server.addListener('new_user', user => {
-  console.log('New user!');
-
   server.broadcast(e => {
-    console.log('Broadcasting');
     return { msg: "Hello, world!" };
   }/*, 'init_document' */);
-
-  //server.settings.clients.forEach((x, i) => server.send(i, { hello: 'world' }, 'message'));
 });
 
 server.connect(8888);
