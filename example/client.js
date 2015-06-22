@@ -1,5 +1,21 @@
 let client = require('../dist/ws_client.js');
 
+client.addListener('connected', e => {
+  console.log('Connected to the server!');
+});
+
+client.addListener('ready', e => {
+  console.log('READY', e.data);
+});
+
+client.addListener('message', e => {
+  console.log('MESSAGE', e.data);
+});
+
+client.addListener('error', error => {
+  console.log('ERROR', error);
+});
+
 client.settings.url = 'ws://127.0.0.1:8888';
 client.connect();
 

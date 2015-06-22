@@ -1,3 +1,5 @@
+// TODO Rename the file to clients.js?
+
 'use strict';
 
 var clients = [];
@@ -11,7 +13,7 @@ var _createUUID = function _createUUID() {
   });
 };
 
-// TODO Move to users, but provide a way to change the function in ws_server!
+// Send message to one specific client
 var _send = function _send(user) {
   return function (data) {
     var type = arguments[1] === undefined ? 'message' : arguments[1];

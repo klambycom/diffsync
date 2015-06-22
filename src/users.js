@@ -1,3 +1,5 @@
+// TODO Rename the file to clients.js?
+
 let clients = [];
 
 // Source: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
@@ -8,7 +10,7 @@ let _createUUID = function () {
   });
 };
 
-// TODO Move to users, but provide a way to change the function in ws_server!
+// Send message to one specific client
 let _send = (user) => (data, type = 'message') => {
   if (Object.keys(data).length > 0) { user.sendUTF(JSON.stringify({ type, data })); }
 };

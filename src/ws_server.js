@@ -4,8 +4,10 @@ let EventEmitter = require('events').EventEmitter;
 /* global -WebSocket */
 let WebSocket = require('websocket').server;
 let http = require('http');
+let users = require('./users.js');
 
 let events = new EventEmitter();
+// TODO Remove settings! Only port is available and can also be used with connect()!
 let settings = {};
 
 // TODO Move out to somewhere else!
@@ -17,7 +19,6 @@ settings.log = function (msg) {
 let server = http.createServer(() => { /* empty */ });
 let connected = false;
 
-settings.clients = [];
 settings.port = 8000;
 
 let _connect = request => {
@@ -27,11 +28,11 @@ let _connect = request => {
   let connection = request.accept(null, request.origin);
   settings.log('Connection accepted.');
 
-  // TODO Use on('connect', ...) below!
-  let index = settings.clients.push(connection) - 1;
-  events.emit('new_user', connection);
+  // Create the new user
+  let user = users.create(connection);
+  events.emit('new_user', user);
 
-  return { connection, index };
+  return { connection, user };
 };
 
 let _message = message => {
@@ -44,7 +45,7 @@ let _message = message => {
 
 let _request = function (request) {
   // Connect
-  let { connection, index } = _connect(request);
+  let { connection, user } = _connect(request);
 
   // User sent some message
   connection.on('message', _message);
@@ -52,8 +53,7 @@ let _request = function (request) {
   // User disconnected
   connection.on('close', closedConnection => {
     settings.log(`Peer ${closedConnection.remoteAddress} disconnected.`);
-    let user = settings.clients.splice(index, 1);
-    // TODO Use on('disconnected', ...) below!
+    users.remove(user);
     events.emit('disconnected', user);
   });
 };
@@ -73,22 +73,9 @@ let connect = function (port = settings.port) {
   ws.on('request', _request);
 };
 
-// TODO Move to users, but provide a way to change the function in ws_server!
-let _send = (user) => (data, type = 'message') => {
-  if (Object.keys(data).length > 0) { user.sendUTF(JSON.stringify({ type, data })); }
-};
-
-// Send message to client
+// Send message to all clients
 let broadcast = function (fn, type = 'message') {
-  settings.clients.forEach(x => {
-    let data = fn(x);
-    if (Object.keys(data).length > 0) { x.sendUTF(JSON.stringify({ type, data })); }
-  });
-};
-
-// Send message to one specific client
-let send = function (user, type, data) {
-  settings.clients[user].sendUTF(JSON.stringify({ type, data }));
+  users.forEach(x => x.send(fn(x), type));
 };
 
 // Connected/disconnected/error/message
@@ -96,4 +83,4 @@ let addListener = function (event, listener) {
   events.on(event, listener);
 };
 
-module.exports = { connect, broadcast, send, addListener, settings };
+module.exports = { connect, broadcast, addListener, settings };
