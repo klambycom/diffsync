@@ -1,4 +1,4 @@
-let server = require('../ws_server.js');
+let server = require('../server/websocket.js');
 
 server.addListener('connected', event => {
   // Server is connected

@@ -1,4 +1,4 @@
-let Doc = require('./document');
+let Doc = require('../document');
 let clients = [];
 
 // Source: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
