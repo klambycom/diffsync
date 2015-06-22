@@ -4,7 +4,7 @@ let EventEmitter = require('events').EventEmitter;
 /* global -WebSocket */
 let WebSocket = require('websocket').server;
 let http = require('http');
-let users = require('./users.js');
+let clients = require('./clients.js');
 let log = require('./log.js')('WEBSOCKET');
 
 let events = new EventEmitter();
@@ -20,7 +20,7 @@ let _connect = request => {
   log('Connection accepted.');
 
   // Create the new user
-  let user = users.create(connection);
+  let user = clients.create(connection);
   events.emit('new_user', user);
 
   return { connection, user };
@@ -44,7 +44,7 @@ let _request = function (request) {
   // User disconnected
   connection.on('close', closedConnection => {
     log(`Peer ${closedConnection.remoteAddress} disconnected.`);
-    users.remove(user);
+    clients.remove(user);
     events.emit('disconnected', user);
   });
 };
@@ -66,7 +66,7 @@ let connect = function (port = 8000) {
 
 // Send message to all clients
 let broadcast = function (fn, type = 'message') {
-  users.forEach(x => x.send(fn(x), type));
+  clients.forEach(x => x.send(fn(x), type));
 };
 
 // Connected/disconnected/error/message
