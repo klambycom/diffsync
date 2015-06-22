@@ -11,10 +11,21 @@ var _createUUID = function _createUUID() {
   });
 };
 
+// TODO Move to users, but provide a way to change the function in ws_server!
+var _send = function _send(user) {
+  return function (data) {
+    var type = arguments[1] === undefined ? 'message' : arguments[1];
+
+    if (Object.keys(data).length > 0) {
+      user.sendUTF(JSON.stringify({ type: type, data: data }));
+    }
+  };
+};
+
 // Add user and create doc and shadow
 // Return user if user is valid
 var create = function create(websocket) {
-  var user = { uuid: _createUUID(), websocket: websocket };
+  var user = { uuid: _createUUID(), send: _send(websocket), websocket: websocket };
   clients.push(user);
   return user;
 };
