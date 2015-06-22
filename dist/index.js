@@ -9,21 +9,25 @@
 
 /*! */
 
-let JSONDocument = require('./document');
-let websocket = require('./edits');
-let EventEmitter = require('events').EventEmitter;
+'use strict';
 
-module.exports = function clients(socket, doc = new JSONDocument) {
-  let shadow = new JSONDocument();
-  let eventemitter = new EventEmitter();
-  let edits = websocket(socket, doc, shadow, undefined, eventemitter);
+var JSONDocument = require('./document');
+var _edits = require('./edits');
+var EventEmitter = require('events').EventEmitter;
+
+module.exports = function clients(socket) {
+  var doc = arguments[1] === undefined ? new JSONDocument() : arguments[1];
+
+  var shadow = new JSONDocument();
+  var eventemitter = new EventEmitter();
+  var edits = _edits(socket, doc, shadow, undefined, eventemitter);
 
   // Update document when initial document is received
-  let counter = 0; // Ugly hack! Counter is needed because fired two times when
-                   // client reconnects. I don't know if it's because this is
-                   // inside socket.on('connect'). isEmpty() returns false
-                   // first than true. This will work for now.
-  socket.on('init_document', data => {
+  var counter = 0; // Ugly hack! Counter is needed because fired two times when
+  // client reconnects. I don't know if it's because this is
+  // inside socket.on('connect'). isEmpty() returns false
+  // first than true. This will work for now.
+  socket.on('init_document', function (data) {
     // Fresh client
     if (doc.isEmpty()) {
       doc.update(data);
@@ -35,9 +39,9 @@ module.exports = function clients(socket, doc = new JSONDocument) {
     else if (counter > 0) {
       console.log('Reconnect'); // TODO Remove!
       // Offline 2, Create a temp document from json from server
-      let tmp = new JSONDocument(data);
+      var tmp = new JSONDocument(data);
       // Offline 4, create diff between tmp and shadow
-      let diff = tmp.diff(shadow);
+      var diff = tmp.diff(shadow);
       // Offline 6, patch document and shadow
       if (typeof diff !== 'undefined') {
         doc.patch(diff);
@@ -52,7 +56,7 @@ module.exports = function clients(socket, doc = new JSONDocument) {
     counter += 1;
   });
 
-  let online = true;
+  var online = true;
 
   return {
 
@@ -65,7 +69,7 @@ module.exports = function clients(socket, doc = new JSONDocument) {
      */
 
     // Step 1, diff is created
-    update(json) {
+    update: function update(json) {
       doc.update(json);
 
       if (online) {
@@ -82,7 +86,7 @@ module.exports = function clients(socket, doc = new JSONDocument) {
      * @returns {Boolean} false if the document is not changed and diff is not sent
      */
 
-    merge(json) {
+    merge: function merge(json) {
       doc.merge(json);
 
       if (online) {
@@ -103,7 +107,7 @@ module.exports = function clients(socket, doc = new JSONDocument) {
      * @param {Function} listener
      */
 
-    on(e, listener) {
+    on: function on(e, listener) {
       edits.eventemitter.on(e, listener);
     },
 
@@ -111,7 +115,7 @@ module.exports = function clients(socket, doc = new JSONDocument) {
      * Only for testing
      */
 
-    offline() {
+    offline: function offline() {
       socket.removeAllListeners('DIFF');
       online = false;
     },
@@ -120,10 +124,20 @@ module.exports = function clients(socket, doc = new JSONDocument) {
      * Only for testing
      */
 
-    online() {
-      edits = websocket(socket, doc, shadow, undefined, eventemitter);
+    online: (function (_online) {
+      function online() {
+        return _online.apply(this, arguments);
+      }
+
+      online.toString = function () {
+        return _online.toString();
+      };
+
+      return online;
+    })(function () {
+      edits = _edits(socket, doc, shadow, undefined, eventemitter);
       socket.emit('reconnect_for_testing', 'online');
       online = true;
-    }
+    })
   };
 };
