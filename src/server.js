@@ -12,14 +12,14 @@
 /*! */
 
 let JSONDocument = require('./document');
-let websocket = require('./edits');
+let _edits = require('./edits');
 let storageDriver = require('./storage_driver.js');
 let redis = require('redis');
 
 module.exports = function server(room, socket, client = redis.createClient(), doc = new JSONDocument) {
   let storage = storageDriver(room, client);
   let shadow = new  JSONDocument();
-  let edits = websocket(socket, doc, shadow, storage);
+  let edits = _edits(socket, doc, shadow, storage);
 
   // Join specified room
   socket.join(room);

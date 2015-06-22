@@ -14,7 +14,7 @@
 'use strict';
 
 var JSONDocument = require('./document');
-var websocket = require('./edits');
+var _edits = require('./edits');
 var storageDriver = require('./storage_driver.js');
 var redis = require('redis');
 
@@ -24,7 +24,7 @@ module.exports = function server(room, socket) {
 
   var storage = storageDriver(room, client);
   var shadow = new JSONDocument();
-  var edits = websocket(socket, doc, shadow, storage);
+  var edits = _edits(socket, doc, shadow, storage);
 
   // Join specified room
   socket.join(room);
