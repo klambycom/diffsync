@@ -1,5 +1,3 @@
-// TODO Rename the file to clients.js?
-
 'use strict';
 
 var clients = [];
@@ -40,10 +38,8 @@ var remove = function remove(user) {
 };
 
 // Array containing all users
-// TODO Create copy of clients?
-// TODO Remove?
 var all = function all() {
-  return clients;
+  return JSON.parse(JSON.stringify(clients));
 };
 
 var forEach = function forEach(currentValue, index, array) {

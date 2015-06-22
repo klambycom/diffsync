@@ -1,5 +1,3 @@
-// TODO Rename the file to clients.js?
-
 let clients = [];
 
 // Source: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
@@ -29,9 +27,7 @@ let remove = function (user) {
 };
 
 // Array containing all users
-// TODO Create copy of clients?
-// TODO Remove?
-let all = function () { return clients; };
+let all = function () { return JSON.parse(JSON.stringify(clients)); };
 
 let forEach = function (currentValue, index, array) {
   clients.forEach(currentValue, index, array);
