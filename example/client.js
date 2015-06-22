@@ -1,4 +1,4 @@
-let client = require('../dist/ws_client.js');
+let client = require('../dist/websocket.js');
 
 client.addListener('connected', e => {
   console.log('Connected to the server!');

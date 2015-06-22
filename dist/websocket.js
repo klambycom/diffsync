@@ -1,95 +1,56 @@
-// TODO Remove this file? Rename? Edits?
+/* global -WebSocket */
+'use strict';
 
-/**
- * # Websocket(socket, doc)
- *
- * This function is called edits (TODO) because takes the diffs and create
- * "edits" to send to the server.
- *
- * ### Params:
- *
- * **Socket.io** *socket* 
- * **JSONDocument** *doc* 
- * **EventEmitter** *eventemitter* Optional
- */
+var WebSocket = window.WebSocket || window.MozWebSocket;
+var EventEmitter = require('events').EventEmitter;
 
-/*! */
+var events = new EventEmitter();
+var connection = undefined;
+var connected = false;
 
-"use strict";
+var settings = {};
+settings.url = 'ws://127.0.0.1:8000';
 
-var JSONDocument = require("./document");
-var EventEmitter = require("events").EventEmitter;
+var _message = function _message(msg) {
+  try {
+    var json = JSON.parse(msg.data);
 
-module.exports = function edits(socket, doc) {
-  var eventemitter = arguments[2] === undefined ? new EventEmitter() : arguments[2];
-
-  var shadow = new JSONDocument();
-
-  var sendDiff = function sendDiff() {
-    var diff = doc.diff(shadow);
-
-    // Step 7, continue to send diff as long as the documents is not identical
-    if (typeof diff !== "undefined") {
-      // Step 2, changes are copied to the shadow
-      shadow.patch(diff);
-
-      // Step 3a, changes are sent to server
-      socket.emit("DIFF", diff);
-      return true;
+    if (json.type === 'init_document') {
+      events.emit('ready', json);
+    } else {
+      events.emit('message', json);
     }
+  } catch (e) {
+    console.log('This doesn\'t look like a valid JSON: ' + msg.data);
+  }
+};
 
-    // Step 3b, nothing is sent to the server
-    return false;
+var connect = function connect() {
+  // TODO Catch errors? Ex. when url is wrong.
+  connection = new WebSocket(settings.url);
+
+  connection.onerror = function (error) {
+    return events.emit('error', error);
   };
+  connection.onmessage = _message;
 
-  // Create patch from received diff
-  socket.on("DIFF", function edits(data) {
-    // Step 4, a patch is created from the changes
-    var patch = data;
-
-    // Step 5, both the doc and shadow is patched
-    doc.patch(data); // Get document from Redis, to always have the latest
-    // Save doc to db if on server
-    shadow.patch(data); // Shadow should be the same as on client before edits
-
-    eventemitter.emit("update", doc.json());
-
-    // Step 6, send new diff to all connected clients
-    sendDiff();
-  });
-
-  // Update document when initial document is received
-  socket.on("init_document", function (data) {
-    doc.update(data);
-    shadow.update(data);
-    eventemitter.emit("update", doc.json());
-  });
-
-  return {
-
-    /**
-     * Send diff to clients/server
-     *
-     * @method sendDiff
-     * @returns false if there is no diff, else true
-     */
-
-    sendDiff: sendDiff,
-
-    /**
-     * ## eventemitter
-     *
-     * EventEmitter
-     *
-     * ### Events:
-     *
-     * * diff
-     * * patch
-     * * update
-     *
-     * @type EventEmitter
-     */
-
-    eventemitter: eventemitter
+  // Connected to WebSocket-server
+  connection.onopen = function () {
+    connected = true;
+    events.emit('connected', {});
   };
 };
+
+var send = function send(msg) {
+  if (!connected) {
+    return;
+  }
+  // TODO Use JSON?
+  connection.send(msg);
+};
+
+var addListener = function addListener(event, listener) {
+  events.on(event, listener);
+};
+
+module.exports = { connect: connect, send: send, addListener: addListener, settings: settings };
