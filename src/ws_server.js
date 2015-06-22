@@ -22,12 +22,14 @@ settings.port = 8000;
 
 let _connect = request => {
   settings.log(`Connection from origin ${request.origin}.`);
+
   // TOOD Check 'request.origin'
   let connection = request.accept(null, request.origin);
+  settings.log('Connection accepted.');
+
   // TODO Use on('connect', ...) below!
   let index = settings.clients.push(connection) - 1;
-
-  settings.log('Connection accepted.');
+  events.emit('new_user', connection);
 
   return { connection, index };
 };
@@ -62,6 +64,8 @@ let connect = function (port = settings.port) {
     connected = true;
     settings.log(`Server is listening on port ${port}.`);
     // TODO Is this the right place?
+    // TODO Maybe pass fns like broadcast with event instead of checking
+    // connection (connected = true) when using them? For easier use.
     events.emit('connected', {});
   });
   // Create websocket server
@@ -69,11 +73,16 @@ let connect = function (port = settings.port) {
   ws.on('request', _request);
 };
 
+// TODO Move to users, but provide a way to change the function in ws_server!
+let _send = (user) => (data, type = 'message') => {
+  if (Object.keys(data).length > 0) { user.sendUTF(JSON.stringify({ type, data })); }
+};
+
 // Send message to client
 let broadcast = function (fn, type = 'message') {
   settings.clients.forEach(x => {
     let data = fn(x);
-    if (Object.keys(data) > 0) { x.sendUTF(JSON.stringify({ type, data })); }
+    if (Object.keys(data).length > 0) { x.sendUTF(JSON.stringify({ type, data })); }
   });
 };
 
