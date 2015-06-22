@@ -10,13 +10,9 @@ var users = require('./users.js');
 var log = require('./log.js')('WEBSOCKET');
 
 var events = new EventEmitter();
-// TODO Remove settings! Only port is available and can also be used with connect()!
-var settings = {};
 
 var server = http.createServer(function () {});
 var connected = false;
-
-settings.port = 8000;
 
 var _connect = function _connect(request) {
   log('Connection from origin ' + request.origin + '.');
@@ -60,7 +56,7 @@ var _request = function _request(request) {
 };
 
 var connect = function connect() {
-  var port = arguments[0] === undefined ? settings.port : arguments[0];
+  var port = arguments[0] === undefined ? 8000 : arguments[0];
 
   // Start server
   server.listen(port, function () {
@@ -90,5 +86,5 @@ var addListener = function addListener(event, listener) {
   events.on(event, listener);
 };
 
-module.exports = { connect: connect, broadcast: broadcast, addListener: addListener, settings: settings };
+module.exports = { connect: connect, broadcast: broadcast, addListener: addListener };
 /* empty */
