@@ -11,13 +11,13 @@
 
 /*! */
 
-let JSONDocument = require('./document');
-let _edits = require('./edits');
-let storageDriver = require('./storage_driver.js');
+let JSONDocument = require('../document');
+let _edits = require('../edits');
+let _storage = require('./storage.js');
 let redis = require('redis');
 
 module.exports = function server(room, socket, client = redis.createClient(), doc = new JSONDocument) {
-  let storage = storageDriver(room, client);
+  let storage = _storage(room, client);
   let shadow = new  JSONDocument();
   let edits = _edits(socket, doc, shadow, storage);
 

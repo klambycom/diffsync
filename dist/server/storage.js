@@ -8,18 +8,30 @@
 /*! */
 
 /* global -Promise */
-let Promise = require('promise');
-let redis = require('redis');
+'use strict';
 
-module.exports = function storageDriver(hash_code, client = redis.createClient()) {
-  let create_promise = (callback, key = '') => {
-    return new Promise((resolve, reject) => {
-      let redisCallback = (err, data) => {
-        if (err !== null) { reject(err); }
-        else { resolve(callback(data)); }
+var Promise = require('promise');
+var redis = require('redis');
+
+module.exports = function storage(hash_code) {
+  var client = arguments[1] === undefined ? redis.createClient() : arguments[1];
+
+  var create_promise = function create_promise(callback) {
+    var key = arguments[1] === undefined ? '' : arguments[1];
+
+    return new Promise(function (resolve, reject) {
+      var redisCallback = function redisCallback(err, data) {
+        if (err !== null) {
+          reject(err);
+        } else {
+          resolve(callback(data));
+        }
       };
-      if (key === '') { client.hgetall(hash_code, redisCallback); }
-      else { client.hget(hash_code, key, redisCallback); }
+      if (key === '') {
+        client.hgetall(hash_code, redisCallback);
+      } else {
+        client.hget(hash_code, key, redisCallback);
+      }
     });
   };
 
@@ -32,8 +44,10 @@ module.exports = function storageDriver(hash_code, client = redis.createClient()
      * @returns the name
      */
 
-    getName() {
-      return create_promise(data => data, 'name');
+    getName: function getName() {
+      return create_promise(function (data) {
+        return data;
+      }, 'name');
     },
 
     /**
@@ -43,7 +57,7 @@ module.exports = function storageDriver(hash_code, client = redis.createClient()
      * @param {String} name
      */
 
-    setName(name) {
+    setName: function setName(name) {
       client.hset(hash_code, 'name', name);
     },
 
@@ -54,8 +68,10 @@ module.exports = function storageDriver(hash_code, client = redis.createClient()
      * @returns the JSON
      */
 
-    getData() {
-      return create_promise(data => JSON.parse(data), 'data');
+    getData: function getData() {
+      return create_promise(function (data) {
+        return JSON.parse(data);
+      }, 'data');
     },
 
     /**
@@ -65,7 +81,7 @@ module.exports = function storageDriver(hash_code, client = redis.createClient()
      * @param {JSON} json
      */
 
-    setData(json) {
+    setData: function setData(json) {
       client.hset(hash_code, 'data', JSON.stringify(json));
     },
 
@@ -77,8 +93,8 @@ module.exports = function storageDriver(hash_code, client = redis.createClient()
      * @param {Document} doc
      */
 
-    setFromDocument(doc) {
-      let json = doc.json();
+    setFromDocument: function setFromDocument(doc) {
+      var json = doc.json();
 
       if (json.name !== this.json_data.name) {
         this.setName(json.name);
@@ -96,8 +112,10 @@ module.exports = function storageDriver(hash_code, client = redis.createClient()
      * @returns all data as JSON
      */
 
-    getJSON() {
-      return create_promise(data => {
+    getJSON: function getJSON() {
+      var _this = this;
+
+      return create_promise(function (data) {
         // Return empty document if nothing in db
         if (typeof data === 'undefined' || data === null) {
           return { name: '', data: {} };
@@ -105,12 +123,12 @@ module.exports = function storageDriver(hash_code, client = redis.createClient()
 
         // Else return the document
         data.data = JSON.parse(data.data);
-        this.json_data = data;
+        _this.json_data = data;
         return data;
       });
     },
 
-    publishDiff() {
+    publishDiff: function publishDiff() {
       client.publish(hash_code, 'diff');
     },
 
@@ -120,7 +138,7 @@ module.exports = function storageDriver(hash_code, client = redis.createClient()
      * @method disconnect
      */
 
-    disconnect() {
+    disconnect: function disconnect() {
       client.quit();
     }
   };
