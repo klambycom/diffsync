@@ -1,3 +1,4 @@
+let JSONDocument = require('./document');
 let clients = [];
 
 // Source: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
@@ -16,7 +17,13 @@ let _send = (user) => (data, type = 'message') => {
 // Add user and create doc and shadow
 // Return user if user is valid
 let create = function (websocket) {
-  let user = { uuid: _createUUID(), send: _send(websocket), websocket };
+  let user = {
+    uuid: _createUUID(),
+    send: _send(websocket),
+    shadow: new  JSONDocument(),
+    websocket
+  };
+
   clients.push(user);
   return user;
 };
