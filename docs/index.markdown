@@ -46,9 +46,5 @@ Listen for events
 * **String** *event* 
 * **Function** *listener* 
 
-Only for testing
-
-Only for testing
-
 <!-- End src/index.js -->
 
