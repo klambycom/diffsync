@@ -5,16 +5,11 @@ let EventEmitter = require('events').EventEmitter;
 let WebSocket = require('websocket').server;
 let http = require('http');
 let users = require('./users.js');
+let log = require('./log.js')('WEBSOCKET');
 
 let events = new EventEmitter();
 // TODO Remove settings! Only port is available and can also be used with connect()!
 let settings = {};
-
-// TODO Move out to somewhere else!
-settings.log = function (msg) {
-  // TODO Only log if verbose
-  console.log(`${new Date()} ${msg}`);
-};
 
 let server = http.createServer(() => { /* empty */ });
 let connected = false;
@@ -22,11 +17,11 @@ let connected = false;
 settings.port = 8000;
 
 let _connect = request => {
-  settings.log(`Connection from origin ${request.origin}.`);
+  log(`Connection from origin ${request.origin}.`);
 
   // TOOD Check 'request.origin'
   let connection = request.accept(null, request.origin);
-  settings.log('Connection accepted.');
+  log('Connection accepted.');
 
   // Create the new user
   let user = users.create(connection);
@@ -37,7 +32,7 @@ let _connect = request => {
 
 let _message = message => {
   if (message.type === 'utf8') {
-    settings.log(`Received Message: "${message.utf8Data}".`);
+    log(`Received Message: "${message.utf8Data}".`);
     // TODO Use on('message', ...) below!
     events.emit('message', message.utf8Data);
   }
@@ -52,7 +47,7 @@ let _request = function (request) {
 
   // User disconnected
   connection.on('close', closedConnection => {
-    settings.log(`Peer ${closedConnection.remoteAddress} disconnected.`);
+    log(`Peer ${closedConnection.remoteAddress} disconnected.`);
     users.remove(user);
     events.emit('disconnected', user);
   });
@@ -62,7 +57,7 @@ let connect = function (port = settings.port) {
   // Start server
   server.listen(port, () => {
     connected = true;
-    settings.log(`Server is listening on port ${port}.`);
+    log(`Server is listening on port ${port}.`);
     // TODO Is this the right place?
     // TODO Maybe pass fns like broadcast with event instead of checking
     // connection (connected = true) when using them? For easier use.

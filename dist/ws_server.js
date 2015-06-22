@@ -7,16 +7,11 @@ var EventEmitter = require('events').EventEmitter;
 var WebSocket = require('websocket').server;
 var http = require('http');
 var users = require('./users.js');
+var log = require('./log.js')('WEBSOCKET');
 
 var events = new EventEmitter();
 // TODO Remove settings! Only port is available and can also be used with connect()!
 var settings = {};
-
-// TODO Move out to somewhere else!
-settings.log = function (msg) {
-  // TODO Only log if verbose
-  console.log('' + new Date() + ' ' + msg);
-};
 
 var server = http.createServer(function () {});
 var connected = false;
@@ -24,11 +19,11 @@ var connected = false;
 settings.port = 8000;
 
 var _connect = function _connect(request) {
-  settings.log('Connection from origin ' + request.origin + '.');
+  log('Connection from origin ' + request.origin + '.');
 
   // TOOD Check 'request.origin'
   var connection = request.accept(null, request.origin);
-  settings.log('Connection accepted.');
+  log('Connection accepted.');
 
   // Create the new user
   var user = users.create(connection);
@@ -39,7 +34,7 @@ var _connect = function _connect(request) {
 
 var _message = function _message(message) {
   if (message.type === 'utf8') {
-    settings.log('Received Message: "' + message.utf8Data + '".');
+    log('Received Message: "' + message.utf8Data + '".');
     // TODO Use on('message', ...) below!
     events.emit('message', message.utf8Data);
   }
@@ -58,7 +53,7 @@ var _request = function _request(request) {
 
   // User disconnected
   connection.on('close', function (closedConnection) {
-    settings.log('Peer ' + closedConnection.remoteAddress + ' disconnected.');
+    log('Peer ' + closedConnection.remoteAddress + ' disconnected.');
     users.remove(user);
     events.emit('disconnected', user);
   });
@@ -70,7 +65,7 @@ var connect = function connect() {
   // Start server
   server.listen(port, function () {
     connected = true;
-    settings.log('Server is listening on port ' + port + '.');
+    log('Server is listening on port ' + port + '.');
     // TODO Is this the right place?
     // TODO Maybe pass fns like broadcast with event instead of checking
     // connection (connected = true) when using them? For easier use.
