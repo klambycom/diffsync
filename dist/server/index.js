@@ -13,9 +13,10 @@
 
 'use strict';
 
-var JSONDocument = require('../document');
-var _edits = require('../edits');
+var JSONDocument = require('../document.js');
+var _edits = require('../edits.js');
 var _storage = require('./storage.js');
+var log = require('./log.js')('INDEX');
 var redis = require('redis');
 
 module.exports = function server(room, socket) {
@@ -42,7 +43,7 @@ module.exports = function server(room, socket) {
     // TODO Handle error!
     storage.getJSON().then(function (json, error) {
       if (error) {
-        console.log(error);
+        log('Error when trying to get JSON for document from database', true);
       } else {
         doc.update(json);
         edits.sendDiff();

@@ -11,9 +11,10 @@
 
 /*! */
 
-let JSONDocument = require('../document');
-let _edits = require('../edits');
+let JSONDocument = require('../document.js');
+let _edits = require('../edits.js');
 let _storage = require('./storage.js');
+let log = require('./log.js')('INDEX');
 let redis = require('redis');
 
 module.exports = function server(room, socket, client = redis.createClient(), doc = new JSONDocument) {
@@ -39,7 +40,7 @@ module.exports = function server(room, socket, client = redis.createClient(), do
     // TODO Handle error!
     storage.getJSON().then((json, error) => {
       if (error) {
-        console.log(error);
+        log('Error when trying to get JSON for document from database', true);
       } else {
         doc.update(json);
         edits.sendDiff();
