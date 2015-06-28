@@ -1,3 +1,11 @@
+/**
+ * # Clients
+ *
+ * Handle clients.
+ */
+
+/*! */
+
 'use strict';
 
 var Doc = require('../document');
@@ -23,8 +31,14 @@ var _send = function _send(client) {
   };
 };
 
-// Add client and create doc and shadow
-// Return client if client is valid
+/**
+ * Add client and create doc and shadow
+ *
+ * @function create
+ * @param {Object} websocket Websocket-object from ws-server
+ * @return {Object} Client if client is valid
+ */
+
 var create = function create(websocket) {
   var client = {
     uuid: _createUUID(),
@@ -38,20 +52,39 @@ var create = function create(websocket) {
   return client;
 };
 
-// Remove client
+/**
+ * Remove client
+ *
+ * @function remove
+ * @param {Object} client The client to remove
+ */
+
 var remove = function remove(client) {
   clients = clients.filter(function (x) {
     return client.uuid !== x.uuid;
   });
 };
 
-// Array containing all users
+/**
+ * Array containing all users
+ *
+ * @function all
+ * @return {Array} All clients
+ */
+
 var all = function all() {
   return JSON.parse(JSON.stringify(clients));
 };
 
-var forEach = function forEach(currentValue, index, array) {
-  clients.forEach(currentValue, index, array);
+/**
+ * Call function for every client
+ *
+ * @function forEach
+ * @param {Function} fn Function with the parameters currentValue, index and array
+ */
+
+var forEach = function forEach(fn) {
+  clients.forEach(fn);
 };
 
 module.exports = { create: create, remove: remove, all: all, forEach: forEach };

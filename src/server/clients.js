@@ -1,3 +1,11 @@
+/**
+ * # Clients
+ *
+ * Handle clients.
+ */
+
+/*! */
+
 let Doc = require('../document');
 let clients = [];
 
@@ -14,8 +22,14 @@ let _send = (client) => (data, type = 'message') => {
   if (Object.keys(data).length > 0) { client.sendUTF(JSON.stringify({ type, data })); }
 };
 
-// Add client and create doc and shadow
-// Return client if client is valid
+/**
+ * Add client and create doc and shadow
+ *
+ * @function create
+ * @param {Object} websocket Websocket-object from ws-server
+ * @return {Object} Client if client is valid
+ */
+
 let create = function (websocket) {
   let client = {
     uuid: _createUUID(),
@@ -29,16 +43,33 @@ let create = function (websocket) {
   return client;
 };
 
-// Remove client
+/**
+ * Remove client
+ *
+ * @function remove
+ * @param {Object} client The client to remove
+ */
+
 let remove = function (client) {
   clients = clients.filter(x => client.uuid !== x.uuid);
 };
 
-// Array containing all users
+/**
+ * Array containing all users
+ *
+ * @function all
+ * @return {Array} All clients
+ */
+
 let all = function () { return JSON.parse(JSON.stringify(clients)); };
 
-let forEach = function (currentValue, index, array) {
-  clients.forEach(currentValue, index, array);
-};
+/**
+ * Call function for every client
+ *
+ * @function forEach
+ * @param {Function} fn Function with the parameters currentValue, index and array
+ */
+
+let forEach = function (fn) { clients.forEach(fn); };
 
 module.exports = { create, remove, all, forEach };
