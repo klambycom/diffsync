@@ -1,5 +1,5 @@
 /**
- * # JSONDocument
+ * # Document
  *
  * Document and shadow.
  */

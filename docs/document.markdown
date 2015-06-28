@@ -2,7 +2,7 @@
 
 <!-- Start src/document.js -->
 
-# JSONDocument
+# Document
 
 Document and shadow.
 
